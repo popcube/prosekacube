@@ -1,0 +1,135 @@
+name: update data
+on: 
+  workflow_dispatch:
+## scheduled at 5:45 JST
+  schedule:
+    - cron: '45 20 * * *'
+
+jobs:
+  job1:
+    name: web scraping
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Wiki scrape
+        run: node scripts\fetch_song_list.js
+
+      - name: Upload csv
+        uses: actions/upload-artifact@v3
+        with:
+          name: songlist
+          path: fetched_song_data.csv
+
+  job2:
+    name: create image
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+
+      - name: Download csv
+        uses: actions/download-artifact@v3
+        with:
+          name: songlist
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+
+      - name: Other setups
+        run: |
+          sudo apt-get update
+          sudo apt-get install fonts-ipaexfont
+          pip install matplotlib
+          pip install pillow
+          git config --global user.name ${{ github.actor }}
+          git config --global user.email ${{ secrets.MY_EMAIL }}
+
+      - name: "##### main run #####"
+        run: |
+          rm -f ./docs/figs/latest/*
+          echo "script run for $(TZ=-9 date +"%Y/%m/01")"
+          python ./scripts/difficulty_stats_calc.py $(TZ=-9 date +%Y/%m/01)
+          echo
+          echo
+          
+          echo "docs/figs folder: $(find ./docs/figs -maxdepth 1 -name "*.png" -type f -exec basename "{}" ";")"
+          echo "docs/figs/latest folder: $(find ./docs/figs/latest -name "*.png" -exec basename "{}" ";")"
+          echo
+          echo
+          
+          if [[ ! $(find ./docs/figs -maxdepth 1 -name "*.png" -type f -exec basename "{}" ";") \
+          =~ $(find ./docs/figs/latest -name "*.png" -exec basename "{}" ";") ]]; then
+          echo "a new monthly file is added in fig folder" 
+          mv ./docs/figs/latest/* ./docs/figs/
+          fi
+          
+          rm -f ./docs/figs/latest/*
+          
+          echo "script run for $(TZ=JST-9 date +"%Y/%m/%d %H:%M:%S")"
+          python ./scripts/difficulty_stats_calc.py $(TZ=JST-9 date +%Y/%m/%d)
+          
+
+      - name: Upload png(s)
+        uses: actions/upload-artifact@v3
+        with:
+          name: madskillz_req
+          path: ./docs/figs
+
+#     this git push tends to be time-consuming and affects checkout in next job
+#       - name: Push figs folder (if needed)
+#         if: false
+#         run: |
+#           git add ./docs/figs/. \
+#           && git diff --exit-code --staged --merge-base \
+#           || (git commit -m "auto commit figs folder" \
+#           && git push)
+          
+  job3:
+    name: create html
+    needs: job2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+          
+      - name: Other setups
+        run: |
+          echo "##### before deletion #####"
+          ls -Rla ./docs/figs
+          git config --global user.name ${{ github.actor }}
+          git config --global user.email ${{ secrets.MY_EMAIL }}
+          
+          find ./docs/figs/ -type f -delete
+          
+          echo
+          echo
+          echo "##### after deletion #####"
+          ls -Rla ./docs/figs
+          
+      - name: Download figs
+        uses: actions/download-artifact@v3
+        with:
+          name: madskillz_req
+          path: ./docs/figs
+      
+      - name: Create html
+        if: false
+        run: |
+          node js/make_js.js
+      
+      - name: Push docs (if needed)
+        run: |
+          git add ./docs/. -A \
+          && git diff --cached --exit-code \
+          || (git add -A ./docs/. \
+          && git commit -m "auto commit docs folder" \
+          && git push)
+          
+      

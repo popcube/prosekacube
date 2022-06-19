@@ -1,0 +1,11 @@
+name: bash test
+on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo 'TZ-9: '$(TZ=JST-9 date +"%Y/%m/%d %H%M%S")
+          echo 'TZ-9: '$(TZ=JST-23 date +"%Y/%m/%d %H%M%S")
+          echo 'TZ-0: '$(date +"%Y/%m/%d %H%M%S")
