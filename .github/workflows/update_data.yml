@@ -52,6 +52,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install fonts-ipaexfont
+          pip install --upgrade pip
           pip install matplotlib
           pip install pillow
           git config --global user.name ${{ github.actor }}
