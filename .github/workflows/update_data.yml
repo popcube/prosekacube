@@ -12,6 +12,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        
+      - name: npm module install
+        run: |
+          npm install request
+          npm install jsdom
+          npm install fs
+          npm install process
+          
 
       - name: Wiki scrape
         run: node scripts/fetch_song_list.js
