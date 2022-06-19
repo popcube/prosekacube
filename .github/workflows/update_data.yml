@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: songlist
-          path: fetched_song_data.csv
+          path: ./docs/fetched_song_data.csv
 
   job2:
     name: create image
