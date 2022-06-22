@@ -8,7 +8,6 @@ const Body = ({ content }) => {
     case "mad_skillz":
       return (
         <div>
-          <div>here comes a line</div>
           <MadSkillz />
         </div>
       );
@@ -21,7 +20,8 @@ function App() {
   const [content, showContent] = useState("mad_skillz");
   return (
     <div>
-      <h1>コンテンツ一覧</h1>
+      <h1>Contents List</h1>
+      <button onClick={showContent("nothing")}>erase</button>
       <Body content={content} />
     </div>
   );
