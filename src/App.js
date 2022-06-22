@@ -11,7 +11,7 @@ function App() {
       {() => {
         switch (content) {
           case "mad_skillz":
-            return madSkillz();
+            return <Img src="./docs/figs/latest/2022_06_20.png">;
           default:
             return;
         }
