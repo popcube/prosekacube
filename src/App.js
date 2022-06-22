@@ -6,12 +6,13 @@ function App() {
   const [content, showContent] = useState("mad_skillz");
 
   const Body = () => {
-    switch (content) {
-      case "mad_skillz":
-        return madSkillz;
-      default:
-        return <div>nothing detected</div>;
-    }
+    return <div>some line</div>;
+    // switch (content) {
+    //   case "mad_skillz":
+    //     return madSkillz;
+    //   default:
+    //     return <div>nothing detected</div>;
+    // }
   };
 
   return (
