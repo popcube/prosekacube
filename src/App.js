@@ -9,7 +9,7 @@ const Body = ({ content }) => {
       return (
         <div>
           here comes a line
-          <madSkillz />
+          {madSkillz()}
         </div>
       );
     default:
