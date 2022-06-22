@@ -1,5 +1,4 @@
 import "./App.css";
-import { madSkillz } from "./mad_skillz/mad_skillz";
 import { useState } from "react";
 
 function App() {
