@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/prosekacube/static/css/main.073c9b0a.css",
-    "main.js": "/prosekacube/static/js/main.9d291dd5.js",
+    "main.js": "/prosekacube/static/js/main.f96789e2.js",
     "static/js/787.b94a327f.chunk.js": "/prosekacube/static/js/787.b94a327f.chunk.js",
     "static/media/2022_06_20.png": "/prosekacube/static/media/2022_06_20.0037ed2efc61e6772560.png",
     "index.html": "/prosekacube/index.html",
     "main.073c9b0a.css.map": "/prosekacube/static/css/main.073c9b0a.css.map",
-    "main.9d291dd5.js.map": "/prosekacube/static/js/main.9d291dd5.js.map",
+    "main.f96789e2.js.map": "/prosekacube/static/js/main.f96789e2.js.map",
     "787.b94a327f.chunk.js.map": "/prosekacube/static/js/787.b94a327f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.9d291dd5.js"
+    "static/js/main.f96789e2.js"
   ]
 }
