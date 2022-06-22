@@ -8,16 +8,16 @@ function App() {
   return (
     <div>
       <h4>コンテンツ一覧</h4>
-      <button onClick={showContent("others")}> 終了</button>
+      {/* <button onClick={showContent("others")}> 終了</button>
       <img src={latestPic} alt="" />
-      {/* {() => {
+      {(() => {
         switch (content) {
           case "mad_skillz":
             return <img src={latestPic} alt="latest mad skill requirement" />;
           default:
             return;
         }
-      }} */}
+      })()} */}
     </div>
   );
 }
