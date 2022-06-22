@@ -15,5 +15,5 @@ jobs:
       - name: main run
         run: |
           ls -la
-          npm deploy
+          npm run deploy
           
