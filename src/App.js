@@ -1,9 +1,11 @@
 import "./App.css";
+import latestPic from "./docs/figs/latest/2022_06_20.png";
 
 function App() {
   return (
     <div>
-      <h1>Hello World!</h1>
+      <h4>コンテンツ一覧</h4>
+      <img src={latestPic} alt="" />
     </div>
   );
 }
