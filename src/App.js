@@ -1,8 +1,8 @@
 import "./App.css";
-import latestPic from "./docs/figs/latest/2022_06_20.png";
+import { madSkillz } from "./mad_skillz";
 
 const Container = () => {
-  return <div>none detected</div>;
+  return <madSkillz />;
 };
 
 function App() {
