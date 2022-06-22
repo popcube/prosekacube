@@ -1,23 +1,9 @@
 import "./App.css";
-import { useState } from "react";
-import latestPic from "./docs/figs/latest/2022_06_20.png";
 
 function App() {
-  const [content, showContent] = useState("mad_skillz");
-
   return (
     <div>
-      <h4>コンテンツ一覧</h4>
-      {/* <button onClick={showContent("others")}> 終了</button>
-      <img src={latestPic} alt="" />
-      {(() => {
-        switch (content) {
-          case "mad_skillz":
-            return <img src={latestPic} alt="latest mad skill requirement" />;
-          default:
-            return;
-        }
-      })()} */}
+      <h1>Hello World!</h1>
     </div>
   );
 }
