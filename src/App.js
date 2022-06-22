@@ -9,6 +9,7 @@ function App() {
     <div>
       <h4>コンテンツ一覧</h4>
       <button onClick={showContent("others")}> 終了</button>
+      <img src={latestPic} alt="" />
       {/* {() => {
         switch (content) {
           case "mad_skillz":
