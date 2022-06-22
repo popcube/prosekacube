@@ -20,5 +20,6 @@ jobs:
       - name: main run
         run: |
           ls -la
+          mv ./docs ./src/
           npm run deploy
           
