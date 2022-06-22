@@ -1,0 +1,19 @@
+name: react build
+on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: acions/checkout@v3
+      
+      - name: Getting Ready
+        run: |
+          npm install
+      
+      - name: main run
+        run: |
+          ls -la
+          npx create-react-app .
+          
