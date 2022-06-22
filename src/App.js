@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import latestPic from "./docs/figs/latest/2022_06_20.png";
 
 function App() {
   const [content, showContent] = useState("mad_skillz");
@@ -11,9 +12,7 @@ function App() {
       {() => {
         switch (content) {
           case "mad_skillz":
-            return (
-              <img src="./docs/figs/latest/2022_06_20.png" alt="latest mad skill requirement" />
-            );
+            return <img src={latestPic} alt="latest mad skill requirement" />;
           default:
             return;
         }
