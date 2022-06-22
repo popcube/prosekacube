@@ -1,7 +1,7 @@
 import "./App.css";
 import latestPic from "./docs/figs/latest/2022_06_20.png";
 
-async function ContentSwitch(Content) {
+function ContentSwitch(Content) {
   switch (Content) {
     case "mad_skillz":
       return <div>mad_skillz selected</div>;
