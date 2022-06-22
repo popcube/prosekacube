@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const { JSDOM } = require("jsdom");
 
-export async function mad_skillz() {
+export async function madSkillz() {
   const figDir = "docs/figs";
   const latestFigDir = `${figDir}/latest`;
   const templateHtml = "docs/template.html";
