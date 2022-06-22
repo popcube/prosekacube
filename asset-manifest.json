@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/prosekacube/static/css/main.073c9b0a.css",
-    "main.js": "/prosekacube/static/js/main.844b9354.js",
+    "main.js": "/prosekacube/static/js/main.6952ed49.js",
     "static/js/787.b94a327f.chunk.js": "/prosekacube/static/js/787.b94a327f.chunk.js",
     "index.html": "/prosekacube/index.html",
     "main.073c9b0a.css.map": "/prosekacube/static/css/main.073c9b0a.css.map",
-    "main.844b9354.js.map": "/prosekacube/static/js/main.844b9354.js.map",
+    "main.6952ed49.js.map": "/prosekacube/static/js/main.6952ed49.js.map",
     "787.b94a327f.chunk.js.map": "/prosekacube/static/js/787.b94a327f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.844b9354.js"
+    "static/js/main.6952ed49.js"
   ]
 }
