@@ -1,5 +1,5 @@
 import "./App.css";
-import { madSkillz } from "./mad_skillz";
+import { MadSkillz } from "./mad_skillz";
 import { useState } from "react";
 
 const Body = ({ content }) => {
@@ -8,8 +8,8 @@ const Body = ({ content }) => {
     case "mad_skillz":
       return (
         <div>
-          here comes a line
-          {madSkillz()}
+          <div>here comes a line</div>
+          <MadSkillz />
         </div>
       );
     default:
