@@ -21,7 +21,7 @@ function App() {
   return (
     <div>
       <h1>Contents List</h1>
-      <button onClick={showContent("nothing")}>erase</button>
+      <button onClick={() => showContent("nothing")}>erase</button>
       <Body content={content} />
     </div>
   );
