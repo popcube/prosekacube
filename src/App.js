@@ -2,19 +2,17 @@ import "./App.css";
 import { madSkillz } from "./mad_skillz";
 import { useState } from "react";
 
+const Body = () => {
+  return <div>some line</div>;
+  // switch (content) {
+  //   case "mad_skillz":
+  //     return madSkillz;
+  //   default:
+  //     return <div>nothing detected</div>;
+  // }
+};
+
 function App() {
-  const [content, showContent] = useState("mad_skillz");
-
-  const Body = () => {
-    return <div>some line</div>;
-    // switch (content) {
-    //   case "mad_skillz":
-    //     return madSkillz;
-    //   default:
-    //     return <div>nothing detected</div>;
-    // }
-  };
-
   return (
     <div>
       <h1>コンテンツ一覧</h1>
