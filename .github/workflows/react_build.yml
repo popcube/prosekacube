@@ -15,5 +15,5 @@ jobs:
       - name: main run
         run: |
           ls -la
-          npx create-react-app ./src
+          npm deploy
           
