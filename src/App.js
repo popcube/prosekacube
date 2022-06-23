@@ -13,7 +13,7 @@ const Body = ({ content }) => {
   }
 };
 
-const Container = styled(Body)`
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 64px 0;
@@ -26,7 +26,9 @@ function App() {
     <div>
       <h1>Contents List</h1>
       <button onClick={() => showContent("nothing")}>erase</button>
-      <Container content={content} />
+      <Container>
+        <Body content={content} />
+      </Container>
     </div>
   );
 }
