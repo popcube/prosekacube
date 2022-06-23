@@ -26,4 +26,4 @@ yarn-error.log*
 local
 __pycache__
 *.csv
-
+src/docs

@@ -1,5 +1,5 @@
 import "./App.css";
-import { MadSkillz } from "./mad_skillz";
+import { MadSkillz } from "./dynamic/mad_skillz";
 import { useState } from "react";
 import styled from "styled-components";
 
