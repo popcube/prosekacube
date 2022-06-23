@@ -13,7 +13,7 @@ const Body = ({ content }) => {
   }
 };
 
-const Container = styled.Body`
+const Container = styled(Body)`
   display: flex;
   justify-content: space-between;
   padding: 12px 64px 0;
