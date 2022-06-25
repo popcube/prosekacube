@@ -3,6 +3,9 @@ import os
 import_line = 'import img_num from "./../docs/figs/png"\n'
 import_latest_line = 'import img_latest from "./../docs/figs/latest/png"\n'
 
+## png name will be yyyy_mm_dd.png
+## parse it to match the title format
+
 latest_png = ""
 png_list = []
 

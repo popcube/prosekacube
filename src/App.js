@@ -17,7 +17,6 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 64px 0;
-  background-color: #757575;
 `;
 
 function App() {
@@ -25,7 +24,7 @@ function App() {
   return (
     <div>
       <h1>Contents List</h1>
-      <button onClick={() => showContent("nothing")}>erase</button>
+      <button onClick={() => content === "mad_skillz" ? showContent("nothing") : showContent("mad_skillz")}>erase</button>
       <Container>
         <Body content={content} />
       </Container>

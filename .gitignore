@@ -27,3 +27,4 @@ local
 __pycache__
 *.csv
 src/docs
+package-lock.json
