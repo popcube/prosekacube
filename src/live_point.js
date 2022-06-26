@@ -56,9 +56,9 @@ const NowDiv = () => {
 
   return (
     <div align="left">
-      <div>{timeStr}</div>
-      <div>{livePointDueString}</div>
-      <div>{livePointDueUnit}</div>
+      <TitleText>{timeStr}</TitleText>
+      <TitleText>{livePointDueString}</TitleText>
+      <TitleText>{livePointDueUnit}</TitleText>
     </div>
   );
 }
