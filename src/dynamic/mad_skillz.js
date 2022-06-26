@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { TitleText } from "./../components/styled_tags"
 
 // python auto-generation part 1 start
 import img_latest from "./../docs/figs/latest/2022_06_24.png";
@@ -19,12 +20,6 @@ const ImgDiv = styled.div`
   padding: 12px 64px 12px;
   background-color: #BCECE0;
 `;
-
-const TitleText = styled.text`
-  font-weight: bold;
-  font-size: 150%;
-  background-color: #BCECE0;
-`
 
 const LatestImgContainer = ({ src, title, alt }) => {
   return (
