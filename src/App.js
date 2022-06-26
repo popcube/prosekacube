@@ -1,5 +1,6 @@
 import "./App.css";
 import { MadSkillz } from "./dynamic/mad_skillz";
+import { LivePoint } from "./live_point";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -8,8 +9,10 @@ const Body = ({ content }) => {
   switch (content) {
     case "mad_skillz":
       return <MadSkillz />;
+    case "live_point":
+      return <LivePoint />;
     default:
-      return <div>nothing detected</div>;
+      return <div>button nothing pushed</div>;
   }
 };
 
@@ -20,11 +23,14 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [content, showContent] = useState("mad_skillz");
+  const [content, setContent] = useState("mad_skillz");
+
   return (
     <div>
       <h1>Contents List</h1>
-      <button onClick={() => content === "mad_skillz" ? showContent("nothing") : showContent("mad_skillz")}>erase</button>
+      <button onClick={() => setContent("mad_skillz")}>mad skillz</button>
+      <button onClick={() => setContent("live_point")}>live point</button>
+      <button onClick={() => setContent("nothing")}>erase</button>
       <Container>
         <Body content={content} />
       </Container>
