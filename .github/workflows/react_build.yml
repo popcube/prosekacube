@@ -10,6 +10,11 @@ jobs:
         with:
           token: ${{ secrets.MY_TOKEN }}
       
+      - name: Python Setup
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      
       - name: Getting Ready
         run: |
           git config user.name "react build bot"
