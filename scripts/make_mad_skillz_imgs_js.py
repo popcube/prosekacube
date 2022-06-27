@@ -19,7 +19,7 @@ target_data = ""
 for f in os.listdir("./src/docs/figs"):
     if os.path.isfile(f"./src/docs/figs/{f}"):
         png_list.append(f)
-
+png_list.sort(reverse=True)
 latest_list = os.listdir("./src/docs/figs/latest")
 
 if len(latest_list) == 1 and os.path.isfile(f"./src/docs/figs/latest/{latest_list[0]}"):
