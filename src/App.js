@@ -10,6 +10,7 @@ const Header = styled.header`
   justify-content: space-between;
   padding: 24px 64px 0;
   border-bottom: 1px solid #D0D0D0;
+  white-space: nowrap
 `
 
 const HeaderUl = styled.ul`
