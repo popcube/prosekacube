@@ -29,7 +29,7 @@ jobs:
           ls -la src/docs/figs/latest
           echo
           echo
-          py scripts/make_mad_skillz_imgs_js.py
+          python scripts/make_mad_skillz_imgs_js.py
           echo
           echo
           npm run deploy
