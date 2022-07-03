@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TitleText = styled.text`
+export const TitleText = styled.a`
   font-weight: bold;
   font-size: 150%;
   background-color: #BCECE0;
@@ -45,7 +45,7 @@ export const TitleDiv = ({ children }) => {
 //   )
 // }
 
-const ImgDiv = styled.div`
+export const ImgDiv = styled.div`
   padding: 12px 64px 12px;
   background-color: #BCECE0;
 `;

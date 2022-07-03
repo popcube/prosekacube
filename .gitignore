@@ -29,3 +29,6 @@ __pycache__
 src/docs
 package-lock.json
 .vscode
+
+# dynamic
+src/dynamic

@@ -13,25 +13,11 @@ const ZeroPadding = (paramNum) => {
   }
 }
 
-const LivePointResult = () => {
-  const [timeObj, setTimeObj] = useState(new Date());
-
-  setInterval(() => {
-    setTimeObj(new Date());
-  }, 1000);
-
-  const year = timeObj.getFullYear();
-  const month = timeObj.getMonth();
-
-  const endTime = new Date(year, month + 1, 1).getTime() - 1000;
-  const startTime = new Date(year, month, 1).getTime();
-  const nowTime = timeObj.getTime();
-
+const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) => {
   const livePointMillsecond = 8000 / (endTime - startTime);
   const livePointDue = livePointMillsecond * (nowTime - startTime);
   const livePointHour = livePointMillsecond * (60 * 60 * 1000);
   const livePointDay = livePointHour * 24;
-
 
   const zeroPadHours = ZeroPadding(timeObj.getHours());
   const zeroPadMinutes = ZeroPadding(timeObj.getMinutes());
@@ -49,7 +35,7 @@ const LivePointResult = () => {
     return (
       <TextDiv>
         {"現在時間は "}
-        <text style={{ fontWeight: "bold" }}>{timeStr}</text>
+        <a style={{ fontWeight: "bold" }}>{timeStr}</a>
         {" です。"}
       </TextDiv>
     )
@@ -59,7 +45,7 @@ const LivePointResult = () => {
     return (
       <TextDiv>
         {"現在のライブポイントの予想は "}
-        <text style={{ fontWeight: "bold" }}>{livePointDue.toFixed(1)}</text>
+        <a style={{ fontWeight: "bold" }}>{livePointDue.toFixed(1)}</a>
         {" です。"}
       </TextDiv>
     )
@@ -69,9 +55,9 @@ const LivePointResult = () => {
     return (
       <TextDiv>
         {"一日あたり "}
-        <text style={{ fontWeight: "bold" }}>{livePointDay.toFixed(1)}</text>
+        <a style={{ fontWeight: "bold" }}>{livePointDay.toFixed(1)}</a>
         {"、一時間あたり "}
-        <text style={{ fontWeight: "bold" }}>{livePointHour.toFixed(1)}</text>
+        <a style={{ fontWeight: "bold" }}>{livePointHour.toFixed(1)}</a>
         {" 増えていきます。"}
       </TextDiv>
     )
@@ -90,11 +76,25 @@ const LivePointResult = () => {
 }
 
 export default function LivePoint() {
+  const [timeObj, setTimeObj] = useState(new Date());
+
+  setInterval(() => {
+    setTimeObj(new Date());
+  }, 1000);
+
+  const year = timeObj.getFullYear();
+  const month = timeObj.getMonth();
+  const day = timeObj.getDate();
+
+  const endTime = new Date(year, month + 1, 1).getTime() - 1000;
+  const startTime = new Date(year, month, 1).getTime();
+  const nowTime = timeObj.getTime();
+
   return (
     <div>
-      <LivePointResult />
+      <LivePointResult year={year} month={month} timeObj={timeObj} endTime={endTime} startTime={startTime} nowTime={nowTime} />
       <div style={{ marginTop: "30px" }}>
-        <LivePointGraph />
+        <LivePointGraph year={year} month={month} startTime={startTime} endTime={endTime} nowTime={nowTime} />
       </div>
     </div>
   );
