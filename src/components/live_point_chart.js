@@ -135,6 +135,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           type="number"
           domain={[data5StartTimeRaw, data5EndTimeRaw]}
           tickFormatter={TimeToString(data5StartTime, data5EndTime)}
+          ticks={data5.map(e => e.time)}
         />
         <YAxis />
         <Tooltip />
