@@ -94,7 +94,7 @@ export default function LivePoint() {
     <div>
       <LivePointResult year={year} month={month} timeObj={timeObj} endTime={endTime} startTime={startTime} nowTime={nowTime} />
       <div style={{ marginTop: "30px" }}>
-        <LivePointGraph year={year} month={month} startTime={startTime} endTime={endTime} nowTime={nowTime} />
+        <LivePointGraph year={year} month={month} day={day} startTime={startTime} endTime={endTime} nowTime={nowTime} />
       </div>
     </div>
   );
