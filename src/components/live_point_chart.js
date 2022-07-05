@@ -33,7 +33,7 @@ export default function LivePointGraph({ year, month, startTime, endTime, nowTim
   const livePointMillsecond = goalPoint / (endTime - startTime);
   const livePointDue = livePointMillsecond * (nowTime - startTime);
   const data5StartTimeRaw = nowTime - 3 * dayMs;
-  const data5StartTime = data5Stadata5StartTimeRawrtTimeRaw > startTime ? data5StartTimeRaw : startTime;
+  const data5StartTime = data5StartTimeRaw > startTime ? data5StartTimeRaw : startTime;
   const data5StartDue = livePointMillsecond * (data5StartTime - startTime);
   const data5EndTimeRaw = nowTime + 3 * dayMs;
   const data5EndTime = data5EndTimeRaw < endTime ? data5EndTimeRaw : endTime;
