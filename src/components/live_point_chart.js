@@ -27,15 +27,15 @@ function YTickFormatter(goalPoint) {
   return point => point == goalPoint ? point.toFixed(0) : point.toFixed(1);
 }
 
-export default function LivePointGraph({ year, month, startTime, endTime, nowTime }) {
+export default function LivePointGraph({ year, month, day, startTime, endTime, nowTime }) {
   // nowTime = endTime - 360000000;
 
   const livePointMillsecond = goalPoint / (endTime - startTime);
   const livePointDue = livePointMillsecond * (nowTime - startTime);
-  const data5StartTimeRaw = nowTime - 3 * dayMs;
+  const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
   const data5StartTime = data5StartTimeRaw > startTime ? data5StartTimeRaw : startTime;
   const data5StartDue = livePointMillsecond * (data5StartTime - startTime);
-  const data5EndTimeRaw = nowTime + 3 * dayMs;
+  const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5EndTime = data5EndTimeRaw < endTime ? data5EndTimeRaw : endTime;
   const data5EndDue = livePointMillsecond * (data5EndTime - startTime);
   const [data, setData] = useState(
@@ -130,7 +130,12 @@ export default function LivePointGraph({ year, month, startTime, endTime, nowTim
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="time" type="number" domain={[data5StartTimeRaw, data5EndTimeRaw]} />
+        <XAxis 
+          dataKey="time"
+          type="number"
+          domain={[data5StartTimeRaw, data5EndTimeRaw]}
+          tickFormatter={TimeToString(data5StartTime, data5EndTime)}
+        />
         <YAxis />
         <Tooltip />
         <Legend />
