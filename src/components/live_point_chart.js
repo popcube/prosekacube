@@ -112,7 +112,6 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           dataKey="theory"
           type="number"
           domain={[data[0].theory, data[1].theory]}
-
         />
         <Tooltip />
         <Legend />
@@ -137,7 +136,20 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           tickFormatter={TimeToString(data5StartTime, data5EndTime)}
           ticks={data5.map(e => e.time)}
         />
-        <YAxis />
+        <YAxis
+          interval="preserveStartEnd"
+          stroke="black"
+          dataKey="theory"
+          type="number"
+          domain={
+            [
+              data5StartDue - (data5EndDue - data5StartDue) * 0.15,
+              data5EndDue + (data5EndDue - data5StartDue) * 0.15
+            ]
+          }
+          tickFormatter={YTickFormatter(goalPoint)}
+          ticks={data5.map(e => e.theory)}
+        />
         <Tooltip />
         <Legend />
         <Line type="monotone" dataKey="theory" stroke="#8884d8" activeDot={{ r: 8 }} />
