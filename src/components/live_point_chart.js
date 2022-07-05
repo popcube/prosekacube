@@ -24,25 +24,20 @@ function TimeToString(startTime, endTime) {
 }
 
 function YTickFormatter(goalPoint) {
-  return function (point) {
-    if (point == goalPoint) {
-      return point.toFixed(0);
-    }
-    else {
-      return point.toFixed(1);
-    }
-
-  }
-
+  return point => point == goalPoint ? point.toFixed(0) : point.toFixed(1);
 }
 
 export default function LivePointGraph({ year, month, startTime, endTime, nowTime }) {
   // nowTime = endTime - 360000000;
 
-  const livePointMillsecond = 8000 / (endTime - startTime);
+  const livePointMillsecond = goalPoint / (endTime - startTime);
   const livePointDue = livePointMillsecond * (nowTime - startTime);
-  const data5StartTime = nowTime - 3 * dayMs > startTime ? nowTime - 3 * dayMs : startTime;
-  const data5EndTime = nowTime + 3 * dayMs < endTime ? nowTime + 3 * dayMs : endTime;
+  const data5StartTimeRaw = nowTime - 3 * dayMs;
+  const data5StartTime = data5Stadata5StartTimeRawrtTimeRaw > startTime ? data5StartTimeRaw : startTime;
+  const data5StartDue = livePointMillsecond * (data5StartTime - startTime);
+  const data5EndTimeRaw = nowTime + 3 * dayMs;
+  const data5EndTime = data5EndTimeRaw < endTime ? data5EndTimeRaw : endTime;
+  const data5EndDue = livePointMillsecond * (data5EndTime - startTime);
   const [data, setData] = useState(
     [{
       theory: 0,
@@ -59,11 +54,11 @@ export default function LivePointGraph({ year, month, startTime, endTime, nowTim
   );
   const [data5, setData5] = useState(
     [{
-      theory: 0,
+      theory: data5StartDue,
       time: data5StartTime
     },
     {
-      theory: goalPoint,
+      theory: data5EndDue,
       time: data5EndTime
     },
     {
@@ -126,7 +121,7 @@ export default function LivePointGraph({ year, month, startTime, endTime, nowTim
       <LineChart
         width={500}
         height={300}
-        data={data}
+        data={data5}
         margin={{
           top: 5,
           right: 30,
@@ -135,7 +130,7 @@ export default function LivePointGraph({ year, month, startTime, endTime, nowTim
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="time" type="number" domain={['dataMin', 'dataMax']} />
+        <XAxis dataKey="time" type="number" domain={[data5StartTimeRaw, data5EndTimeRaw]} />
         <YAxis />
         <Tooltip />
         <Legend />
