@@ -137,7 +137,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           dataKey="time"
           type="number"
           domain={[data5[0].time, data5[data5.length - 2].time]}
-          tickFormatter={TimeToString(data5.slice(data5.length - 1).map(e => e.time))}
+          tickFormatter={TimeToString(data5.slice(0, data5.length - 1).map(e => e.time))}
           ticks={data5.map(e => e.time)}
         />
         <YAxis
