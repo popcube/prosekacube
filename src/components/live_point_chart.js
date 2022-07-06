@@ -9,9 +9,9 @@ const ChartDiv = styled.div`
   padding: 24px 0px;
 `
 
-function TimeToString(startTime, endTime) {
+function TimeToString(matchList) {
   return function (time) {
-    if (time == startTime || time == endTime) {
+    if (matchList.includes(time)) {
       const timeObj = new Date(time);
       const month = timeObj.getMonth();
       const day = timeObj.getDate();
@@ -27,17 +27,28 @@ function YTickFormatter(goalPoint) {
   return point => point == goalPoint ? point.toFixed(0) : point.toFixed(1);
 }
 
+function CurrentDueHOC(startTime, endTime, targetPoint) {
+  return nowTime => targetPoint * (nowTime - startTime) / (endTime - startTime);
+}
+
 export default function LivePointGraph({ year, month, day, startTime, endTime, nowTime }) {
   // nowTime = endTime - 360000000;
 
-  const livePointMillsecond = goalPoint / (endTime - startTime);
-  const livePointDue = livePointMillsecond * (nowTime - startTime);
+  const CurrentDue = CurrentDueHOC(startTime, endTime, goalPoint);
+  const livePointDue = CurrentDue(nowTime);
   const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
-  const data5StartTime = data5StartTimeRaw > startTime ? data5StartTimeRaw : startTime;
-  const data5StartDue = livePointMillsecond * (data5StartTime - startTime);
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
-  const data5EndTime = data5EndTimeRaw < endTime ? data5EndTimeRaw : endTime;
-  const data5EndDue = livePointMillsecond * (data5EndTime - startTime);
+  const data5init = [];
+  var i = 0;
+  while (data5StartTimeRaw + i * dayMs < startTime ) i++;
+  while (i < 7 && data5StartTimeRaw + i * dayMs < endTime){
+    data5init.push({
+      theory: CurrentDue(data5StartTimeRaw + i * dayMs),
+      time: data5StartTimeRaw + i * dayMs
+    });
+    i++;
+  }
+  
   const [data, setData] = useState(
     [{
       theory: 0,
@@ -53,14 +64,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
     }]
   );
   const [data5, setData5] = useState(
-    [{
-      theory: data5StartDue,
-      time: data5StartTime
-    },
-    {
-      theory: data5EndDue,
-      time: data5EndTime
-    },
+    [...data5init,
     {
       theory: livePointDue,
       time: nowTime
@@ -97,7 +101,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           interval="preserveStart"
-          tickFormatter={TimeToString(startTime, endTime)}
+          tickFormatter={TimeToString([startTime, endTime])}
           ticks={[data[2].time, data[1].time]}
           stroke="black"
           dataKey="time"
@@ -132,8 +136,8 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         <XAxis 
           dataKey="time"
           type="number"
-          domain={[data5StartTimeRaw, data5EndTimeRaw]}
-          tickFormatter={TimeToString(data5StartTime, data5EndTime)}
+          domain={[data5[0].time, data5[data5.length - 2].time]}
+          tickFormatter={TimeToString(data5.slice(data5.length - 1)}
           ticks={data5.map(e => e.time)}
         />
         <YAxis
@@ -143,8 +147,8 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           type="number"
           domain={
             [
-              data5StartDue - (data5EndDue - data5StartDue) * 0.15,
-              data5EndDue + (data5EndDue - data5StartDue) * 0.15
+              data5[0].theory - (data5[data5.length - 2].theory - data5[0].theory) * 0.15,
+              data5[data5.length - 2].theory + (data5[data5.length - 2].theory - data5[0].theory) * 0.15
             ]
           }
           tickFormatter={YTickFormatter(goalPoint)}
