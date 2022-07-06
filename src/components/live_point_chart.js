@@ -90,7 +90,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       <LineChart
         width={500}
         height={300}
-        data={data}
+        data={data.slice(data.length - 1)}
         margin={{
           top: 5,
           right: 30,
@@ -100,18 +100,18 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
-          interval="preserveStart"
+          interval={0}
           tickFormatter={TimeToString([startTime, endTime])}
-          ticks={[data[2].time, data[1].time]}
+          ticks={[startTime, endTime]}
           stroke="black"
           dataKey="time"
           type="number"
           domain={[startTime, endTime]}
         />
         <YAxis
-          interval="preserveStartEnd"
+          interval={0}
           tickFormatter={YTickFormatter(goalPoint)}
-          ticks={[data[2].theory, data[1].theory]}
+          ticks={[data[0].theory, data[1].theory]}
           stroke="black"
           dataKey="theory"
           type="number"
@@ -124,7 +124,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       <LineChart
         width={500}
         height={300}
-        data={data5}
+        data={data5.slice(data5.length - 1)}
         margin={{
           top: 5,
           right: 30,
@@ -133,15 +133,16 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
+        <XAxis
+          interval={0}
           dataKey="time"
           type="number"
           domain={[data5[0].time, data5[data5.length - 2].time]}
           tickFormatter={TimeToString(data5.slice(0, data5.length - 1).map(e => e.time))}
-          ticks={data5.map(e => e.time)}
+          ticks={data5.slice(0, data5.length - 1).map(e => e.time)}
         />
         <YAxis
-          interval="preserveStartEnd"
+          interval={0}
           stroke="black"
           dataKey="theory"
           type="number"
@@ -152,7 +153,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
             ]
           }
           tickFormatter={YTickFormatter(goalPoint)}
-          ticks={data5.map(e => e.theory)}
+          ticks={data5.slice(0, data5.length - 1).map(e => e.time)}
         />
         <Tooltip />
         <Legend />
