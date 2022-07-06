@@ -90,7 +90,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       <LineChart
         width={500}
         height={300}
-        data={data.slice(data.length - 1)}
+        data={data}
         margin={{
           top: 5,
           right: 30,
@@ -124,7 +124,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       <LineChart
         width={500}
         height={300}
-        data={data5.slice(data5.length - 1)}
+        data={data5}
         margin={{
           top: 5,
           right: 30,
@@ -153,7 +153,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
             ]
           }
           tickFormatter={YTickFormatter(goalPoint)}
-          ticks={data5.slice(0, data5.length - 1).map(e => e.time)}
+          ticks={data5.slice(0, data5.length - 1).map(e => e.theory)}
         />
         <Tooltip />
         <Legend />
