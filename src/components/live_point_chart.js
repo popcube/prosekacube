@@ -9,7 +9,7 @@ const ChartDiv = styled.div`
   padding: 24px 0px;
 `
 
-function (time) {
+function TimeToString(time) {
   const timeObj = new Date(time);
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
