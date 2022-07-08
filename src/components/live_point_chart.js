@@ -32,23 +32,28 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
   const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
-  var i = 0;
-  while (data5StartTimeRaw + i * dayMs < startTime ) i++;
-  while (i < 7 && data5StartTimeRaw + i * dayMs < endTime){
-    data5Init.push({
-      theory: CurrentDue(data5StartTimeRaw + i * dayMs),
-      time: data5StartTimeRaw + i * dayMs
-    });
-    i++;
-  }
-  const dataInit = [{
-    theory: 0,
-    time: startTime
-  },
-  {
-    theory: goalPoint,
-    time: endTime
-  }];
+  const dataInit = [];
+  useEffect(() => {
+    var i = 0;
+    while (data5StartTimeRaw + i * dayMs < startTime ) i++;
+    while (i < 7 && data5StartTimeRaw + i * dayMs < endTime){
+      data5Init.push({
+        theory: CurrentDue(data5StartTimeRaw + i * dayMs),
+        time: data5StartTimeRaw + i * dayMs
+      });
+      i++;
+    }
+    dataInit = [
+      {
+        theory: 0,
+        time: startTime
+      },
+      {
+        theory: goalPoint,
+        time: endTime
+      }
+    ];
+  });
   
   const nowDataObj = {
     theory: livePointDue,
