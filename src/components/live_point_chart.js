@@ -9,18 +9,11 @@ const ChartDiv = styled.div`
   padding: 24px 0px;
 `
 
-function TimeToString(matchList) {
-  return function (time) {
-    if (matchList.includes(time)) {
-      const timeObj = new Date(time);
-      const month = timeObj.getMonth();
-      const day = timeObj.getDate();
-      return `${month + 1}/${day}`;
-    }
-    else {
-      return "now";
-    }
-  }
+function (time) {
+  const timeObj = new Date(time);
+  const month = timeObj.getMonth();
+  const day = timeObj.getDate();
+  return `${month + 1}/${day}`;
 }
 
 function YTickFormatter(goalPoint) {
@@ -38,50 +31,32 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
   const livePointDue = CurrentDue(nowTime);
   const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
-  const data5init = [];
+  const data5Init = [];
   var i = 0;
   while (data5StartTimeRaw + i * dayMs < startTime ) i++;
   while (i < 7 && data5StartTimeRaw + i * dayMs < endTime){
-    data5init.push({
+    data5Init.push({
       theory: CurrentDue(data5StartTimeRaw + i * dayMs),
       time: data5StartTimeRaw + i * dayMs
     });
     i++;
   }
+  const dataInit = [{
+    theory: 0,
+    time: startTime
+  },
+  {
+    theory: goalPoint,
+    time: endTime
+  }];
   
-  const [data, setData] = useState(
-    [{
-      theory: 0,
-      time: startTime
-    },
-    {
-      theory: goalPoint,
-      time: endTime
-    },
-    {
-      theory: livePointDue,
-      time: nowTime
-    }]
-  );
-  const [data5, setData5] = useState(
-    [...data5init,
-    {
-      theory: livePointDue,
-      time: nowTime
-    }]
-  );
-
-  useEffect(() => {
-    data.splice(data.length - 1, 1, {
-      theory: livePointDue,
-      time: nowTime
-    });
-    setData(data);
-  }, []);
-
-  // console.log(...data);
-  const xTicks = data.map(x => x.time);
-
+  const nowDataObj = {
+    theory: livePointDue,
+    time: nowTime
+  };
+  const [nowData, setNowData] = useState(nowDataObj);    
+  useEffect(() => setNowData(nowDataObj), []);
+  
   const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
 
 
@@ -90,7 +65,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       <LineChart
         width={500}
         height={300}
-        data={data}
+        data={dataInit}
         margin={{
           top: 5,
           right: 30,
@@ -101,7 +76,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           interval={0}
-          tickFormatter={TimeToString([startTime, endTime])}
+          tickFormatter={TimeToString}
           ticks={[startTime, endTime]}
           stroke="black"
           dataKey="time"
@@ -111,11 +86,11 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         <YAxis
           interval={0}
           tickFormatter={YTickFormatter(goalPoint)}
-          ticks={[data[0].theory, data[1].theory]}
+          ticks={dataInit.map(e => e.theory)}
           stroke="black"
           dataKey="theory"
           type="number"
-          domain={[data[0].theory, data[1].theory]}
+          domain={dataInit.map(e => e.theory)}
         />
         <Tooltip />
         <Legend />
@@ -124,7 +99,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       <LineChart
         width={500}
         height={300}
-        data={data5}
+        data={data5Init}
         margin={{
           top: 5,
           right: 30,
@@ -137,9 +112,9 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           interval={0}
           dataKey="time"
           type="number"
-          domain={[data5[0].time, data5[data5.length - 2].time]}
-          tickFormatter={TimeToString(data5.slice(0, data5.length - 1).map(e => e.time))}
-          ticks={data5.slice(0, data5.length - 1).map(e => e.time)}
+          domain={[data5Init[0].time, data5Init[data5Init.length - 1].time]}
+          tickFormatter={TimeToString}
+          ticks={data5Init.map(e => e.time)}
         />
         <YAxis
           interval={0}
@@ -148,12 +123,12 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           type="number"
           domain={
             [
-              data5[0].theory - (data5[data5.length - 2].theory - data5[0].theory) * 0.15,
-              data5[data5.length - 2].theory + (data5[data5.length - 2].theory - data5[0].theory) * 0.15
+              data5Init[0].theory - (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+              data5Init[data5Init.length - 1].theory + (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15
             ]
           }
           tickFormatter={YTickFormatter(goalPoint)}
-          ticks={data5.slice(0, data5.length - 1).map(e => e.theory)}
+          ticks={data5Init.map(e => e.theory)}
         />
         <Tooltip />
         <Legend />
