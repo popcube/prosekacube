@@ -33,7 +33,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
   const dataInit = [];
-//   useEffect(() => {
+  useEffect(() => {
     var i = 0;
     while (data5StartTimeRaw + i * dayMs < startTime ) i++;
     while (i < 7 && data5StartTimeRaw + i * dayMs < endTime){
@@ -53,7 +53,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         time: endTime
       }
     );
-//   }, []);
+  }, []);
   
   const nowDataObj = {
     theory: livePointDue,
