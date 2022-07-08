@@ -53,7 +53,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         time: endTime
       }
     );
-  });
+  }, []);
   
   const nowDataObj = {
     theory: livePointDue,
