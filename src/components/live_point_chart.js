@@ -94,7 +94,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="theory" stroke="#F652A0" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="theory" stroke="#F652A0" dot={{ r: 8 }} />
       </LineChart>
       <LineChart
         width={500}
@@ -132,7 +132,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="theory" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="theory" stroke="#8884d8" dot={{ r: 8 }} />
       </LineChart>
     </ChartDiv>
 
