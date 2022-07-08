@@ -43,7 +43,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
       });
       i++;
     }
-    dataInit = [
+    dataInit.push(
       {
         theory: 0,
         time: startTime
@@ -52,7 +52,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         theory: goalPoint,
         time: endTime
       }
-    ];
+    );
   });
   
   const nowDataObj = {
