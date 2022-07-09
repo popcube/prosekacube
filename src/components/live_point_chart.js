@@ -34,34 +34,46 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
   const data5Init = [];
   const dataInit = [];
   useEffect(() => {
-    var i = 0;
-    while (data5StartTimeRaw + i * dayMs < startTime ) i++;
-    while (i < 7 && data5StartTimeRaw + i * dayMs < endTime){
-      data5Init.push({
-        theory: CurrentDue(data5StartTimeRaw + i * dayMs),
-        time: data5StartTimeRaw + i * dayMs
+    (async () => {
+      await new Promise((resolve) => {
+        var i = 0;
+        while (data5StartTimeRaw + i * dayMs < startTime) i++;
+        while (i < 7 && data5StartTimeRaw + i * dayMs < endTime) {
+          data5Init.push({
+            theory: CurrentDue(data5StartTimeRaw + i * dayMs),
+            time: data5StartTimeRaw + i * dayMs
+          });
+          i++;
+        }
+        if (i < 7 && data5StartTimeRaw + i * dayMs < endTime) {
+          resolve(data5Init);
+        }
       });
-      i++;
-    }
-    dataInit.push(
-      {
-        theory: 0,
-        time: startTime
-      },
-      {
-        theory: goalPoint,
-        time: endTime
-      }
-    );
+      await new Promise((resolve) => {
+        dataInit.push(
+          {
+            theory: 0,
+            time: startTime
+          },
+          {
+            theory: goalPoint,
+            time: endTime
+          }
+        );
+        if (dataInit.length == 2) {
+          resolve(dataInit);
+        }
+      });
+    });
   }, []);
-  
+
   const nowDataObj = {
     theory: livePointDue,
     time: nowTime
   };
-  const [nowData, setNowData] = useState(nowDataObj);    
+  const [nowData, setNowData] = useState(nowDataObj);
   useEffect(() => setNowData(nowDataObj), []);
-  
+
   const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
 
 
