@@ -79,6 +79,7 @@ export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
 
   setInterval(() => {
+    // setTimeObj(new Date());
     setTimeObj(new Date());
   }, 1000);
 
