@@ -24,7 +24,7 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
   return nowTime => targetPoint * (nowTime - startTime) / (endTime - startTime);
 }
 
-export default async function LivePointGraph({ year, month, day, startTime, endTime, nowTime }) {
+export default function LivePointGraph({ year, month, day, startTime, endTime, nowTime }) {
   // nowTime = endTime - 360000000;
 
   const CurrentDue = CurrentDueHOC(startTime, endTime, goalPoint);
@@ -33,38 +33,26 @@ export default async function LivePointGraph({ year, month, day, startTime, endT
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
   const dataInit = [];
+  var i = 0;
   useEffect(() => {
-    (async () => {
-      await new Promise((resolve) => {
-        var i = 0;
-        while (data5StartTimeRaw + i * dayMs < startTime) i++;
-        while (i < 7 && data5StartTimeRaw + i * dayMs < endTime) {
-          data5Init.push({
-            theory: CurrentDue(data5StartTimeRaw + i * dayMs),
-            time: data5StartTimeRaw + i * dayMs
-          });
-          i++;
-        }
-        if (i < 7 && data5StartTimeRaw + i * dayMs < endTime) {
-          resolve(data5Init);
-        }
+    while (data5StartTimeRaw + i * dayMs < startTime) i++;
+    while (i < 7 && data5StartTimeRaw + i * dayMs < endTime) {
+      data5Init.push({
+        theory: CurrentDue(data5StartTimeRaw + i * dayMs),
+        time: data5StartTimeRaw + i * dayMs
       });
-      await new Promise((resolve) => {
-        dataInit.push(
-          {
-            theory: 0,
-            time: startTime
-          },
-          {
-            theory: goalPoint,
-            time: endTime
-          }
-        );
-        if (dataInit.length == 2) {
-          resolve(dataInit);
-        }
-      });
-    });
+      i++;
+    }
+    dataInit.push(
+      {
+        theory: 0,
+        time: startTime
+      },
+      {
+        theory: goalPoint,
+        time: endTime
+      }
+    );
   }, []);
 
   const nowDataObj = {
@@ -77,82 +65,91 @@ export default async function LivePointGraph({ year, month, day, startTime, endT
   const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
 
 
-  return (
-    <ChartDiv>
-      <LineChart
-        width={500}
-        height={300}
-        data={dataInit}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          interval={0}
-          tickFormatter={TimeToString}
-          ticks={[startTime, endTime]}
-          stroke="black"
-          dataKey="time"
-          type="number"
-          domain={[startTime, endTime]}
-        />
-        <YAxis
-          interval={0}
-          tickFormatter={YTickFormatter(goalPoint)}
-          ticks={dataInit.map(e => e.theory)}
-          stroke="black"
-          dataKey="theory"
-          type="number"
-          domain={dataInit.map(e => e.theory)}
-        />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="theory" stroke="#F652A0" dot={{ r: 8 }} />
-      </LineChart>
-      <LineChart
-        width={500}
-        height={300}
-        data={data5Init}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          interval={0}
-          dataKey="time"
-          type="number"
-          domain={[data5Init[0].time, data5Init[data5Init.length - 1].time]}
-          tickFormatter={TimeToString}
-          ticks={data5Init.map(e => e.time)}
-        />
-        <YAxis
-          interval={0}
-          stroke="black"
-          dataKey="theory"
-          type="number"
-          domain={
-            [
-              data5Init[0].theory - (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
-              data5Init[data5Init.length - 1].theory + (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15
-            ]
-          }
-          tickFormatter={YTickFormatter(goalPoint)}
-          ticks={data5Init.map(e => e.theory)}
-        />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="theory" stroke="#8884d8" dot={{ r: 8 }} />
-      </LineChart>
-    </ChartDiv>
+  if ((i < 7 && data5StartTimeRaw + i * dayMs < endTime) || dataInit.length < 2) {
+    return (
+      <ChartDiv>
+        ロード中...
+      </ChartDiv>
+    )
+  }
+  else {
+    return (
+      <ChartDiv>
+        <LineChart
+          width={500}
+          height={300}
+          data={dataInit}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            interval={0}
+            tickFormatter={TimeToString}
+            ticks={[startTime, endTime]}
+            stroke="black"
+            dataKey="time"
+            type="number"
+            domain={[startTime, endTime]}
+          />
+          <YAxis
+            interval={0}
+            tickFormatter={YTickFormatter(goalPoint)}
+            ticks={dataInit.map(e => e.theory)}
+            stroke="black"
+            dataKey="theory"
+            type="number"
+            domain={dataInit.map(e => e.theory)}
+          />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="theory" stroke="#F652A0" dot={{ r: 8 }} />
+        </LineChart>
+        <LineChart
+          width={500}
+          height={300}
+          data={data5Init}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            interval={0}
+            dataKey="time"
+            type="number"
+            domain={[data5Init[0].time, data5Init[data5Init.length - 1].time]}
+            tickFormatter={TimeToString}
+            ticks={data5Init.map(e => e.time)}
+          />
+          <YAxis
+            interval={0}
+            stroke="black"
+            dataKey="theory"
+            type="number"
+            domain={
+              [
+                data5Init[0].theory - (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+                data5Init[data5Init.length - 1].theory + (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15
+              ]
+            }
+            tickFormatter={YTickFormatter(goalPoint)}
+            ticks={data5Init.map(e => e.theory)}
+          />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="theory" stroke="#8884d8" dot={{ r: 8 }} />
+        </LineChart>
+      </ChartDiv>
 
-  );
+    );
+  }
 
 }
