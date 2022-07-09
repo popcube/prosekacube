@@ -24,7 +24,7 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
   return nowTime => targetPoint * (nowTime - startTime) / (endTime - startTime);
 }
 
-export default function LivePointGraph({ year, month, day, startTime, endTime, nowTime }) {
+export default async function LivePointGraph({ year, month, day, startTime, endTime, nowTime }) {
   // nowTime = endTime - 360000000;
 
   const CurrentDue = CurrentDueHOC(startTime, endTime, goalPoint);
