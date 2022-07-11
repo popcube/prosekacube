@@ -8,17 +8,11 @@ import img_2 from "./docs/livebonus_rec2.png";
 const ImgContainerWL = ({src, title, alt}) => {
   const ImgContainerRes = ImgContainer(src, title, alt);
   if (ImgContainerRes) {
-    return <ImgContainerRes src={src} title={title} alt={alt}>
+    return <ImgContainerRes src={src} title={title} alt={alt} />
   }
   else
   {
-    return (
-      <div>
-        <TextDiv>
-          <a>ロード中...</a>
-        </TextDiv>
-      </div>
-    );
+    return (<div>ロード中...</div>);
   }
 );
 
