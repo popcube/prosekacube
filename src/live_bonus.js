@@ -8,7 +8,7 @@ import img_2 from "./docs/livebonus_rec2.png";
 const ImgContainerWL = ({src, title, alt}) => {
   const ImgContainerRes = ImgContainer(src, title, alt);
   if (ImgContainerRes) {
-    return <ImgContainerRes src={src} title={title} alt={alt} />
+    return <ImgContainerRes />;
   }
   else
   {
