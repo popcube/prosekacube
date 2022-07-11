@@ -14,7 +14,7 @@ const ImgContainerWL = ({src, title, alt}) => {
   {
     return (<div>ロード中...</div>);
   }
-);
+};
 
 export default function LiveBonus() {
   return (
