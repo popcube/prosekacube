@@ -11,7 +11,13 @@ const ImgContainerWL = ({src, title, alt}) => {
     return <ImgContainerRes>
   }
   else{
-    return (<div><TextDiv>ロード中...</TextDiv></div>);
+    return (
+      <div>
+        <TextDiv>
+          <a>ロード中...</a>
+        </TextDiv>
+      </div>
+    );
   }
 );
 
