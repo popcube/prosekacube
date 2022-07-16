@@ -21,8 +21,8 @@ jobs:
       - run: |
           echo test >> ./docs/figs/2020_12_30.png
           ls -la ./docs/figs/
-          echo "$(($(TZ=-9 date +%Y) - 2))_*.png"
-          rm -f $(($(TZ=-9 date +%Y) - 2))_*.png
+          echo "./docs/figs/$(($(TZ=-9 date +%Y) - 2))_*.png"
+          rm -f ./docs/figs/$(($(TZ=-9 date +%Y) - 2))_*.png
           for data in `seq -f "%02g" $(($(TZ=-9 date +%m) - 1))`
           do
             echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png
