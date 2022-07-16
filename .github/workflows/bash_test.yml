@@ -20,10 +20,15 @@ jobs:
 
       - run: |
           ls -la ./docs/figs/
-          for data in `seq $(TZ=-9 date +%m)`
+          for data in `seq -f "%02d" $(TZ=-9 date +%m)`
           do
             echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png
             find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png | xargs rm -f
           done
           ls -la ./docs/figs/
+          for data in `seq -f "%02d" 5`
+          do
+            echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 0))_${data}_*.png
+            find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 0))_${data}_*.png | xargs rm -f
+          done
 
