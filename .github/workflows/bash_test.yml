@@ -31,4 +31,5 @@ jobs:
             echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 0))_${data}_*.png
             find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 0))_${data}_*.png | xargs rm -f
           done
+          ls -la ./docs/figs/
 
