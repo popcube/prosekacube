@@ -11,7 +11,7 @@ jobs:
           echo 'TZ-0: '$(date +"%Y/%m/%d %H%M%S")
           echo $(TZ=-9 date +%Y)
           echo $(TZ=-9 date +%m)
-          echo $(($TZ=-9 date +%Y) - 1)
+          echo $(($(TZ=-9 date +%Y) - 1))
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -21,6 +21,8 @@ jobs:
       - run: |
           ls -la ./docs/figs/
           for data in `seq $(TZ=-9 date +%m)`
-          find ./docs/figs/ -name $(($TZ=-9 date +%Y) - 1))_$data_*.png | xargs rm -f
+          do
+            find ./docs/figs/ -name $(($TZ=-9 date +%Y) - 1))_$data_*.png | xargs rm -f
+          done
           ls -la ./docs/figs/
 
