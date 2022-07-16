@@ -19,8 +19,8 @@ jobs:
           token: ${{ secrets.MY_TOKEN }}
 
       - run: |
-          ls la ./docs/figs/
+          ls -la ./docs/figs/
           for data in `seq $(TZ=-9 date +%m)`
           find ./docs/figs/ -name $(($TZ=-9 date +%Y) - 1))_$data_*.png | xargs rm -f
-          ls la ./docs/figs/
+          ls -la ./docs/figs/
 
