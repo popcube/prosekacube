@@ -41,10 +41,6 @@ function TimeToStringLong(time) {
   return `${month + 1}/${day} ${ZeroPadding(hour)}:${ZeroPadding(minute)}`;
 }
 
-function YTickFormatter(point) {
-  return `${point.toFixed(0)} pt`;
-}
-
 function CurrentDueHOC(startTime, endTime, targetPoint) {
   return nowTime => targetPoint * (nowTime - startTime) / (endTime - startTime);
 }
@@ -120,8 +116,8 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         />
         <YAxis
           interval={0}
-          tickFormatter={YTickFormatter}
-          ticks={[goalPoint]}
+          tickFormatter={(e => e == goalPoint ? goalPoint : '')}
+          ticks={[0, goalPoint]}
           stroke="black"
           dataKey="theory"
           type="number"
@@ -175,7 +171,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
             data5Init[0].theory - (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
             data5Init[data5Init.length - 1].theory + (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15
           ]}
-          tickFormatter={YTickFormatter}
+          tickFormatter={e => `${e.toFixed(0)} pt`}
           ticks={data5Init.map(e => e.theory)}
         />
         <Tooltip />

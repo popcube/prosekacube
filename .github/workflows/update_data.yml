@@ -88,15 +88,6 @@ jobs:
         with:
           name: madskillz_req
           path: ./docs/figs
-
-#     this git push tends to be time-consuming and affects checkout in next job
-#       - name: Push figs folder (if needed)
-#         if: false
-#         run: |
-#           git add ./docs/figs/. \
-#           && git diff --exit-code --staged --merge-base \
-#           || (git commit -m "auto commit figs folder" \
-#           && git push)
           
   job3:
     name: create html
