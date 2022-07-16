@@ -119,10 +119,21 @@ jobs:
           name: madskillz_req
           path: ./docs/figs
       
-      - name: Create html
-        if: false
+      - name: Delete data older than one year ago
         run: |
-          node js/make_js.js
+          echo "##### before deletion #####"
+          ls -Rla ./docs/figs/
+          echo
+          echo
+
+          rm -f ./docs/figs/$(($(TZ=-9 date +%Y) - 2))_*.png
+          for data in `seq -f "%02g" $(($(TZ=-9 date +%m) - 1))`
+          do
+            find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png | xargs rm -f
+          done
+          
+          echo "##### after deletion #####"
+          ls -Rla ./docs/figs/          
       
       - name: Push docs (if needed)
         run: |
