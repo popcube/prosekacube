@@ -1,5 +1,5 @@
 name: bash test
-on: workflow_dispatch
+on: [workflow_dispatch, push]
 
 jobs:
   job1:
@@ -22,8 +22,8 @@ jobs:
           ls -la ./docs/figs/
           for data in `seq $(TZ=-9 date +%m)`
           do
-            echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_$data_*.png
-            find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_$data_*.png | xargs rm -f
+            echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png
+            find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png | xargs rm -f
           done
           ls -la ./docs/figs/
 
