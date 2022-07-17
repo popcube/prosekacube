@@ -116,13 +116,13 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
         />
         <YAxis
           interval={0}
-          tickFormatter={(e => e == goalPoint ? goalPoint : '')}
+          tickFormatter={e => `${e.toFixed(0)} pt`}
           ticks={[0, goalPoint]}
           stroke="black"
           dataKey="theory"
           type="number"
           domain={[
-            -1 * goalPoint * 0.15,
+            0,
             goalPoint * 1.15
           ]}
         />
@@ -136,9 +136,7 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
           fill="#8884d8"
           stroke="none"
         >
-          <Label id={0} value={TimeToStringLong(nowTime)} offset={10} position="insideTopRight" />
-          <Label id={1} value={`${((livePointDue / goalPoint) * 100).toFixed(1)} %`} offset={28} position="insideTopRight" />
-          <Label id={2} value={`${livePointDue.toFixed(1)} pt`} offset={10} position="insideBottomRight" />
+          <Label id={0} value={`${((livePointDue / goalPoint) * 100).toFixed(1)} %`} offset={10} position="insideBottomRight" />
         </ReferenceDot>
       </LineChart>
       <LineChart

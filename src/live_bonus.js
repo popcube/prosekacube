@@ -5,17 +5,6 @@ import { useState } from "react";
 import img_1 from "./docs/livebonus_rec1.png";
 import img_2 from "./docs/livebonus_rec2.png";
 
-const ImgContainerWL = ({src, title, alt}) => {
-  const ImgContainerRes = ImgContainer(src, title, alt);
-  if (ImgContainerRes) {
-    return <ImgContainerRes />;
-  }
-  else
-  {
-    return (<div>ロード中...</div>);
-  }
-};
-
 export default function LiveBonus() {
   return (
     <div align="left">
@@ -25,8 +14,8 @@ export default function LiveBonus() {
       <TextDiv>
         <a href="https://note.com/whity_breath/n/n5f375008c126#RIejr">二つ目のグラフの説明（note.com）</a>
       </TextDiv>
-      <ImgContainerWL src={img_1} title="ライブボーナス消費量オススメ１" alt="ライブボーナス消費量オススメのグラフ" />
-      <ImgContainerWL src={img_2} title="ライブボーナス消費量オススメ２" alt="ライブボーナス消費量オススメ２のグラフ" />
+      <ImgContainer src={img_1} title="ライブボーナス消費量オススメ１" alt="ライブボーナス消費量オススメのグラフ" />
+      <ImgContainer src={img_2} title="ライブボーナス消費量オススメ２" alt="ライブボーナス消費量オススメ２のグラフ" />
     </div>
   );
 }

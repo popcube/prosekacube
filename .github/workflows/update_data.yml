@@ -73,8 +73,8 @@ jobs:
           
           if [[ ! $(find ./docs/figs -maxdepth 1 -name "*.png" -type f -exec basename "{}" ";") \
           =~ $(find ./docs/figs/latest -name "*.png" -exec basename "{}" ";") ]]; then
-          echo "a new monthly file is added in fig folder" 
-          mv ./docs/figs/latest/* ./docs/figs/
+            echo "a new monthly file is added in fig folder" 
+            mv ./docs/figs/latest/* ./docs/figs/
           fi
           
           rm -f ./docs/figs/latest/*
