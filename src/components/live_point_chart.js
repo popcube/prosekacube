@@ -32,22 +32,27 @@ function TimeToString(endTime) {
   }
 }
 
-function TimeToStringLong(time) {
-  const timeObj = new Date(time);
-  const month = timeObj.getMonth();
-  const day = timeObj.getDate();
-  const hour = timeObj.getHours();
-  const minute = timeObj.getMinutes();
-  return `${month + 1}/${day} ${ZeroPadding(hour)}:${ZeroPadding(minute)}`;
-}
-
 function CurrentDueHOC(startTime, endTime, targetPoint) {
   return nowTime => targetPoint * (nowTime - startTime) / (endTime - startTime);
 }
 
-export default function LivePointGraph({ year, month, day, startTime, endTime, nowTime }) {
+const NewReferenceDot = () => {
+  return (
+    <ReferenceDot />
+  )
+}
+
+export default function LivePointGraph({ timeObj, newLivePoint }) {
   // nowTime = startTime;
   // nowTime = endTime;
+
+  const year = timeObj.getFullYear();
+  const month = timeObj.getMonth();
+  const day = timeObj.getDate();
+
+  const endTime = new Date(year, month + 1, 1).getTime() - 1000;
+  const startTime = new Date(year, month, 1).getTime();
+  const nowTime = timeObj.getTime();
 
   const CurrentDue = CurrentDueHOC(startTime, endTime, goalPoint);
   const livePointDue = CurrentDue(nowTime);
@@ -88,6 +93,12 @@ export default function LivePointGraph({ year, month, day, startTime, endTime, n
   };
   const [nowData, setNowData] = useState(nowDataObj);
   useEffect(() => setNowData(nowDataObj), []);
+  useEffect(() => {
+    setNowData({
+      theory: newLivePoint,
+      time: new Date().getTime()
+    })
+  }, [newLivePoint]);
 
   const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
 

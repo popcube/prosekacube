@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { TitleText, TextDiv, ImgContainer } from "./components/styled_tags";
 import { useState } from "react";
 import LivePointGraph from "./components/live_point_chart";
+import { UserInput } from "./components/user_inputs";
 
 
 const ZeroPadding = (paramNum) => {
@@ -34,7 +35,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
 
     return (
       <TextDiv>
-        {"現在時間は "}
+        {"現在時刻は "}
         <a style={{ fontWeight: "bold" }}>{timeStr}</a>
         {" です。"}
       </TextDiv>
@@ -77,6 +78,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
 
 export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
+  const [newLivePoint, setNewLivePoint] = useState("");
 
   setInterval(() => {
     // setTimeObj(new Date());
@@ -94,8 +96,9 @@ export default function LivePoint() {
   return (
     <div>
       <LivePointResult year={year} month={month} timeObj={timeObj} endTime={endTime} startTime={startTime} nowTime={nowTime} />
+      <UserInput setNewLivePoint={setNewLivePoint} />
       <div style={{ marginTop: "30px" }}>
-        <LivePointGraph year={year} month={month} day={day} startTime={startTime} endTime={endTime} nowTime={nowTime} />
+        <LivePointGraph timeObj={timeObj} newLivePoint={newLivePoint} />
       </div>
     </div>
   );
