@@ -148,15 +148,13 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           stroke="#8884d8"
           dot={{ r: 3 }}
         />
-        {newLivePoint.length > 0 && (
-          <Line
-            isAnimationActive={false}
-            type="monotone"
-            dataKey="record"
-            stroke="green"
-            dot={{ r: 3 }}
-          />
-        )}
+        <Line
+          isAnimationActive={false}
+          type="monotone"
+          dataKey="record"
+          stroke="green"
+          dot={{ r: 3 }}
+        />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
           <Label
             id={0}
