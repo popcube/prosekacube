@@ -65,7 +65,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
-  var dataInit = [];
+  const dataInit = [];
 
   var i = 0;
   while (data5StartTimeRaw + i * dayMs < startTime) i++;
@@ -100,6 +100,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
     time: nowTime,
   };
   const [nowData, setNowData] = useState(nowDataObj);
+  const [keyNum, setKeyNum] = useState(0);
   useEffect(() => setNowData(nowDataObj), []);
   useEffect(() => {
     if (newLivePoint != "") {
@@ -109,7 +110,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
         record: newLivePoint,
         time: newNowTime,
       });
-      dataInit = Array.from(dataInit);
+      setKeyNum(keyNum + 1);
     }
   }, [newLivePoint]);
 
@@ -159,6 +160,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
+          key={`Line_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
           <Label
