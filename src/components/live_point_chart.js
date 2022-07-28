@@ -65,7 +65,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
-  const dataInit = [];
+  var dataInit = [];
 
   var i = 0;
   while (data5StartTimeRaw + i * dayMs < startTime) i++;
@@ -109,6 +109,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
         record: newLivePoint,
         time: newNowTime,
       });
+      dataInit = Array.from(dataInit);
     }
   }, [newLivePoint]);
 
