@@ -1,5 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceDot, Label } from 'recharts';
+import React, { useState, useEffect } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ReferenceDot,
+  Label,
+} from "recharts";
 import styled from "styled-components";
 
 const goalPoint = 8000;
@@ -7,16 +17,15 @@ const dayMs = 24 * 60 * 60 * 1000;
 
 const ChartDiv = styled.div`
   padding: 24px 0px;
-`
+`;
 
 const ZeroPadding = (paramNum) => {
   if (paramNum > 9) {
     return paramNum.toString();
-  }
-  else {
+  } else {
     return "0" + paramNum.toString();
   }
-}
+};
 
 function TimeToString(endTime) {
   return function (time) {
@@ -25,22 +34,19 @@ function TimeToString(endTime) {
       const month = timeObj.getMonth();
       const day = timeObj.getDate();
       return `${month + 1}/${day}`;
-    }
-    else {
+    } else {
       return "23:59";
     }
-  }
+  };
 }
 
 function CurrentDueHOC(startTime, endTime, targetPoint) {
-  return nowTime => targetPoint * (nowTime - startTime) / (endTime - startTime);
+  return (nowTime) => (targetPoint * (nowTime - startTime)) / (endTime - startTime);
 }
 
 const NewReferenceDot = () => {
-  return (
-    <ReferenceDot />
-  )
-}
+  return <ReferenceDot />;
+};
 
 export default function LivePointGraph({ timeObj, newLivePoint }) {
   // nowTime = startTime;
@@ -66,41 +72,39 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   while (i < 8 && data5StartTimeRaw + i * dayMs < endTime) {
     data5Init.push({
       theory: CurrentDue(data5StartTimeRaw + i * dayMs),
-      time: data5StartTimeRaw + i * dayMs
+      time: data5StartTimeRaw + i * dayMs,
     });
     i++;
   }
   if (i < 8 && data5StartTimeRaw + i * dayMs >= endTime) {
     data5Init.push({
       theory: goalPoint,
-      time: endTime
+      time: endTime,
     });
   }
   dataInit.push(
     {
       theory: 0,
-      time: startTime
+      time: startTime,
     },
     {
       theory: goalPoint,
-      time: endTime
+      time: endTime,
     }
   );
 
   const nowDataObj = {
     theory: livePointDue,
-    time: nowTime
+    time: nowTime,
   };
   const [nowData, setNowData] = useState(nowDataObj);
   useEffect(() => setNowData(nowDataObj), []);
   useEffect(() => {
     setNowData({
       theory: newLivePoint,
-      time: new Date().getTime()
-    })
+      time: new Date().getTime(),
+    });
   }, [newLivePoint]);
-
-  const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
 
   return (
     <ChartDiv>
@@ -127,27 +131,29 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
         />
         <YAxis
           interval={0}
-          tickFormatter={e => `${e.toFixed(0)} pt`}
+          tickFormatter={(e) => `${e.toFixed(0)} pt`}
           ticks={[0, goalPoint]}
           stroke="black"
           dataKey="theory"
           type="number"
-          domain={[
-            0,
-            goalPoint * 1.15
-          ]}
+          domain={[0, goalPoint * 1.15]}
         />
         <Tooltip />
         <Legend />
-        <Line isAnimationActive={false} type="monotone" dataKey="theory" stroke="#8884d8" dot={{ r: 3 }} />
-        <ReferenceDot
-          x={nowData.time}
-          y={nowData.theory}
-          r={3}
-          fill="#8884d8"
-          stroke="none"
-        >
-          <Label id={0} value={`${((livePointDue / goalPoint) * 100).toFixed(1)} %`} offset={10} position="insideBottomRight" />
+        <Line
+          isAnimationActive={false}
+          type="monotone"
+          dataKey="theory"
+          stroke="#8884d8"
+          dot={{ r: 3 }}
+        />
+        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
+          <Label
+            id={0}
+            value={`${((livePointDue / goalPoint) * 100).toFixed(1)} %`}
+            offset={10}
+            position="insideBottomRight"
+          />
         </ReferenceDot>
       </LineChart>
       <LineChart
@@ -169,7 +175,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           stroke="black"
           domain={[data5StartTimeRaw, data5EndTimeRaw]}
           tickFormatter={TimeToString(endTime)}
-          ticks={data5Init.map(e => e.time)}
+          ticks={data5Init.map((e) => e.time)}
         />
         <YAxis
           interval={0}
@@ -177,25 +183,26 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           type="number"
           domain={[
-            data5Init[0].theory - (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
-            data5Init[data5Init.length - 1].theory + (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15
+            data5Init[0].theory -
+              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+            data5Init[data5Init.length - 1].theory +
+              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
           ]}
-          tickFormatter={e => `${e.toFixed(0)} pt`}
-          ticks={data5Init.map(e => e.theory)}
+          tickFormatter={(e) => `${e.toFixed(0)} pt`}
+          ticks={data5Init.map((e) => e.theory)}
         />
         <Tooltip />
         <Legend />
-        <Line isAnimationActive={false} type="monotone" dataKey="theory" stroke="#8884d8" dot={{ r: 3 }} />
-        <ReferenceDot
-          x={nowData.time}
-          y={nowData.theory}
-          r={3}
-          fill="#8884d8"
-          stroke="none"
+        <Line
+          isAnimationActive={false}
+          type="monotone"
+          dataKey="theory"
+          stroke="#8884d8"
+          dot={{ r: 3 }}
+          onMouseOver={() => {}}
         />
+        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
       </LineChart>
     </ChartDiv>
-
   );
-
 }
