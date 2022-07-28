@@ -103,7 +103,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   useEffect(() => setNowData(nowDataObj), []);
   useEffect(() => {
     if (newLivePoint != "") {
-      newNowTime = new Date().getTime();
+      let newNowTime = new Date().getTime();
       dataInit.push({
         theory: CurrentDue(newNowTime),
         record: newLivePoint,
