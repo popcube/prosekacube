@@ -85,10 +85,12 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   dataInit.push(
     {
       theory: 0,
+      record: 0,
       time: startTime,
     },
     {
       theory: goalPoint,
+      record: goalPoint,
       time: endTime,
     }
   );
@@ -101,9 +103,11 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   useEffect(() => setNowData(nowDataObj), []);
   useEffect(() => {
     if (newLivePoint != "") {
+      newNowTime = new Date().getTime();
       dataInit.push({
+        theory: CurrentDue(newNowTime),
         record: newLivePoint,
-        time: new Date().getTime(),
+        time: newNowTime,
       });
     }
   }, [newLivePoint]);
