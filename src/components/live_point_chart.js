@@ -100,10 +100,12 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   const [nowData, setNowData] = useState(nowDataObj);
   useEffect(() => setNowData(nowDataObj), []);
   useEffect(() => {
-    setNowData({
-      theory: newLivePoint,
-      time: new Date().getTime(),
-    });
+    if (newLivePoint != "") {
+      dataInit.push({
+        record: newLivePoint,
+        time: new Date().getTime(),
+      });
+    }
   }, [newLivePoint]);
 
   return (
@@ -138,7 +140,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           type="number"
           domain={[0, goalPoint * 1.15]}
         />
-        <Tooltip />
         <Legend />
         <Line
           isAnimationActive={false}
@@ -147,6 +148,15 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           stroke="#8884d8"
           dot={{ r: 3 }}
         />
+        {newLivePoint.length > 0 && (
+          <Line
+            isAnimationActive={false}
+            type="monotone"
+            dataKey="record"
+            stroke="green"
+            dot={{ r: 3 }}
+          />
+        )}
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
           <Label
             id={0}
@@ -191,7 +201,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           tickFormatter={(e) => `${e.toFixed(0)} pt`}
           ticks={data5Init.map((e) => e.theory)}
         />
-        <Tooltip />
         <Legend />
         <Line
           isAnimationActive={false}
@@ -199,7 +208,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
-          onMouseOver={() => {}}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
       </LineChart>
