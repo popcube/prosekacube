@@ -47,6 +47,11 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
   // nowTime = startTime;
   // nowTime = endTime;
   const [goalPoint, setGoalPoint] = useState(5000);
+  useEffect(() => {
+    if (newGoalPoint != "") {
+      setGoalPoint(newGoalPoint);
+    }
+  }, [newGoalPoint]);
 
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
@@ -128,11 +133,6 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
     setData([]);
     setData5([]);
   }, [recordReset]);
-  useEffect(() => {
-    if (newGoalPoint != "") {
-      setGoalPoint(newGoalPoint);
-    }
-  }, [newGoalPoint]);
 
   return (
     <ChartDiv>

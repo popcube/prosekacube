@@ -6,8 +6,7 @@ import { UserInput } from "./components/user_inputs";
 
 const TitleText = styled.a`
   font-size: 150%;
-  background-color: #f652a0;
-  color: #ffffff;
+  color: #f652a0;
 `;
 
 const ZeroPadding = (paramNum) => {
