@@ -171,6 +171,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
+          key={`Line11_${keyNum}`}
         />
         <Line
           isAnimationActive={false}
@@ -178,7 +179,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
-          key={`Line_${keyNum}`}
+          key={`Line12_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
           <Label
@@ -230,6 +231,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
+          key={`Line21_${keyNum}`}
         />
         <Line
           isAnimationActive={false}
@@ -237,7 +239,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
-          key={`Line_${keyNum}`}
+          key={`Line22_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
       </LineChart>
