@@ -110,6 +110,17 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
         [
           ...data,
           {
+            record: newLivePoint,
+            time: newNowTime,
+          },
+        ].sort((a, b) => {
+          return a.time - b.time;
+        })
+      );
+      setData5(
+        [
+          ...data5,
+          {
             theory: CurrentDue(newNowTime),
             record: newLivePoint,
             time: newNowTime,
@@ -118,19 +129,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           return a.time - b.time;
         })
       );
-      // setData5(
-      //   [
-      //     ...data5,
-      //     {
-      //       thoery: CurrentDue(newNowTime),
-      //       record: newLivePoint,
-      //       time: newNowTime,
-      //     },
-      //   ].sort((a, b) => {
-      //     return a.time - b.time;
-      //   })
-      // );
-      setKeyNum(keyNum + 1);
+      // setKeyNum(keyNum + 1);
     }
   }, [newLivePoint]);
 
