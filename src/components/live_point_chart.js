@@ -85,7 +85,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   dataInit.push(
     {
       theory: 0,
-      record: 0,
       time: startTime,
     },
     {
@@ -121,7 +120,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
         [
           ...data5,
           {
-            theory: CurrentDue(newNowTime),
             record: newLivePoint,
             time: newNowTime,
           },
