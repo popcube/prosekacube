@@ -99,8 +99,8 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   };
   const [nowData, setNowData] = useState(nowDataObj);
   const [keyNum, setKeyNum] = useState(0);
-  const [data, setData] = useState(dataInit);
-  const [data5, setData5] = useState(data5Init);
+  const [data, setData] = useState([]);
+  const [data5, setData5] = useState([]);
   useEffect(() => setNowData(nowDataObj), []);
   useEffect(() => {
     if (newLivePoint != "") {
@@ -136,14 +136,13 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
       <LineChart
         width={500}
         height={300}
-        data={data}
         margin={{
           top: 5,
           right: 30,
           left: 20,
           bottom: 5,
         }}
-        key={`LineChart_${keyNum}`}
+        // key={`LineChart_${keyNum}`}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
@@ -168,18 +167,20 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
         <Line
           isAnimationActive={false}
           type="monotone"
+          data={dataInit}
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
-          key={`Line11_${keyNum}`}
+          // key={`Line11_${keyNum}`}
         />
         <Line
           isAnimationActive={false}
           type="monotone"
+          data={data}
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
-          key={`Line12_${keyNum}`}
+          // key={`Line12_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
           <Label
@@ -193,7 +194,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
       <LineChart
         width={500}
         height={300}
-        data={data5}
         margin={{
           top: 5,
           right: 30,
@@ -228,18 +228,20 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
         <Line
           isAnimationActive={false}
           type="monotone"
+          data={data5Init}
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
-          key={`Line21_${keyNum}`}
+          // key={`Line21_${keyNum}`}
         />
         <Line
           isAnimationActive={false}
           type="monotone"
+          data={data5}
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
-          key={`Line22_${keyNum}`}
+          // key={`Line22_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
       </LineChart>
