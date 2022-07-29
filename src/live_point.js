@@ -4,15 +4,13 @@ import { useState } from "react";
 import LivePointGraph from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
 
-
 const ZeroPadding = (paramNum) => {
   if (paramNum > 9) {
     return paramNum.toString();
-  }
-  else {
+  } else {
     return "0" + paramNum.toString();
   }
-}
+};
 
 const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) => {
   const livePointMillsecond = 8000 / (endTime - startTime);
@@ -39,8 +37,8 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
         <a style={{ fontWeight: "bold" }}>{timeStr}</a>
         {" です。"}
       </TextDiv>
-    )
-  }
+    );
+  };
 
   const LivePointDue = () => {
     return (
@@ -49,8 +47,8 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
         <a style={{ fontWeight: "bold" }}>{livePointDue.toFixed(1)}</a>
         {" です。"}
       </TextDiv>
-    )
-  }
+    );
+  };
 
   const LivePointDueUnit = () => {
     return (
@@ -61,8 +59,8 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
         <a style={{ fontWeight: "bold" }}>{livePointHour.toFixed(1)}</a>
         {" 増えていきます。"}
       </TextDiv>
-    )
-  }
+    );
+  };
 
   return (
     <div align="left">
@@ -74,11 +72,15 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
       <LivePointDueUnit />
     </div>
   );
-}
+};
 
 export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
   const [newLivePoint, setNewLivePoint] = useState("");
+  const [recordReset, setRecordResetRaw] = useState(false);
+  const setRecordReset = recordReset
+    ? () => setRecordResetRaw(false)
+    : () => setRecordResetRaw(true);
 
   setInterval(() => {
     // setTimeObj(new Date());
@@ -95,10 +97,17 @@ export default function LivePoint() {
 
   return (
     <div>
-      <LivePointResult year={year} month={month} timeObj={timeObj} endTime={endTime} startTime={startTime} nowTime={nowTime} />
-      <UserInput setNewLivePoint={setNewLivePoint} />
+      <LivePointResult
+        year={year}
+        month={month}
+        timeObj={timeObj}
+        endTime={endTime}
+        startTime={startTime}
+        nowTime={nowTime}
+      />
+      <UserInput setNewLivePoint={setNewLivePoint} setRecordReset={setRecordReset} />
       <div style={{ marginTop: "30px" }}>
-        <LivePointGraph timeObj={timeObj} newLivePoint={newLivePoint} />
+        <LivePointGraph timeObj={timeObj} newLivePoint={newLivePoint} recordReset={recordReset} />
       </div>
     </div>
   );

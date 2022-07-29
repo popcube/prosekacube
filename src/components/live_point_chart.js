@@ -48,7 +48,7 @@ const NewReferenceDot = () => {
   return <ReferenceDot />;
 };
 
-export default function LivePointGraph({ timeObj, newLivePoint }) {
+export default function LivePointGraph({ timeObj, newLivePoint, recordReset }) {
   // nowTime = startTime;
   // nowTime = endTime;
 
@@ -98,7 +98,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
     time: nowTime,
   };
   const [nowData, setNowData] = useState(nowDataObj);
-  const [keyNum, setKeyNum] = useState(0);
   const [data, setData] = useState([]);
   const [data5, setData5] = useState([]);
   useEffect(() => setNowData(nowDataObj), []);
@@ -127,9 +126,12 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           return a.time - b.time;
         })
       );
-      // setKeyNum(keyNum + 1);
     }
   }, [newLivePoint]);
+  useEffect(() => {
+    setData([]);
+    setData5([]);
+  }, [recordReset]);
 
   return (
     <ChartDiv>
@@ -142,7 +144,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           left: 20,
           bottom: 5,
         }}
-        // key={`LineChart_${keyNum}`}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
@@ -171,7 +172,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
-          // key={`Line11_${keyNum}`}
         />
         <Line
           isAnimationActive={false}
@@ -180,7 +180,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
-          // key={`Line12_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
           <Label
@@ -233,7 +232,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
-          // key={`Line21_${keyNum}`}
         />
         <Line
           isAnimationActive={false}
@@ -242,7 +240,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
-          // key={`Line22_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
       </LineChart>
