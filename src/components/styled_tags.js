@@ -27,17 +27,6 @@ export const TitleDiv = ({ children }) => {
   );
 };
 
-// export const BodyDiv = ({ children }) => {
-//   return (
-//     <div>
-//       <BodyText>
-//         {children}
-//       </BodyText>
-//     </div>
-
-//   )
-// }
-
 export const ImgDiv = styled.div`
   padding: 12px 64px 12px;
   background-color: #bcece0;

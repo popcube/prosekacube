@@ -6,7 +6,7 @@ import { UserInput } from "./components/user_inputs";
 
 const TitleText = styled.a`
   font-size: 150%;
-  background-color: #bcece0;
+  background-color: #f652a0;
 `;
 
 const ZeroPadding = (paramNum) => {
@@ -83,6 +83,7 @@ export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
   const [newLivePoint, setNewLivePoint] = useState("");
   const [recordReset, setRecordResetRaw] = useState(false);
+  const [newGoalPoint, setNewGoalPoint] = useState("");
   const setRecordReset = () => {
     setRecordResetRaw(!recordReset);
     setNewLivePoint("");
@@ -111,9 +112,18 @@ export default function LivePoint() {
         startTime={startTime}
         nowTime={nowTime}
       />
-      <UserInput setNewLivePoint={setNewLivePoint} setRecordReset={setRecordReset} />
+      <UserInput
+        setNewLivePoint={setNewLivePoint}
+        setRecordReset={setRecordReset}
+        setNewGoalPoint={setNewGoalPoint}
+      />
       <div style={{ marginTop: "30px" }}>
-        <LivePointGraph timeObj={timeObj} newLivePoint={newLivePoint} recordReset={recordReset} />
+        <LivePointGraph
+          timeObj={timeObj}
+          newLivePoint={newLivePoint}
+          recordReset={recordReset}
+          newGoalPoint={newGoalPoint}
+        />
       </div>
     </div>
   );

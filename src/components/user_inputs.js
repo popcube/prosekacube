@@ -16,17 +16,23 @@ const Button = styled.button`
   margin-left: 10px;
 `;
 
-export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
+export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint }) => {
   const [livePoint, setLivePoint] = useState("");
+  const [goalPoint, setGoalPoint] = useState("");
 
-  const submitForm = (e) => {
+  const submitLivePoint = (e) => {
     e.preventDefault();
     setNewLivePoint(livePoint);
   };
 
+  const submitGoalPoint = (e) => {
+    e.preventDefault();
+    setNewGoalPoint(goalPoint);
+  };
+
   return (
     <div align="left">
-      <form onSubmit={submitForm}>
+      <form onSubmit={submitLivePoint}>
         <TextDiv>
           <label>あなたの現在のライブポイント</label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />
@@ -34,6 +40,12 @@ export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
           <Button type="button" onClick={setRecordReset}>
             リセット
           </Button>
+        </TextDiv>
+      </form>
+      <form onSubmit={submitGoalPoint}>
+        <TextDiv>
+          <label>あなたの目標のライブポイント</label>
+          <Input type="number" value={goalPoint} onChange={(e) => setGoalPoint(e.target.value)} />
         </TextDiv>
       </form>
     </div>

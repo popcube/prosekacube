@@ -12,7 +12,6 @@ import {
 } from "recharts";
 import styled from "styled-components";
 
-const goalPoint = 8000;
 const dayMs = 24 * 60 * 60 * 1000;
 
 const ChartDiv = styled.div`
@@ -44,13 +43,10 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
   return (nowTime) => (targetPoint * (nowTime - startTime)) / (endTime - startTime);
 }
 
-const NewReferenceDot = () => {
-  return <ReferenceDot />;
-};
-
-export default function LivePointGraph({ timeObj, newLivePoint, recordReset }) {
+export default function LivePointGraph({ timeObj, newLivePoint, recordReset, newGoalPoint }) {
   // nowTime = startTime;
   // nowTime = endTime;
+  const [goalPoint, setGoalPoint] = useState(8000);
 
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
@@ -132,6 +128,11 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset }) {
     setData([]);
     setData5([]);
   }, [recordReset]);
+  useEffect(() => {
+    if (newGoalPoint != "") {
+      setGoalPoint(newGoalPoint);
+    }
+  }, [newGoalPoint]);
 
   return (
     <ChartDiv>
