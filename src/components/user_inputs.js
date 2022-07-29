@@ -30,8 +30,8 @@ export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
         <TextDiv>
           <label>あなたの現在のライブポイント</label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />
-          <button type="submit">追加</button>
-          <button
+          <Button type="submit">追加</Button>
+          <Button
             type="button"
             onClick={() => {
               setLivePoint("");
@@ -39,7 +39,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
             }}
           >
             リセット
-          </button>
+          </Button>
         </TextDiv>
       </form>
     </div>
