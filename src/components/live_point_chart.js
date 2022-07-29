@@ -90,7 +90,6 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
     },
     {
       theory: goalPoint,
-      record: goalPoint,
       time: endTime,
     }
   );
