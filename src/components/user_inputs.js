@@ -24,11 +24,6 @@ export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
     setNewLivePoint(livePoint);
   };
 
-  function onButtonReset() {
-    setRecordReset;
-    setLivePoint("");
-  }
-
   return (
     <div align="left">
       <form onSubmit={submitForm}>
@@ -36,7 +31,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
           <label>あなたの現在のライブポイント</label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />
           <Button type="submit">追加</Button>
-          <Button type="button" onClick={onButtonReset}>
+          <Button type="button" onClick={setRecordReset}>
             リセット
           </Button>
         </TextDiv>

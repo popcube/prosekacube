@@ -83,9 +83,10 @@ export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
   const [newLivePoint, setNewLivePoint] = useState("");
   const [recordReset, setRecordResetRaw] = useState(false);
-  const setRecordReset = recordReset
-    ? () => setRecordResetRaw(false)
-    : () => setRecordResetRaw(true);
+  const setRecordReset = () => {
+    setRecordResetRaw(!recordReset);
+    setNewLivePoint("");
+  };
 
   setInterval(() => {
     // setTimeObj(new Date());
