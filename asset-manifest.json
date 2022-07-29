@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/prosekacube/static/css/main.073c9b0a.css",
-    "main.js": "/prosekacube/static/js/main.fd205bff.js",
+    "main.js": "/prosekacube/static/js/main.eaa7d2e8.js",
     "static/js/787.b94a327f.chunk.js": "/prosekacube/static/js/787.b94a327f.chunk.js",
     "static/media/2022_02_24.png": "/prosekacube/static/media/2022_02_24.a292e19c6a63dcc36c96.png",
     "static/media/2022_06_30.png": "/prosekacube/static/media/2022_06_30.820558c0c8b5c30c59be.png",
@@ -15,11 +15,11 @@
     "static/media/livebonus_rec2.png": "/prosekacube/static/media/livebonus_rec2.ce32e3eebc7905f8e468.png",
     "index.html": "/prosekacube/index.html",
     "main.073c9b0a.css.map": "/prosekacube/static/css/main.073c9b0a.css.map",
-    "main.fd205bff.js.map": "/prosekacube/static/js/main.fd205bff.js.map",
+    "main.eaa7d2e8.js.map": "/prosekacube/static/js/main.eaa7d2e8.js.map",
     "787.b94a327f.chunk.js.map": "/prosekacube/static/js/787.b94a327f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.fd205bff.js"
+    "static/js/main.eaa7d2e8.js"
   ]
 }
