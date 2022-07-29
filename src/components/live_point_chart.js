@@ -209,7 +209,7 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           stroke="black"
           domain={[data5StartTimeRaw, data5EndTimeRaw]}
           tickFormatter={TimeToString(endTime)}
-          ticks={data5.map((e) => e.time)}
+          ticks={data5Init.map((e) => e.time)}
         />
         <YAxis
           interval={0}
@@ -217,12 +217,13 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           type="number"
           domain={[
-            data5[0].theory - (data5[data5.length - 1].theory - data5[0].theory) * 0.15,
-            data5[data5.length - 1].theory +
-              (data5[data5.length - 1].theory - data5[0].theory) * 0.15,
+            data5Init[0].theory -
+              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+            data5Init[data5Init.length - 1].theory +
+              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
           ]}
           tickFormatter={(e) => `${e.toFixed(0)} pt`}
-          ticks={data5.map((e) => e.theory)}
+          ticks={data5Init.map((e) => e.theory)}
         />
         <Legend />
         <Line
