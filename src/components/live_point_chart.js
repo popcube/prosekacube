@@ -107,14 +107,30 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
   useEffect(() => {
     if (newLivePoint != "") {
       let newNowTime = new Date().getTime();
-      setData([
-        ...data,
-        {
-          theory: CurrentDue(newNowTime),
-          record: newLivePoint,
-          time: newNowTime,
-        },
-      ]);
+      setData(
+        [
+          ...data,
+          {
+            theory: CurrentDue(newNowTime),
+            record: newLivePoint,
+            time: newNowTime,
+          },
+        ].sort((a, b) => {
+          return a.time - b.time;
+        })
+      );
+      setData5(
+        [
+          ...data5,
+          {
+            thoery: CurrentDue(newNowTime),
+            record: newLivePoint,
+            time: newNowTime,
+          },
+        ].sort((a, b) => {
+          return a.time - b.time;
+        })
+      );
       setKeyNum(keyNum + 1);
     }
   }, [newLivePoint]);
@@ -218,6 +234,14 @@ export default function LivePointGraph({ timeObj, newLivePoint }) {
           dataKey="theory"
           stroke="#8884d8"
           dot={{ r: 3 }}
+        />
+        <Line
+          isAnimationActive={false}
+          type="monotone"
+          dataKey="record"
+          stroke="green"
+          dot={{ r: 3 }}
+          key={`Line_${keyNum}`}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
       </LineChart>
