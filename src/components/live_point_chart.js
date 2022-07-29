@@ -46,7 +46,7 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
 export default function LivePointGraph({ timeObj, newLivePoint, recordReset, newGoalPoint }) {
   // nowTime = startTime;
   // nowTime = endTime;
-  const [goalPoint, setGoalPoint] = useState(5000);
+  const [goalPoint, setGoalPoint] = useState(8000);
   useEffect(() => {
     if (newGoalPoint != "") {
       setGoalPoint(newGoalPoint);

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextDiv, ImgContainer } from "./components/styled_tags";
+import { TextDiv } from "./components/styled_tags";
 import { useState } from "react";
 import LivePointGraph from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
