@@ -1,8 +1,13 @@
 import styled from "styled-components";
-import { TitleText, TextDiv, ImgContainer } from "./components/styled_tags";
+import { TextDiv, ImgContainer } from "./components/styled_tags";
 import { useState } from "react";
 import LivePointGraph from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
+
+const TitleText = styled.a`
+  font-size: 150%;
+  background-color: #bcece0;
+`;
 
 const ZeroPadding = (paramNum) => {
   if (paramNum > 9) {
@@ -65,7 +70,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
   return (
     <div align="left">
       <TextDiv>
-        <TitleText style={{ fontWeight: "normal" }}>ライブポイントを8000稼ぐまで</TitleText>
+        <TitleText>ライブポイントを8000稼ぐまで</TitleText>
       </TextDiv>
       <TimeDiv />
       <LivePointDue />

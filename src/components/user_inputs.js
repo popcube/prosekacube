@@ -11,7 +11,6 @@ const Input = styled.input`
 
 const Button = styled.button`
   border-radius: 1px;
-  border: none;
   padding: 0px 8px;
   background-color: #bcece0;
   margin-left: 10px;
@@ -31,13 +30,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
           <label>あなたの現在のライブポイント</label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />
           <Button type="submit">追加</Button>
-          <Button
-            type="button"
-            onClick={() => {
-              setLivePoint("");
-              setRecordReset;
-            }}
-          >
+          <Button type="button" onClick={setRecordReset}>
             リセット
           </Button>
         </TextDiv>
