@@ -24,10 +24,10 @@ export const UserInput = ({ setNewLivePoint, setRecordReset }) => {
     setNewLivePoint(livePoint);
   };
 
-  const onButtonReset = () => {
+  function onButtonReset() {
     setRecordReset;
     setLivePoint("");
-  };
+  }
 
   return (
     <div align="left">
