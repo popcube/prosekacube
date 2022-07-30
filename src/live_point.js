@@ -3,10 +3,21 @@ import { TextDiv } from "./components/styled_tags";
 import { useState } from "react";
 import LivePointGraph from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
+import { useCookies } from "react-cookie";
 
 const TitleText = styled.a`
   font-size: 150%;
   color: #f652a0;
+`;
+
+const CalcTitleSpan = styled.span`
+  font-weight: bold;
+  color: #f652a0;
+`;
+
+const CalcSpan = styled.span`
+  font-weight: bold;
+  color: #4C5270;
 `;
 
 const ZeroPadding = (paramNum) => {
@@ -17,8 +28,8 @@ const ZeroPadding = (paramNum) => {
   }
 };
 
-const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) => {
-  const livePointMillsecond = 8000 / (endTime - startTime);
+const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime, newGoalPoint }) => {
+  const livePointMillsecond = newGoalPoint / (endTime - startTime);
   const livePointDue = livePointMillsecond * (nowTime - startTime);
   const livePointHour = livePointMillsecond * (60 * 60 * 1000);
   const livePointDay = livePointHour * 24;
@@ -39,7 +50,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
     return (
       <TextDiv>
         {"現在時刻は "}
-        <a style={{ fontWeight: "bold" }}>{timeStr}</a>
+        <CalcSpan>{timeStr}</CalcSpan>
         {" です。"}
       </TextDiv>
     );
@@ -49,7 +60,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
     return (
       <TextDiv>
         {"現在のライブポイントの予想は "}
-        <a style={{ fontWeight: "bold" }}>{livePointDue.toFixed(1)}</a>
+        <CalcSpan>{livePointDue.toFixed(1)}</CalcSpan>
         {" です。"}
       </TextDiv>
     );
@@ -59,9 +70,9 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
     return (
       <TextDiv>
         {"一日あたり "}
-        <a style={{ fontWeight: "bold" }}>{livePointDay.toFixed(1)}</a>
+        <CalcSpan>{livePointDay.toFixed(1)}</CalcSpan>
         {"、一時間あたり "}
-        <a style={{ fontWeight: "bold" }}>{livePointHour.toFixed(1)}</a>
+        <CalcSpan>{livePointHour.toFixed(1)}</CalcSpan>
         {" 増えていきます。"}
       </TextDiv>
     );
@@ -70,7 +81,11 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime }) 
   return (
     <div align="left">
       <TextDiv>
-        <TitleText>ライブポイントを8000稼ぐまで</TitleText>
+        <TitleText>
+          {"ライブポイントを "}
+          <CalcTitleSpan>{newGoalPoint}</CalcTitleSpan>
+          {" 稼ぐまで"}
+        </TitleText>
       </TextDiv>
       <TimeDiv />
       <LivePointDue />
@@ -83,14 +98,17 @@ export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
   const [newLivePoint, setNewLivePoint] = useState("");
   const [recordReset, setRecordResetRaw] = useState(false);
-  const [newGoalPoint, setNewGoalPoint] = useState("");
+  const [newCookie, setNewCookieRaw] = useState(false);
+  const [newGoalPoint, setNewGoalPoint] = useState(8000);
   const setRecordReset = () => {
     setRecordResetRaw(!recordReset);
     setNewLivePoint("");
   };
+  const setNewCookie = () => {
+    setNewCookieRaw(!newCookie);
+  };
 
   setInterval(() => {
-    // setTimeObj(new Date());
     setTimeObj(new Date());
   }, 1000);
 
@@ -111,18 +129,21 @@ export default function LivePoint() {
         endTime={endTime}
         startTime={startTime}
         nowTime={nowTime}
+        newGoalPoint={Number(newGoalPoint)}
       />
       <UserInput
         setNewLivePoint={setNewLivePoint}
         setRecordReset={setRecordReset}
         setNewGoalPoint={setNewGoalPoint}
+        setNewCookie={setNewCookie}
       />
       <div style={{ marginTop: "30px" }}>
         <LivePointGraph
           timeObj={timeObj}
           newLivePoint={newLivePoint}
           recordReset={recordReset}
-          newGoalPoint={newGoalPoint}
+          newCookie={newCookie}
+          newGoalPoint={Number(newGoalPoint)}
         />
       </div>
     </div>

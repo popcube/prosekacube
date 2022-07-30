@@ -11,6 +11,7 @@ import {
   Label,
 } from "recharts";
 import styled from "styled-components";
+import { useCookies } from "react-cookie";
 
 const dayMs = 24 * 60 * 60 * 1000;
 
@@ -43,16 +44,12 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
   return (nowTime) => (targetPoint * (nowTime - startTime)) / (endTime - startTime);
 }
 
-export default function LivePointGraph({ timeObj, newLivePoint, recordReset, newGoalPoint }) {
+export default function LivePointGraph({ timeObj, newLivePoint, recordReset, newGoalPoint, newCookie }) {
   // nowTime = startTime;
   // nowTime = endTime;
-  const [goalPoint, setGoalPoint] = useState(8000);
-  useEffect(() => {
-    if (newGoalPoint != "") {
-      setGoalPoint(newGoalPoint);
-    }
-  }, [newGoalPoint]);
 
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const [goalPoint, setGoalPoint] = useState(8000);
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
@@ -67,6 +64,32 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
   const dataInit = [];
+  const nowDataObj = {
+    theory: livePointDue,
+    time: nowTime,
+  };
+  const [nowData, setNowData] = useState(nowDataObj);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setCookie("goalPoint", goalPoint);
+    setCookie("data", data);
+  }, [newCookie]);
+  useEffect(() => {
+    if (cookies["goalPoint"] != null && cookies["data"] != null) {
+      setGoalPoint(cookies["goalPoint"]);
+      setData(cookies["data"]);
+    }
+    // removeCookie("data");
+    // removeCookie("goalPoint");
+  }, [])
+  console.log(cookies);
+
+  useEffect(() => {
+    if (newGoalPoint != "") {
+      setGoalPoint(newGoalPoint);
+    }
+  }, [newGoalPoint]);
 
   var i = 0;
   while (data5StartTimeRaw + i * dayMs < startTime) i++;
@@ -94,14 +117,7 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
     }
   );
 
-  const nowDataObj = {
-    theory: livePointDue,
-    time: nowTime,
-  };
-  const [nowData, setNowData] = useState(nowDataObj);
-  const [data, setData] = useState([]);
-  const [data5, setData5] = useState([]);
-  useEffect(() => setNowData(nowDataObj), []);
+  useEffect(() => setNowData(nowDataObj), [nowDataObj.theory]);
   useEffect(() => {
     if (newLivePoint != "") {
       let newNowTime = new Date().getTime();
@@ -116,22 +132,10 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
           return a.time - b.time;
         })
       );
-      setData5(
-        [
-          ...data5,
-          {
-            record: newLivePoint,
-            time: newNowTime,
-          },
-        ].sort((a, b) => {
-          return a.time - b.time;
-        })
-      );
     }
   }, [newLivePoint]);
   useEffect(() => {
     setData([]);
-    setData5([]);
   }, [recordReset]);
 
   return (
@@ -218,9 +222,9 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
           type="number"
           domain={[
             data5Init[0].theory -
-              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+            (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
             data5Init[data5Init.length - 1].theory +
-              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+            (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
           ]}
           tickFormatter={(e) => `${e.toFixed(0)} pt`}
           ticks={data5Init.map((e) => e.theory)}
@@ -237,7 +241,7 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
         <Line
           isAnimationActive={false}
           type="monotone"
-          data={data5}
+          data={data}
           dataKey="record"
           stroke="green"
           dot={{ r: 3 }}
