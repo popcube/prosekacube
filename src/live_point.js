@@ -1,14 +1,9 @@
 import styled from "styled-components";
-import { TextDiv } from "./components/styled_tags";
-import { useState } from "react";
+import { TextDiv, TitleText } from "./components/styled_tags";
+import { useEffect, useState } from "react";
 import LivePointGraph from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
 import { useCookies } from "react-cookie";
-
-const TitleText = styled.a`
-  font-size: 150%;
-  color: #f652a0;
-`;
 
 const CalcTitleSpan = styled.span`
   font-weight: bold;
@@ -100,6 +95,12 @@ export default function LivePoint() {
   const [recordReset, setRecordResetRaw] = useState(false);
   const [newCookie, setNewCookieRaw] = useState(false);
   const [newGoalPoint, setNewGoalPoint] = useState(8000);
+  const [cookies, ,] = useCookies();
+  useEffect(() => {
+    if (cookies["goalPoint"] != null) {
+      setNewGoalPoint(cookies["goalPoint"]);
+    }
+  }, []);
   const setRecordReset = () => {
     setRecordResetRaw(!recordReset);
     setNewLivePoint("");

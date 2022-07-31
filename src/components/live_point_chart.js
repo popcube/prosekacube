@@ -48,11 +48,26 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
   // nowTime = startTime;
   // nowTime = endTime;
 
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, setCookie,] = useCookies();
   const [goalPoint, setGoalPoint] = useState(8000);
+  const [data, setData] = useState([]);
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
+
+  useEffect(() => {
+    setData([]);
+  }, [recordReset]);
+  useEffect(() => {
+    if (cookies["goalPoint"] != null && cookies["data"] != null) {
+      setGoalPoint(Number(cookies["goalPoint"]));
+      setData(cookies["data"]);
+    }
+  }, [])
+
+
+  console.log(cookies["data"]);
+  console.log(data);
 
   const endTime = new Date(year, month + 1, 1).getTime() - 1000;
   const startTime = new Date(year, month, 1).getTime();
@@ -69,24 +84,16 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
     time: nowTime,
   };
   const [nowData, setNowData] = useState(nowDataObj);
-  const [data, setData] = useState([]);
 
   useEffect(() => {
-    setCookie("goalPoint", goalPoint);
-    setCookie("data", data);
-  }, [newCookie]);
-  useEffect(() => {
-    if (cookies["goalPoint"] != null && cookies["data"] != null) {
-      setGoalPoint(cookies["goalPoint"]);
-      setData(cookies["data"]);
+    if (goalPoint != 8000 || data.length != 0) {
+      setCookie("goalPoint", goalPoint);
+      setCookie("data", data);
     }
-    // removeCookie("data");
-    // removeCookie("goalPoint");
-  }, [])
-  console.log(cookies);
+  }, [newCookie]);
 
   useEffect(() => {
-    if (newGoalPoint != "") {
+    if (newGoalPoint != goalPoint) {
       setGoalPoint(newGoalPoint);
     }
   }, [newGoalPoint]);
@@ -134,9 +141,6 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
       );
     }
   }, [newLivePoint]);
-  useEffect(() => {
-    setData([]);
-  }, [recordReset]);
 
   return (
     <ChartDiv>
