@@ -6,7 +6,6 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const Header = styled.header`
-  // display: flex;
   justify-content: space-between;
   padding: 24px 64px 0;
   border-bottom: 1px solid #D0D0D0;
@@ -23,7 +22,6 @@ const HeaderLi = styled.li`
   list-style: none;
   padding: 4px 12px;
   cursor: pointer;
-  // font-weight: bold;
   border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
 `
 
@@ -47,6 +45,8 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 64px 0;
+  margin-right: 20px;
+  margin-bottom: 20px;
 `;
 
 function App() {
