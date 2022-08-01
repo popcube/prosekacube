@@ -27,6 +27,8 @@ const InputDiv = styled.div`
 
 const ColoredDiv = styled.div`
   background-color: #bcece0;
+  padding: 0px 8px;
+  margin: 0px 5px;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, setNewCookie }) => {
@@ -88,7 +90,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
               type="checkbox"
               name="storeDate"
               value="on"
-              checked={true}
+              checked={livePoint == "8000" ? true : false}
               ref={ifChecked}
               onClick={(e) => setNewCookie(e.target.checked)}
             />
