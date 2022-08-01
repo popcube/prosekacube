@@ -44,11 +44,17 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
   return (nowTime) => (targetPoint * (nowTime - startTime)) / (endTime - startTime);
 }
 
-export default function LivePointGraph({ timeObj, newLivePoint, recordReset, newGoalPoint, newCookie }) {
+export default function LivePointGraph({
+  timeObj,
+  newLivePoint,
+  recordReset,
+  newGoalPoint,
+  newCookie,
+}) {
   // nowTime = startTime;
   // nowTime = endTime;
 
-  const [cookies, setCookie,] = useCookies();
+  const [cookies, setCookie] = useCookies();
   const [goalPoint, setGoalPoint] = useState(8000);
   const [data, setData] = useState([]);
   const year = timeObj.getFullYear();
@@ -63,8 +69,7 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
       setGoalPoint(Number(cookies["goalPoint"]));
       setData(cookies["data"]);
     }
-  }, [])
-
+  }, []);
 
   console.log(cookies["data"]);
   console.log(data);
@@ -87,8 +92,8 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
 
   useEffect(() => {
     if (goalPoint != 8000 || data.length != 0) {
-      setCookie("goalPoint", goalPoint);
-      setCookie("data", data);
+      setCookie("goalPoint", goalPoint, { expires: new Date(year, month + 1, 0) });
+      setCookie("data", data, { expires: new Date(year, month + 1, 0) });
     }
   }, [newCookie]);
 
@@ -226,9 +231,9 @@ export default function LivePointGraph({ timeObj, newLivePoint, recordReset, new
           type="number"
           domain={[
             data5Init[0].theory -
-            (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
             data5Init[data5Init.length - 1].theory +
-            (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
           ]}
           tickFormatter={(e) => `${e.toFixed(0)} pt`}
           ticks={data5Init.map((e) => e.theory)}
