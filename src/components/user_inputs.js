@@ -88,6 +88,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
               type="checkbox"
               name="storeDate"
               value="on"
+              checked={true}
               ref={ifChecked}
               onClick={(e) => setNewCookie(e.target.checked)}
             />
