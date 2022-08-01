@@ -34,9 +34,8 @@ const ColoredDiv = styled.div`
   vertical-align: middle;
 `;
 
-export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, setNewCookie }) => {
+export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
   const ifChecked = useRef(null);
-  ifChecked.checked = true;
 
   const [livePoint, setLivePoint] = useState("");
   const [goalPoint, setGoalPoint] = useState(8000);
@@ -44,26 +43,32 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
   useEffect(() => {
     if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
-      // ifChecked.checked = true;
+      ifChecked.current.checked = true;
+      setNewCookie(true);
     }
   }, []);
 
   const submitLivePoint = (e) => {
     e.preventDefault();
     setNewLivePoint(livePoint);
+	setNewCookie(ifChecked.current.checked);
   };
 
   const submitGoalPoint = (e) => {
     e.preventDefault();
     setNewGoalPoint(goalPoint);
+	setNewCookie(ifChecked.current.checked);
   };
 
   const resetCookie = () => {
     removeCookie("goalPoint");
     removeCookie("data");
-    setRecordReset();
+    setRecordDelete("all");
     setGoalPoint(8000);
     setNewGoalPoint(8000);
+    setLivePoint("");
+    setNewLivePoint("");
+	ifChecked.current.checked = false;
   };
 
   return (
@@ -78,7 +83,6 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
               type="checkbox"
               name="storeDate"
               value="on"
-              // checked={livePoint == "8000" ? true : false}
               ref={ifChecked}
               onClick={(e) => setNewCookie(e.target.checked)}
             />
@@ -110,8 +114,8 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
           <Button type="submit" name="setLivePoint">
             OK
           </Button>
-          <Button type="button" onClick={setRecordReset}>
-            リセット
+          <Button type="button" onClick={() => setRecordDelete("1")}>
+            一つ削除
           </Button>
         </TextDiv>
       </form>

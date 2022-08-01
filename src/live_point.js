@@ -92,7 +92,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime, ne
 export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
   const [newLivePoint, setNewLivePoint] = useState("");
-  const [recordReset, setRecordResetRaw] = useState(false);
+  const [recordDelete, setRecordDelete] = useState(false);
   const [newCookie, setNewCookie] = useState(false);
   const [newGoalPoint, setNewGoalPoint] = useState(8000);
   const [cookies, ,] = useCookies();
@@ -101,10 +101,6 @@ export default function LivePoint() {
       setNewGoalPoint(cookies["goalPoint"]);
     }
   }, []);
-  const setRecordReset = () => {
-    setRecordResetRaw(!recordReset);
-    setNewLivePoint("");
-  };
 
   setInterval(() => {
     setTimeObj(new Date());
@@ -131,7 +127,7 @@ export default function LivePoint() {
       />
       <UserInput
         setNewLivePoint={setNewLivePoint}
-        setRecordReset={setRecordReset}
+        setRecordDelete={setRecordDelete}
         setNewGoalPoint={setNewGoalPoint}
         setNewCookie={setNewCookie}
       />
@@ -139,7 +135,8 @@ export default function LivePoint() {
         <LivePointGraph
           timeObj={timeObj}
           newLivePoint={newLivePoint}
-          recordReset={recordReset}
+          recordDelete={recordDelete}
+          setRecordDelete={setRecordDelete}
           newCookie={newCookie}
           newGoalPoint={Number(newGoalPoint)}
         />

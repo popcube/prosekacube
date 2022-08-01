@@ -47,26 +47,42 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
 export default function LivePointGraph({
   timeObj,
   newLivePoint,
-  recordReset,
+  recordDelete,
+  setRecordDelete,
   newGoalPoint,
   newCookie,
 }) {
   // nowTime = startTime;
   // nowTime = endTime;
 
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies();
   const [goalPoint, setGoalPoint] = useState(8000);
   const [data, setData] = useState([]);
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
+  
+//  console.log(recordDelete);
 
   useEffect(() => {
-    setData([]);
-  }, [recordReset]);
+    if (recordDelete == "all"){
+      setData([]);
+      setRecordDelete(false);
+    } else if (recordDelete == "1"){
+      let newData = [...data].slice(0, -1);
+      setData(newData);
+      if (newCookie) {
+        setCookie("data", newData, { expires: new Date(year, month + 1, 0) });
+      }        
+      setRecordDelete(false);
+    }
+  }, [recordDelete]);
+  
   useEffect(() => {
-    if (cookies["goalPoint"] != null && cookies["data"] != null) {
+    if (cookies["goalPoint"] != null){
       setGoalPoint(Number(cookies["goalPoint"]));
+    }
+    if (cookies["data"] != null) {  
       setData(cookies["data"]);
     }
   }, []);
@@ -91,15 +107,11 @@ export default function LivePointGraph({
   const [nowData, setNowData] = useState(nowDataObj);
 
   useEffect(() => {
-    if (newCookie && (goalPoint != 8000 || data.length != 0)) {
-      setCookie("goalPoint", goalPoint, { expires: new Date(year, month + 1, 0) });
-      setCookie("data", data, { expires: new Date(year, month + 1, 0) });
-    }
-  }, [newCookie]);
-
-  useEffect(() => {
     if (newGoalPoint != goalPoint) {
       setGoalPoint(newGoalPoint);
+      if (newCookie){
+        setCookie("goalPoint", newGoalPoint, { expires: new Date(year, month + 1, 0) });
+      }		
     }
   }, [newGoalPoint]);
 
@@ -133,8 +145,7 @@ export default function LivePointGraph({
   useEffect(() => {
     if (newLivePoint != "") {
       let newNowTime = new Date().getTime();
-      setData(
-        [
+      let newData = [
           ...data,
           {
             record: newLivePoint,
@@ -142,10 +153,19 @@ export default function LivePointGraph({
           },
         ].sort((a, b) => {
           return a.time - b.time;
-        })
-      );
+        });
+      setData(newData);
+      if (newCookie){
+        setCookie("data", newData, { expires: new Date(year, month + 1, 0) });
+      }
     }
   }, [newLivePoint]);
+  useEffect(() => {
+  if (newCookie) {
+    setCookie("goalPoint", goalPoint, { expires: new Date(year, month + 1, 0) });
+    setCookie("data", data, { expires: new Date(year, month + 1, 0) });	  
+  }
+  },[newCookie]);
 
   return (
     <ChartDiv>
