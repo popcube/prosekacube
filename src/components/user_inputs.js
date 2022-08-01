@@ -78,7 +78,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
         <TextDiv>
           <label>記録を</label>
           <ColoredDiv>
-            <label for="storeDataCheck">保存します</label>
+            <label htmlFor="storeDataCheck">保存します</label>
             <input id="storeDataCheck" type="checkbox" name="storeDate" value="on" />
           </ColoredDiv>
           <Button type="button" onClick={resetCookie}>
