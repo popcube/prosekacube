@@ -30,6 +30,8 @@ const ColoredDiv = styled.div`
   padding: 0px 8px;
   margin: 0px 5px;
   font-size: 90%;
+  height: 22px;
+  vertical-align: middle;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, setNewCookie }) => {
