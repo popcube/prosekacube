@@ -26,11 +26,12 @@ const InputDiv = styled.div`
 `;
 
 const ColoredDiv = styled.div`
-  ackground-color: #bcece0;
+  background-color: #bcece0;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, setNewCookie }) => {
   const ifChecked = useRef(null);
+  ifChecked.checked = true;
 
   const [livePoint, setLivePoint] = useState("");
   const [goalPoint, setGoalPoint] = useState(8000);
@@ -38,8 +39,8 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
   useEffect(() => {
     if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
+      // ifChecked.checked = true;
     }
-    ifChecked.checked = true;
   }, []);
 
   const submitData = (e) => {

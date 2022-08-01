@@ -8,6 +8,7 @@ export const TitleText = styled.a`
 export const TextDiv = styled.div`
   padding: 5px 0px;
   align: center;
+  display: flex;
 `;
 
 export const BodyDiv = styled.div`
@@ -16,7 +17,7 @@ export const BodyDiv = styled.div`
 
 export const ImgDiv = styled.div`
   padding: 12px 64px 12px;
-  border: 1px solid #F652A0;
+  border: 1px solid #f652a0;
   border-radius: 10px;
   margin-top: 10px;
 `;
