@@ -29,6 +29,7 @@ const ColoredDiv = styled.div`
   background-color: #bcece0;
   padding: 0px 8px;
   margin: 0px 5px;
+  font-size: 90%;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, setNewCookie }) => {
@@ -47,13 +48,13 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
 
   const submitData = (e) => {
     e.preventDefault();
-    if (e.target.setGoalPoint == "on") {
+    if (e.currentTarget.name == "setGoalPoint") {
       setNewGoalPoint(goalPoint);
     }
-    if (e.target.setLivePoint == "on") {
+    if (e.currentTarget.name == "setLivePoint") {
       setNewLivePoint(livePoint);
     }
-    if (e.target.storeData == "on") {
+    if (ifChecked.checked == true) {
       setNewCookie(true);
     } else {
       setNewCookie(false);
@@ -90,7 +91,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
               type="checkbox"
               name="storeDate"
               value="on"
-              checked={livePoint == "8000" ? true : false}
+              // checked={livePoint == "8000" ? true : false}
               ref={ifChecked}
               onClick={(e) => setNewCookie(e.target.checked)}
             />
@@ -108,14 +109,14 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
             value={goalPoint}
             onChange={(e) => setGoalPoint(e.target.value)}
           />
-          <Button type="submit" name="setGoalPoint" value="on">
+          <Button type="submit" name="setGoalPoint">
             OK
           </Button>
         </TextDiv>
         <TextDiv>
           <label>現在のライブポイント</label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />
-          <Button type="submit" name="setLivePoint" value="on">
+          <Button type="submit" name="setLivePoint">
             OK
           </Button>
           <Button type="button" onClick={setRecordReset}>
