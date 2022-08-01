@@ -48,21 +48,6 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
     }
   }, []);
 
-  const submitData = (e) => {
-    e.preventDefault();
-    if (e.currentTarget.name == "setGoalPoint") {
-      setNewGoalPoint(goalPoint);
-    }
-    if (e.currentTarget.name == "setLivePoint") {
-      setNewLivePoint(livePoint);
-    }
-    if (ifChecked.checked == true) {
-      setNewCookie(true);
-    } else {
-      setNewCookie(false);
-    }
-  };
-
   const submitLivePoint = (e) => {
     e.preventDefault();
     setNewLivePoint(livePoint);
@@ -83,7 +68,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
 
   return (
     <InputDiv>
-      <form onSubmit={submitData}>
+      <form>
         <TextDiv>
           <label>記録を</label>
           <ColoredDiv>
@@ -102,6 +87,8 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
             リセットします
           </Button>
         </TextDiv>
+      </form>
+      <form onSubmit={submitGoalPoint}>
         <TextDiv>
           <label>目標のライブポイント</label>
           <Input
@@ -115,6 +102,8 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
             OK
           </Button>
         </TextDiv>
+      </form>
+      <form onSubmit={submitLivePoint}>
         <TextDiv>
           <label>現在のライブポイント</label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />

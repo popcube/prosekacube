@@ -71,8 +71,8 @@ export default function LivePointGraph({
     }
   }, []);
 
-  console.log(cookies["data"]);
-  console.log(data);
+  // console.log(cookies["data"]);
+  // console.log(data);
 
   const endTime = new Date(year, month + 1, 1).getTime() - 1000;
   const startTime = new Date(year, month, 1).getTime();
