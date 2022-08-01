@@ -13,7 +13,7 @@ const Input = styled.input`
 const Button = styled.button`
   border-radius: 1px;
   padding: 0px 8px;
-  background-color: #BCECE0;
+  background-color: #bcece0;
   margin: 0px 5px;
   height: 22px;
 `;
@@ -25,6 +25,10 @@ const InputDiv = styled.div`
   padding-left: 10px;
 `;
 
+const ColoredDiv = styled.div`
+  ackground-color: #bcece0;
+`;
+
 export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, setNewCookie }) => {
   const [livePoint, setLivePoint] = useState("");
   const [goalPoint, setGoalPoint] = useState(8000);
@@ -33,7 +37,22 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
     if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
     }
-  }, [])
+  }, []);
+
+  const submitData = (e) => {
+    e.preventDefault();
+    if (e.target.setGoalPoint == "on") {
+      setNewGoalPoint(goalPoint);
+    }
+    if (e.target.setLivePoint == "on") {
+      setNewLivePoint(livePoint);
+    }
+    if (e.target.storeData == "on") {
+      setNewCookie(true);
+    } else {
+      setNewCookie(false);
+    }
+  };
 
   const submitLivePoint = (e) => {
     e.preventDefault();
@@ -51,30 +70,40 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
     setRecordReset();
     setGoalPoint(8000);
     setNewGoalPoint(8000);
-  }
+  };
 
   return (
     <InputDiv>
-      <form>
+      <form onSubmit={submitData}>
         <TextDiv>
           <label>記録を</label>
-          <Button type="button" onClick={setNewCookie}>保存</Button>
-          <Button type="button" onClick={resetCookie}>リセット</Button>
-          <label>します</label>
+          <ColoredDiv>
+            <label for="storeDataCheck">保存します</label>
+            <input id="storeDataCheck" type="checkbox" name="storeDate" value="on" />
+          </ColoredDiv>
+          <Button type="button" onClick={resetCookie}>
+            リセットします
+          </Button>
         </TextDiv>
-      </form>
-      <form onSubmit={submitGoalPoint}>
         <TextDiv>
           <label>目標のライブポイント</label>
-          <Input type="number" value={goalPoint} onChange={(e) => setGoalPoint(e.target.value)} />
-          <Button type="submit">OK</Button>
+          <Input
+            type="number"
+            min="0"
+            max="8000"
+            value={goalPoint}
+            onChange={(e) => setGoalPoint(e.target.value)}
+          />
+          <Button type="submit" name="setGoalPoint" value="on">
+            OK
+          </Button>
         </TextDiv>
-      </form>
-      <form onSubmit={submitLivePoint}>
         <TextDiv>
           <label>現在のライブポイント</label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />
-          <Button type="submit">OK</Button>
+          <Button type="submit" name="setLivePoint" value="on">
+            OK
+          </Button>
           <Button type="button" onClick={setRecordReset}>
             リセット
           </Button>
