@@ -12,7 +12,7 @@ const CalcTitleSpan = styled.span`
 
 const CalcSpan = styled.span`
   font-weight: bold;
-  color: #4C5270;
+  color: #4c5270;
 `;
 
 const ZeroPadding = (paramNum) => {
@@ -93,7 +93,7 @@ export default function LivePoint() {
   const [timeObj, setTimeObj] = useState(new Date());
   const [newLivePoint, setNewLivePoint] = useState("");
   const [recordReset, setRecordResetRaw] = useState(false);
-  const [newCookie, setNewCookieRaw] = useState(false);
+  const [newCookie, setNewCookie] = useState(false);
   const [newGoalPoint, setNewGoalPoint] = useState(8000);
   const [cookies, ,] = useCookies();
   useEffect(() => {
@@ -104,9 +104,6 @@ export default function LivePoint() {
   const setRecordReset = () => {
     setRecordResetRaw(!recordReset);
     setNewLivePoint("");
-  };
-  const setNewCookie = () => {
-    setNewCookieRaw(!newCookie);
   };
 
   setInterval(() => {

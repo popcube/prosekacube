@@ -1,6 +1,6 @@
 import { TextDiv } from "./styled_tags";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useCookies } from "react-cookie";
 
 const Input = styled.input`
@@ -30,6 +30,8 @@ const ColoredDiv = styled.div`
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, setNewCookie }) => {
+  const ifChecked = useRef(null);
+
   const [livePoint, setLivePoint] = useState("");
   const [goalPoint, setGoalPoint] = useState(8000);
   const [cookies, , removeCookie] = useCookies();
@@ -37,6 +39,7 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
     if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
     }
+    ifChecked.checked = true;
   }, []);
 
   const submitData = (e) => {
@@ -79,7 +82,14 @@ export const UserInput = ({ setNewLivePoint, setRecordReset, setNewGoalPoint, se
           <label>記録を</label>
           <ColoredDiv>
             <label htmlFor="storeDataCheck">保存します</label>
-            <input id="storeDataCheck" type="checkbox" name="storeDate" value="on" />
+            <input
+              id="storeDataCheck"
+              type="checkbox"
+              name="storeDate"
+              value="on"
+              ref={ifChecked}
+              onClick={(e) => setNewCookie(e.target.checked)}
+            />
           </ColoredDiv>
           <Button type="button" onClick={resetCookie}>
             リセットします

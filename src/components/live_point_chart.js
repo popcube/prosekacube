@@ -91,7 +91,7 @@ export default function LivePointGraph({
   const [nowData, setNowData] = useState(nowDataObj);
 
   useEffect(() => {
-    if (goalPoint != 8000 || data.length != 0) {
+    if (newCookie && (goalPoint != 8000 || data.length != 0)) {
       setCookie("goalPoint", goalPoint, { expires: new Date(year, month + 1, 0) });
       setCookie("data", data, { expires: new Date(year, month + 1, 0) });
     }
