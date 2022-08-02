@@ -103,10 +103,10 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
                 onClick={(e) => setNewCookie(e.target.checked)}
               />
             </ColoredSpan>
+            <Button type="button" onClick={resetCookie}>
+              リセットします
+            </Button>
           </a>
-          <Button type="button" onClick={resetCookie}>
-            リセットします
-          </Button>
         </TextDiv>
       </form>
       <form onSubmit={submitGoalPoint}>
