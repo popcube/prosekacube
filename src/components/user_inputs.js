@@ -42,7 +42,7 @@ const ColoredSpan = styled.span`
 `;
 
 const Label = styled.label`
-  vertical-align: text-top;
+  vertical-align: top;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
