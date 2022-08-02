@@ -31,7 +31,11 @@ const ColoredDiv = styled.div`
   margin: 0px 5px;
   font-size: 90%;
   height: 22px;
-  vertical-align: middle;
+`;
+
+const Label = styled.label`
+  display: flex;
+  align-items: center;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
@@ -51,13 +55,13 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
   const submitLivePoint = (e) => {
     e.preventDefault();
     setNewLivePoint(livePoint);
-	setNewCookie(ifChecked.current.checked);
+    setNewCookie(ifChecked.current.checked);
   };
 
   const submitGoalPoint = (e) => {
     e.preventDefault();
     setNewGoalPoint(goalPoint);
-	setNewCookie(ifChecked.current.checked);
+    setNewCookie(ifChecked.current.checked);
   };
 
   const resetCookie = () => {
@@ -68,7 +72,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
     setNewGoalPoint(8000);
     setLivePoint("");
     setNewLivePoint("");
-	ifChecked.current.checked = false;
+    ifChecked.current.checked = false;
   };
 
   return (
@@ -77,7 +81,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
         <TextDiv>
           <label>記録を</label>
           <ColoredDiv>
-            <label htmlFor="storeDataCheck">保存します</label>
+            <Label htmlFor="storeDataCheck">保存します</Label>
             <input
               id="storeDataCheck"
               type="checkbox"

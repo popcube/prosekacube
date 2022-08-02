@@ -61,28 +61,28 @@ export default function LivePointGraph({
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
-  
-//  console.log(recordDelete);
+
+  //  console.log(recordDelete);
 
   useEffect(() => {
-    if (recordDelete == "all"){
+    if (recordDelete == "all") {
       setData([]);
       setRecordDelete(false);
-    } else if (recordDelete == "1"){
+    } else if (recordDelete == "1") {
       let newData = [...data].slice(0, -1);
       setData(newData);
       if (newCookie) {
         setCookie("data", newData, { expires: new Date(year, month + 1, 0) });
-      }        
+      }
       setRecordDelete(false);
     }
   }, [recordDelete]);
-  
+
   useEffect(() => {
-    if (cookies["goalPoint"] != null){
+    if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
     }
-    if (cookies["data"] != null) {  
+    if (cookies["data"] != null) {
       setData(cookies["data"]);
     }
   }, []);
@@ -109,9 +109,9 @@ export default function LivePointGraph({
   useEffect(() => {
     if (newGoalPoint != goalPoint) {
       setGoalPoint(newGoalPoint);
-      if (newCookie){
+      if (newCookie) {
         setCookie("goalPoint", newGoalPoint, { expires: new Date(year, month + 1, 0) });
-      }		
+      }
     }
   }, [newGoalPoint]);
 
@@ -146,26 +146,26 @@ export default function LivePointGraph({
     if (newLivePoint != "") {
       let newNowTime = new Date().getTime();
       let newData = [
-          ...data,
-          {
-            record: newLivePoint,
-            time: newNowTime,
-          },
-        ].sort((a, b) => {
-          return a.time - b.time;
-        });
+        ...data,
+        {
+          record: newLivePoint,
+          time: newNowTime,
+        },
+      ].sort((a, b) => {
+        return a.time - b.time;
+      });
       setData(newData);
-      if (newCookie){
+      if (newCookie) {
         setCookie("data", newData, { expires: new Date(year, month + 1, 0) });
       }
     }
   }, [newLivePoint]);
   useEffect(() => {
-  if (newCookie) {
-    setCookie("goalPoint", goalPoint, { expires: new Date(year, month + 1, 0) });
-    setCookie("data", data, { expires: new Date(year, month + 1, 0) });	  
-  }
-  },[newCookie]);
+    if (newCookie) {
+      setCookie("goalPoint", goalPoint, { expires: new Date(year, month + 1, 0) });
+      setCookie("data", data, { expires: new Date(year, month + 1, 0) });
+    }
+  }, [newCookie]);
 
   return (
     <ChartDiv>
@@ -201,19 +201,20 @@ export default function LivePointGraph({
         <Legend />
         <Line
           isAnimationActive={false}
-          type="monotone"
+          type="linear"
           data={dataInit}
           dataKey="theory"
-          stroke="#8884d8"
+          stroke="#f652a0"
           dot={{ r: 3 }}
         />
         <Line
-          isAnimationActive={false}
-          type="monotone"
+          isAnimationActive={true}
+          type="linear"
           data={data}
           dataKey="record"
-          stroke="green"
-          dot={{ r: 3 }}
+          stroke="#36eee0"
+          fill="#bcece0"
+          dot={false}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
           <Label
@@ -260,7 +261,7 @@ export default function LivePointGraph({
         />
         <Legend />
         <Line
-          isAnimationActive={false}
+          isAnimationActive={true}
           type="monotone"
           data={data5Init}
           dataKey="theory"
