@@ -43,7 +43,7 @@ const ColoredSpan = styled.span`
 `;
 
 const Label = styled.label`
-  vertical-align: middle;
+  vertical-align: baseline;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
@@ -87,18 +87,20 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
     <InputDiv>
       <form>
         <TextDiv>
-          <a>記録を</a>
-          <ColoredSpan>
-            <Label htmlFor="storeDataCheck">保存します</Label>
-            <input
-              id="storeDataCheck"
-              type="checkbox"
-              name="storeDate"
-              value="on"
-              ref={ifChecked}
-              onClick={(e) => setNewCookie(e.target.checked)}
-            />
-          </ColoredSpan>
+          <a>
+            記録を
+            <ColoredSpan>
+              <Label htmlFor="storeDataCheck">保存します</Label>
+              <input
+                id="storeDataCheck"
+                type="checkbox"
+                name="storeDate"
+                value="on"
+                ref={ifChecked}
+                onClick={(e) => setNewCookie(e.target.checked)}
+              />
+            </ColoredSpan>
+          </a>
           <Button type="button" onClick={resetCookie}>
             リセットします
           </Button>
