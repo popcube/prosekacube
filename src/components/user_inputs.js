@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useCookies } from "react-cookie";
 
 const Input = styled.input`
-  border-radius: 1px;
+  border-radius: 5px;
   padding: 0px 8px;
   width: 50px;
   margin: 0px 5px;
@@ -19,7 +19,6 @@ const Button = styled.button`
 `;
 
 const InputDiv = styled.div`
-  border-radius: 5px;
   align: left;
   border: 1px solid;
   border-radius: 10px;
@@ -43,7 +42,7 @@ const ColoredSpan = styled.span`
 `;
 
 const Label = styled.label`
-  vertical-align: text-bottom;
+  vertical-align: text-top;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
@@ -89,7 +88,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
         <TextDiv>
           <a>記録を</a>
           <ColoredSpan>
-            <label htmlFor="storeDataCheck">保存します</label>
+            <Label htmlFor="storeDataCheck">保存します</Label>
             <input
               id="storeDataCheck"
               type="checkbox"
