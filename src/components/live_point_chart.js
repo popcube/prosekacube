@@ -261,17 +261,19 @@ export default function LivePointGraph({
           dataKey="theory"
           stroke="#f652a0"
           fill="none"
-          dot={{ stroke: "#f652a0", r: 3 }}
+          dot={{ fill: "#f652a0", r: 3 }}
         />
         <Area
           isAnimationActive={false}
           type="monotone"
           data={data}
           dataKey="record"
-          stroke="#36eee0"
+          stroke="#4C5270"
+          fill="#36eee0"
+          fillOpacity={0.3}
           dot={{ r: 3 }}
         />
-        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="none" stroke="#f652a0" />
+        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="f652a0" />
       </AreaChart>
     </ChartDiv>
   );

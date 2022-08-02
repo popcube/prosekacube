@@ -35,6 +35,7 @@ const ColoredDiv = styled.div`
 `;
 
 const Label = styled.label`
+  display: inline-block;
   height: 22px;
   line-height: 22px;
 `;
