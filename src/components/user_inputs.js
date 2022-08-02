@@ -39,10 +39,11 @@ const ColoredSpan = styled.span`
   padding: 0px 8px;
   margin: 0px 5px;
   font-size: 90%;
+  height: 90%;
 `;
 
 const Label = styled.label`
-  vertical-align: top;
+  vertical-align: middle;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
