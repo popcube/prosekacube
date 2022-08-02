@@ -256,7 +256,7 @@ export default function LivePointGraph({
         <Legend />
         <Area
           isAnimationActive={true}
-          type="monotone"
+          type="linear"
           data={data5Init}
           dataKey="theory"
           stroke="#f652a0"
@@ -265,13 +265,13 @@ export default function LivePointGraph({
         />
         <Area
           isAnimationActive={false}
-          type="monotone"
+          type="linear"
           data={data}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"
           fillOpacity={0.3}
-          dot={{ r: 1 }}
+          dot={{ r: 2 }}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#f652a0" stroke="none" />
       </AreaChart>

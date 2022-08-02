@@ -33,6 +33,15 @@ const ColoredDiv = styled.div`
   height: 22px;
 `;
 
+const ColoredSpan = styled.span`
+  display: inline-block;
+  background-color: #bcece0;
+  padding: 0px 8px;
+  margin: 0px 5px;
+  font-size: 90%;
+  height: 22px;
+`;
+
 const Label = styled.label`
   display: inline-block;
   height: 22px;
@@ -82,7 +91,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
       <form>
         <TextDiv>
           <a>記録を</a>
-          <ColoredDiv>
+          <ColoredSpan>
             <Label htmlFor="storeDataCheck">保存します</Label>
             <input
               id="storeDataCheck"
@@ -92,7 +101,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
               ref={ifChecked}
               onClick={(e) => setNewCookie(e.target.checked)}
             />
-          </ColoredDiv>
+          </ColoredSpan>
           <Button type="button" onClick={resetCookie}>
             リセットします
           </Button>
