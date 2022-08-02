@@ -6,13 +6,17 @@ import { UserInput } from "./components/user_inputs";
 import { useCookies } from "react-cookie";
 
 const CalcTitleSpan = styled.span`
+  display: inline-block;
   font-weight: bold;
   color: #f652a0;
+  margin: 0px 7px;
 `;
 
 const CalcSpan = styled.span`
+  display: inline-block;
   font-weight: bold;
   color: #4c5270;
+  margin: 0px 5px;
 `;
 
 const ZeroPadding = (paramNum) => {
@@ -77,9 +81,9 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime, ne
     <div align="left">
       <TextDiv>
         <TitleText>
-          {"ライブポイントを "}
+          {"ライブポイントを"}
           <CalcTitleSpan>{newGoalPoint}</CalcTitleSpan>
-          {" 稼ぐまで"}
+          {"稼ぐまで"}
         </TitleText>
       </TextDiv>
       <TimeDiv />
