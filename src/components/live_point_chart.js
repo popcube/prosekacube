@@ -260,6 +260,7 @@ export default function LivePointGraph({
           stroke="#f652a0"
           fill="none"
         />
+        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#f652a0" stroke="none" />
         <Area
           isAnimationActive={false}
           type="linear"
@@ -270,7 +271,6 @@ export default function LivePointGraph({
           fillOpacity={0.3}
           dot={{ r: 2, fill: "#36eee0", fillOpacity: 1.0 }}
         />
-        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#f652a0" stroke="none" />
       </AreaChart>
     </ChartDiv>
   );

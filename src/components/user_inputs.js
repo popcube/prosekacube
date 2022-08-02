@@ -89,7 +89,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
         <TextDiv>
           <a>記録を</a>
           <ColoredSpan>
-            <Label htmlFor="storeDataCheck">保存します</Label>
+            <label htmlFor="storeDataCheck">保存します</label>
             <input
               id="storeDataCheck"
               type="checkbox"
