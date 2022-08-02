@@ -43,10 +43,7 @@ const ColoredSpan = styled.span`
 `;
 
 const Label = styled.label`
-  display: inline-block;
-  height: 22px;
-  line-height: 22px;
-  vertical-aligh: center;
+  vertical-aligh: baseline;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
