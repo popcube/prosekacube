@@ -90,8 +90,11 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
           <a>
             記録を
             <ColoredSpan>
-              <Label htmlFor="storeDataCheck">保存します</Label>
+              <label style={{ verticalAlign: "middle" }} htmlFor="storeDataCheck">
+                保存します
+              </label>
               <input
+                style={{ verticalAlign: "middle" }}
                 id="storeDataCheck"
                 type="checkbox"
                 name="storeDate"
