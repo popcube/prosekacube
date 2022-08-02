@@ -169,7 +169,7 @@ export default function LivePointGraph({
 
   return (
     <ChartDiv>
-      <LineChart
+      <AreaChart
         width={500}
         height={300}
         margin={{
@@ -199,15 +199,15 @@ export default function LivePointGraph({
           domain={[0, goalPoint * 1.15]}
         />
         <Legend />
-        <Line
-          isAnimationActive={false}
+        <Area
+          isAnimationActive={true}
           type="linear"
           data={dataInit}
           dataKey="theory"
           stroke="#f652a0"
           dot={{ r: 3 }}
         />
-        <Line
+        <Area
           isAnimationActive={true}
           type="linear"
           data={data}
@@ -224,8 +224,8 @@ export default function LivePointGraph({
             position="insideBottomRight"
           />
         </ReferenceDot>
-      </LineChart>
-      <LineChart
+      </AreaChart>
+      <AreaChart
         width={500}
         height={300}
         margin={{
@@ -260,7 +260,7 @@ export default function LivePointGraph({
           ticks={data5Init.map((e) => e.theory)}
         />
         <Legend />
-        <Line
+        <Area
           isAnimationActive={true}
           type="monotone"
           data={data5Init}
@@ -268,7 +268,7 @@ export default function LivePointGraph({
           stroke="#8884d8"
           dot={{ r: 3 }}
         />
-        <Line
+        <Area
           isAnimationActive={false}
           type="monotone"
           data={data}
@@ -277,7 +277,7 @@ export default function LivePointGraph({
           dot={{ r: 3 }}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
-      </LineChart>
+      </AreaChart>
     </ChartDiv>
   );
 }
