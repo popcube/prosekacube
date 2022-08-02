@@ -40,7 +40,6 @@ const ColoredSpan = styled.span`
   padding: 0px 8px;
   margin: 0px 5px;
   font-size: 90%;
-  height: 22px;
 `;
 
 const Label = styled.label`
