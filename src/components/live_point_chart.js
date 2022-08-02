@@ -198,19 +198,17 @@ export default function LivePointGraph({
           dataKey="theory"
           stroke="#f652a0"
           fill="none"
-          dot={{ r: 3 }}
         />
         <Area
           isAnimationActive={true}
           type="linear"
           data={data}
           dataKey="record"
-          stroke="#36eee0"
+          stroke="#4C5270"
           fill="#36eee0"
           fillOpacity={0.3}
-          dot={false}
         />
-        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
+        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#f652a0" stroke="none">
           <Label
             id={0}
             value={`${((livePointDue / goalPoint) * 100).toFixed(1)} %`}
@@ -261,7 +259,6 @@ export default function LivePointGraph({
           dataKey="theory"
           stroke="#f652a0"
           fill="none"
-          dot={{ fill: "#f652a0", r: 3 }}
         />
         <Area
           isAnimationActive={false}

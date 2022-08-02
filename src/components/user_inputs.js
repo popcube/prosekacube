@@ -11,7 +11,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 0px 8px;
   background-color: #bcece0;
   margin: 0px 5px;
@@ -19,6 +19,7 @@ const Button = styled.button`
 `;
 
 const InputDiv = styled.div`
+  border-radius: 5px;
   align: left;
   border: 1px solid;
   border-radius: 10px;
@@ -40,11 +41,11 @@ const ColoredSpan = styled.span`
   margin: 0px 5px;
   font-size: 90%;
   height: 22px;
-  vertical-align: middle;
+  vertical-align: top;
 `;
 
 const Label = styled.label`
-  vertical-align: middle;
+  vertical-align: top;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
