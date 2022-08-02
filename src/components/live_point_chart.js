@@ -19,14 +19,6 @@ const ChartDiv = styled.div`
   padding: 24px 0px;
 `;
 
-const ZeroPadding = (paramNum) => {
-  if (paramNum > 9) {
-    return paramNum.toString();
-  } else {
-    return "0" + paramNum.toString();
-  }
-};
-
 function TimeToString(endTime) {
   return function (time) {
     if (time != endTime) {
@@ -205,6 +197,7 @@ export default function LivePointGraph({
           data={dataInit}
           dataKey="theory"
           stroke="#f652a0"
+          fill={false}
           dot={{ r: 3 }}
         />
         <Area
@@ -212,8 +205,8 @@ export default function LivePointGraph({
           type="linear"
           data={data}
           dataKey="record"
-          stroke="#36eee0"
-          fill="#bcece0"
+          stroke="#bcece0"
+          fill="#36eee0"
           dot={false}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">

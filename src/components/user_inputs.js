@@ -26,6 +26,7 @@ const InputDiv = styled.div`
 `;
 
 const ColoredDiv = styled.div`
+  display: flex;
   background-color: #bcece0;
   padding: 0px 8px;
   margin: 0px 5px;
@@ -34,7 +35,7 @@ const ColoredDiv = styled.div`
 `;
 
 const Label = styled.label`
-  display: flex;
+  flex: 1;
   align-items: center;
 `;
 
@@ -79,7 +80,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
     <InputDiv>
       <form>
         <TextDiv>
-          <label>記録を</label>
+          <a>記録を</a>
           <ColoredDiv>
             <Label htmlFor="storeDataCheck">保存します</Label>
             <input
@@ -89,6 +90,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
               value="on"
               ref={ifChecked}
               onClick={(e) => setNewCookie(e.target.checked)}
+              style={{ flex: "1" }}
             />
           </ColoredDiv>
           <Button type="button" onClick={resetCookie}>
