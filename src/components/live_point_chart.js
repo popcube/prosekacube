@@ -196,7 +196,7 @@ export default function LivePointGraph({
           type="linear"
           data={dataInit}
           dataKey="theory"
-          stroke="#36eee0"
+          stroke="#f652a0"
           fill="none"
           dot={{ r: 3 }}
         />
@@ -205,8 +205,8 @@ export default function LivePointGraph({
           type="linear"
           data={data}
           dataKey="record"
-          stroke="#bcece0"
-          fill="#bcece0"
+          stroke="#36eee0"
+          fill="#36eee0"
           fillOpacity={0.3}
           dot={false}
         />
@@ -260,7 +260,8 @@ export default function LivePointGraph({
           data={data5Init}
           dataKey="theory"
           stroke="#f652a0"
-          dot={{ r: 3 }}
+          fill="none"
+          dot={{ stroke: "#f652a0", r: 3 }}
         />
         <Area
           isAnimationActive={false}

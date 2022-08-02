@@ -26,6 +26,7 @@ const InputDiv = styled.div`
 `;
 
 const ColoredDiv = styled.div`
+  display: inline
   background-color: #bcece0;
   padding: 0px 8px;
   margin: 0px 5px;
