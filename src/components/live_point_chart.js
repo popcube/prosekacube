@@ -196,8 +196,8 @@ export default function LivePointGraph({
           type="linear"
           data={dataInit}
           dataKey="theory"
-          stroke="#f652a0"
-          fill={false}
+          stroke="#36eee0"
+          fill="none"
           dot={{ r: 3 }}
         />
         <Area
@@ -206,7 +206,8 @@ export default function LivePointGraph({
           data={data}
           dataKey="record"
           stroke="#bcece0"
-          fill="#36eee0"
+          fill="#bcece0"
+          fillOpacity={0.3}
           dot={false}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none">
@@ -258,7 +259,7 @@ export default function LivePointGraph({
           type="monotone"
           data={data5Init}
           dataKey="theory"
-          stroke="#8884d8"
+          stroke="#f652a0"
           dot={{ r: 3 }}
         />
         <Area
@@ -266,10 +267,10 @@ export default function LivePointGraph({
           type="monotone"
           data={data}
           dataKey="record"
-          stroke="green"
+          stroke="#36eee0"
           dot={{ r: 3 }}
         />
-        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#8884d8" stroke="none" />
+        <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="none" stroke="#f652a0" />
       </AreaChart>
     </ChartDiv>
   );

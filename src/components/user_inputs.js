@@ -26,7 +26,6 @@ const InputDiv = styled.div`
 `;
 
 const ColoredDiv = styled.div`
-  display: flex;
   background-color: #bcece0;
   padding: 0px 8px;
   margin: 0px 5px;
@@ -35,8 +34,8 @@ const ColoredDiv = styled.div`
 `;
 
 const Label = styled.label`
-  flex: 1;
-  align-items: center;
+  height: 22px;
+  line-height: 22px;
 `;
 
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
@@ -90,7 +89,6 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
               value="on"
               ref={ifChecked}
               onClick={(e) => setNewCookie(e.target.checked)}
-              style={{ flex: "1" }}
             />
           </ColoredDiv>
           <Button type="button" onClick={resetCookie}>
