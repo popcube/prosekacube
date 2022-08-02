@@ -271,7 +271,7 @@ export default function LivePointGraph({
           stroke="#4C5270"
           fill="#36eee0"
           fillOpacity={0.3}
-          dot={{ r: 2, fill: "#36eee0" }}
+          dot={{ r: 2, fill: "#36eee0", fillOpacity: 1.0 }}
         />
         <ReferenceDot x={nowData.time} y={nowData.theory} r={3} fill="#f652a0" stroke="none" />
       </AreaChart>
