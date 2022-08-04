@@ -214,6 +214,7 @@ export default function LivePointGraph({
             value={`${((livePointDue / goalPoint) * 100).toFixed(1)} %`}
             offset={10}
             position="insideBottomRight"
+            style={{ fontSize: "80%", fill: "#f652a0" }}
           />
         </ReferenceDot>
       </AreaChart>
