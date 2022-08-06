@@ -250,6 +250,7 @@ export default function LivePointGraph({
             data5Init[data5Init.length - 1].theory +
               (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
           ]}
+          allowDataOverflow={true}
           tickFormatter={(e) => `${e.toFixed(0)} pt`}
           ticks={data5Init.map((e) => e.theory)}
         />
