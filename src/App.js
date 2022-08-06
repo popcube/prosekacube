@@ -45,8 +45,6 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 64px 0;
-  margin-right: 20px;
-  margin-bottom: 20px;
 `;
 
 function App() {

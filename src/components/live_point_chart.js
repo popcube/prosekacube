@@ -159,6 +159,17 @@ export default function LivePointGraph({
     }
   }, [newCookie]);
 
+  // delete from here
+  const tempData = data.reduce((acc, cur) => {
+    if (acc.length == 0){
+      return [cur];
+    }
+    if (new Date(acc[acc.length-1].time).getDate() != new Date(cur.time).getDate()){
+      acc.push(cur);
+    }
+    return acc;
+  },[])
+
   return (
     <ChartDiv>
       <AreaChart
@@ -202,7 +213,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={true}
           type="linear"
-          data={data}
+          data={tempData}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"
@@ -266,7 +277,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={false}
           type="linear"
-          data={data}
+          data={tempData}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"
