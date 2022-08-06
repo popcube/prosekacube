@@ -235,6 +235,7 @@ export default function LivePointGraph({
           type="number"
           stroke="black"
           domain={[data5StartTimeRaw, data5EndTimeRaw]}
+          allowDataOverflow={true}
           tickFormatter={TimeToString(endTime)}
           ticks={data5Init.map((e) => e.time)}
         />
