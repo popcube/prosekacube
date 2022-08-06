@@ -213,7 +213,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={true}
           type="linear"
-          data={Data}
+          data={data}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"
@@ -277,7 +277,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={false}
           type="linear"
-          data={Data}
+          data={data}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"
