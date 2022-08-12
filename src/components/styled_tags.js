@@ -22,6 +22,28 @@ export const ImgDiv = styled.div`
   margin-top: 10px;
 `;
 
+export const Input = styled.input`
+  border-radius: 5px;
+  padding: 0px 8px;
+  width: 50px;
+  margin: 0px 5px;
+`;
+
+export const Button = styled.button`
+  border-radius: 5px;
+  padding: 0px 8px;
+  background-color: #bcece0;
+  margin: 0px 5px;
+  height: 22px;
+`;
+
+export const InputDiv = styled.div`
+  align: left;
+  border: 1px solid #f652a0;
+  border-radius: 10px;
+  padding-left: 10px;
+`;
+
 export const ImgContainer = ({ src, title, alt, latest }) => {
   return (
     <ImgDiv style={latest ? {} : { border: "1px solid #4C5270" }}>

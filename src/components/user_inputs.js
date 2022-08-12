@@ -1,37 +1,8 @@
-import { TextDiv } from "./styled_tags";
+import { TextDiv, Input, InputDiv, Button } from "./styled_tags";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import { useCookies } from "react-cookie";
-
-const Input = styled.input`
-  border-radius: 5px;
-  padding: 0px 8px;
-  width: 50px;
-  margin: 0px 5px;
-`;
-
-const Button = styled.button`
-  border-radius: 5px;
-  padding: 0px 8px;
-  background-color: #bcece0;
-  margin: 0px 5px;
-  height: 22px;
-`;
-
-const InputDiv = styled.div`
-  align: left;
-  border: 1px solid;
-  border-radius: 10px;
-  padding-left: 10px;
-`;
-
-const ColoredDiv = styled.div`
-  background-color: #bcece0;
-  padding: 0px 8px;
-  margin: 0px 5px;
-  font-size: 90%;
-  height: 22px;
-`;
+import { ModalResetConfirm } from "./modal";
 
 const ColoredSpan = styled.span`
   display: inline-block;
@@ -52,6 +23,8 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
   const [livePoint, setLivePoint] = useState("");
   const [goalPoint, setGoalPoint] = useState(8000);
   const [cookies, , removeCookie] = useCookies();
+  const [resetConfirm, setResetConfirm] = useState(false);
+
   useEffect(() => {
     if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
@@ -81,6 +54,8 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
     setLivePoint("");
     setNewLivePoint("");
     ifChecked.current.checked = false;
+
+    setResetConfirm(false);
   };
 
   return (
@@ -103,7 +78,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
                 onClick={(e) => setNewCookie(e.target.checked)}
               />
             </ColoredSpan>
-            <Button type="button" onClick={resetCookie}>
+            <Button type="button" onClick={() => setResetConfirm(true)}>
               リセットします
             </Button>
           </a>
@@ -136,6 +111,10 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
           </Button>
         </TextDiv>
       </form>
+      {
+        resetConfirm &&
+        <ModalResetConfirm confirm={resetCookie} cancel={() => setResetConfirm(false)} />
+      }
     </InputDiv>
   );
 };
