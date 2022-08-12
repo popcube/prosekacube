@@ -23,7 +23,9 @@ export const ImgDiv = styled.div`
 `;
 
 export const Input = styled.input`
-  border-radius: 5px;
+  border-width: 1px;
+  border-color: #4C5270;
+  border-style: none none solid;
   padding: 0px 8px;
   width: 50px;
   margin: 0px 5px;
@@ -31,7 +33,9 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   border-radius: 5px;
+  border: 2px outset #4C5270;
   padding: 0px 8px;
+  color: black;
   background-color: #bcece0;
   margin: 0px 5px;
   height: 22px;

@@ -23,7 +23,7 @@ const Container = styled.div`
   padding: 12px 18px;
   color: #F652A0;
   background-color: #FFFFFF;
-  border: 1px solid black;
+  border: 2px solid #4C5270;
 `;
 
 const ButtonWrapper = styled.div`
