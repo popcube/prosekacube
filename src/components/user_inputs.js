@@ -1,4 +1,4 @@
-import { TextDiv, Input, InputDiv, Button } from "./styled_tags";
+import { TextDiv, Input, InputDiv, Button, ActionText } from "./styled_tags";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import { useCookies } from "react-cookie";
@@ -65,9 +65,9 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
           <a>
             記録を
             <ColoredSpan>
-              <label style={{ verticalAlign: "middle" }} htmlFor="storeDataCheck">
+              <Label style={{ verticalAlign: "middle" }} htmlFor="storeDataCheck">
                 保存します
-              </label>
+              </Label>
               <input
                 style={{ verticalAlign: "middle" }}
                 id="storeDataCheck"
@@ -81,12 +81,15 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
             <Button type="button" onClick={() => setResetConfirm(true)}>
               リセットします
             </Button>
+            {/* <ActionText style={{ display: "inline" }}>
+              リセットしました
+            </ActionText> */}
           </a>
         </TextDiv>
       </form>
       <form onSubmit={submitGoalPoint}>
         <TextDiv>
-          <label>目標のライブポイント</label>
+          <Label>目標のライブポイント</Label>
           <Input
             type="number"
             min="0"
@@ -101,7 +104,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
       </form>
       <form onSubmit={submitLivePoint}>
         <TextDiv>
-          <label>現在のライブポイント</label>
+          <Label>現在のライブポイント</Label>
           <Input type="number" value={livePoint} onChange={(e) => setLivePoint(e.target.value)} />
           <Button type="submit" name="setLivePoint">
             OK

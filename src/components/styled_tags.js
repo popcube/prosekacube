@@ -32,14 +32,18 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  border-radius: 5px;
-  border: 2px outset #4C5270;
+  border-radius: 11px;
+  border: 2px solid #36EEE0;
   padding: 0px 8px;
   color: black;
   background-color: #bcece0;
   margin: 0px 5px;
   height: 22px;
 `;
+
+export const ActionText = styled.a`
+  color: #f652a0;
+`
 
 export const InputDiv = styled.div`
   align: left;
