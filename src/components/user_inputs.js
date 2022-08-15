@@ -47,8 +47,8 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
 
   const resetCookie = () => {
     ifChecked.current.checked = false;
-    removeCookie("goalPoint", { path: '/' });
-    removeCookie("data", { path: '/' });
+    removeCookie("goalPoint", { path: '/prosekacube/' });
+    removeCookie("data", { path: '/prosekacube/' });
     setRecordDelete("all");
     setGoalPoint(8000);
     setNewGoalPoint(8000);
