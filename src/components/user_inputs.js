@@ -46,14 +46,15 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
   };
 
   const resetCookie = () => {
-    removeCookie("goalPoint");
-    removeCookie("data");
+    ifChecked.current.checked = false;
+    removeCookie("goalPoint", { path: '/' });
+    removeCookie("data", { path: '/' });
     setRecordDelete("all");
     setGoalPoint(8000);
     setNewGoalPoint(8000);
     setLivePoint("");
     setNewLivePoint("");
-    ifChecked.current.checked = false;
+
 
     setResetConfirm(false);
   };

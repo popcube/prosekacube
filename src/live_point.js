@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { TextDiv, TitleText } from "./components/styled_tags";
 import { useEffect, useState } from "react";
-import LivePointGraph from "./components/live_point_chart";
+import LivePointGraph, { JSTOffset } from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
 import { useCookies } from "react-cookie";
 
@@ -94,7 +94,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime, ne
 };
 
 export default function LivePoint() {
-  const [timeObj, setTimeObj] = useState(new Date());
+  const [timeObj, setTimeObj] = useState(new Date(Date.now() + JSTOffset));
   const [newLivePoint, setNewLivePoint] = useState("");
   const [recordDelete, setRecordDelete] = useState(false);
   const [newCookie, setNewCookie] = useState(false);
@@ -106,10 +106,6 @@ export default function LivePoint() {
     }
   }, []);
 
-  setInterval(() => {
-    setTimeObj(new Date());
-  }, 1000);
-
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
@@ -117,6 +113,16 @@ export default function LivePoint() {
   const endTime = new Date(year, month + 1, 1).getTime() - 1000;
   const startTime = new Date(year, month, 1).getTime();
   const nowTime = timeObj.getTime();
+
+
+  setInterval(() => {
+    setTimeObj(new Date(Date.now() + JSTOffset));
+
+    // tracking line chart debugging on Date
+    // setTimeObj(new Date(endTime));
+    // setTimeObj(new Date(startTime));
+  }, 1000);
+
 
   return (
     <div>

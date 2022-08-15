@@ -14,10 +14,16 @@ import styled from "styled-components";
 import { useCookies } from "react-cookie";
 
 const dayMs = 24 * 60 * 60 * 1000;
+export const JSTOffset = (new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000;
 
 const ChartDiv = styled.div`
   padding: 24px 0px;
 `;
+
+function CookieExpiration(year, month) {
+  const endTimeJST = new Date(year, month + 1, 1).getTime();
+  return new Date(endTimeJST - JSTOffset);
+}
 
 function TimeToString(endTime) {
   return function (time) {
@@ -44,8 +50,6 @@ export default function LivePointGraph({
   newGoalPoint,
   newCookie,
 }) {
-  // nowTime = startTime;
-  // nowTime = endTime;
 
   const [cookies, setCookie, removeCookie] = useCookies();
   const [goalPoint, setGoalPoint] = useState(8000);
@@ -53,8 +57,7 @@ export default function LivePointGraph({
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
-
-  //  console.log(recordDelete);
+  const cookieExpirationObj = CookieExpiration(year, month);
 
   useEffect(() => {
     if (recordDelete == "all") {
@@ -64,7 +67,7 @@ export default function LivePointGraph({
       let newData = [...data].slice(0, -1);
       setData(newData);
       if (newCookie) {
-        setCookie("data", newData, { expires: new Date(year, month + 1, 0) });
+        setCookie("data", newData, { path: '/', expires: cookieExpirationObj });
       }
       setRecordDelete(false);
     }
@@ -102,7 +105,7 @@ export default function LivePointGraph({
     if (newGoalPoint != goalPoint) {
       setGoalPoint(newGoalPoint);
       if (newCookie) {
-        setCookie("goalPoint", newGoalPoint, { expires: new Date(year, month + 1, 0) });
+        setCookie("goalPoint", newGoalPoint, { path: '/', expires: cookieExpirationObj });
       }
     }
   }, [newGoalPoint]);
@@ -136,7 +139,7 @@ export default function LivePointGraph({
   useEffect(() => setNowData(nowDataObj), [nowDataObj.theory]);
   useEffect(() => {
     if (newLivePoint != "") {
-      let newNowTime = new Date().getTime();
+      let newNowTime = new Date().getTime() + JSTOffset;
       let newData = [
         ...data,
         {
@@ -148,27 +151,16 @@ export default function LivePointGraph({
       });
       setData(newData);
       if (newCookie) {
-        setCookie("data", newData, { expires: new Date(year, month + 1, 0) });
+        setCookie("data", newData, { path: '/', expires: cookieExpirationObj });
       }
     }
   }, [newLivePoint]);
   useEffect(() => {
     if (newCookie) {
-      setCookie("goalPoint", goalPoint, { expires: new Date(year, month + 1, 0) });
-      setCookie("data", data, { expires: new Date(year, month + 1, 0) });
+      setCookie("goalPoint", goalPoint, { path: '/', expires: cookieExpirationObj });
+      setCookie("data", data, { path: '/', expires: cookieExpirationObj });
     }
   }, [newCookie]);
-
-  // create scarce data
-  // const tempData = data.reduce((acc, cur) => {
-  //   if (acc.length == 0){
-  //     return [cur];
-  //   }
-  //   if (new Date(acc[acc.length-1].time).getDate() != new Date(cur.time).getDate()){
-  //     acc.push(cur);
-  //   }
-  //   return acc;
-  // },[])
 
   return (
     <ChartDiv>
@@ -257,9 +249,9 @@ export default function LivePointGraph({
           type="number"
           domain={[
             data5Init[0].theory -
-              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+            (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
             data5Init[data5Init.length - 1].theory +
-              (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
+            (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
           ]}
           allowDataOverflow={true}
           tickFormatter={(e) => `${e.toFixed(0)} pt`}
