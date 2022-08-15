@@ -48,7 +48,7 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime, ne
 
     return (
       <TextDiv>
-        {"現在時刻は "}
+        {"日本時間は "}
         <CalcSpan>{timeStr}</CalcSpan>
         {" です。"}
       </TextDiv>
