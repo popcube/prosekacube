@@ -115,13 +115,15 @@ export default function LivePoint() {
   const nowTime = timeObj.getTime();
 
 
-  setInterval(() => {
-    setTimeObj(new Date(Date.now() + JSTOffset));
+  useEffect(() => {
+    setTimeout(() => {
+      setTimeObj(new Date(Date.now() + JSTOffset));
 
     // tracking line chart debugging on Date
     // setTimeObj(new Date(endTime));
     // setTimeObj(new Date(startTime));
-  }, 1000);
+    }, 100);
+  }, [timeObj]);
 
 
   return (

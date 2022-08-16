@@ -1,3 +1,4 @@
+// import "../css/user_inputs_inform.css";
 import { TextDiv, Input, InputDiv, Button, ActionText } from "./styled_tags";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
@@ -17,6 +18,14 @@ const Label = styled.label`
   vertical-align: middle;
 `;
 
+const Informer = ({ informText, toDisplay, onAnimationEnd }) => {
+  return (
+    <ActionText toDisplay={toDisplay} onAnimationEnd={onAnimationEnd}>
+      {informText}
+    </ActionText>
+  );
+};
+
 export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, setNewCookie }) => {
   const ifChecked = useRef(null);
 
@@ -25,39 +34,60 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
   const [cookies, , removeCookie] = useCookies();
   const [resetConfirm, setResetConfirm] = useState(false);
 
+  const [informer, setInformer] = useState("");
+
   useEffect(() => {
     if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
       ifChecked.current.checked = true;
       setNewCookie(true);
     }
+    if (cookies["goalPoint"] != null || cookies["data"] != null) {
+      setInformer("ロードしました");
+    }
   }, []);
 
   const submitLivePoint = (e) => {
     e.preventDefault();
     setNewLivePoint(livePoint);
-    setNewCookie(ifChecked.current.checked);
+    if (ifChecked.current.checked) {
+      setNewCookie(true);
+      setInformer("保存しました");
+    }
+    else {
+      setNewCookie(false);
+      setInformer("設定しました");
+    }
   };
 
   const submitGoalPoint = (e) => {
     e.preventDefault();
     setNewGoalPoint(goalPoint);
-    setNewCookie(ifChecked.current.checked);
+    if (ifChecked.current.checked) {
+      setNewCookie(true);
+      setInformer("保存しました");
+    }
+    else {
+      setNewCookie(false);
+      setInformer("設定しました");
+    }
   };
 
   const resetCookie = () => {
     ifChecked.current.checked = false;
-    removeCookie("goalPoint", { path: '/prosekacube/' });
-    removeCookie("data", { path: '/prosekacube/' });
+    removeCookie("goalPoint", { path: '/' });
+    removeCookie("data", { path: '/' });
     setRecordDelete("all");
     setGoalPoint(8000);
     setNewGoalPoint(8000);
     setLivePoint("");
     setNewLivePoint("");
-
+    setInformer("リセットしました");
 
     setResetConfirm(false);
   };
+
+  // console.log(informer);
 
   return (
     <InputDiv>
@@ -76,15 +106,26 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
                 name="storeDate"
                 value="on"
                 ref={ifChecked}
-                onClick={(e) => setNewCookie(e.target.checked)}
+                onClick={(e) => {
+                  if (e.target.checked) {
+                    setNewCookie(true);
+                    setInformer("保存しました");
+                  }
+                  else {
+                    setNewCookie(false);
+                  }
+                }}
               />
             </ColoredSpan>
             <Button type="button" onClick={() => setResetConfirm(true)}>
               リセットします
             </Button>
-            {/* <ActionText style={{ display: "inline" }}>
-              リセットしました
-            </ActionText> */}
+            <ActionText
+              toDisplay={informer.length != 0}
+              onAnimationEnd={() => setInformer("")}
+            >
+              {informer}
+            </ActionText>
           </a>
         </TextDiv>
       </form>

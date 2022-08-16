@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes} from "styled-components";
 
 export const TitleText = styled.a`
   font-size: 150%;
@@ -41,9 +41,23 @@ export const Button = styled.button`
   height: 22px;
 `;
 
-export const ActionText = styled.a`
+const toFadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+export const ActionText = styled.span`
   color: #f652a0;
-`
+  opacity: 0;
+  animation: ${props => props.toDisplay ? toFadeOut : "none"} 2s;
+`;
 
 export const InputDiv = styled.div`
   align: left;
