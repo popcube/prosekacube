@@ -67,7 +67,7 @@ export default function LivePointGraph({
       let newData = [...data].slice(0, -1);
       setData(newData);
       if (newCookie) {
-        setCookie("data", newData, { path: '/', expires: cookieExpirationObj });
+        setCookie("data", newData, { path: '/prosekacube', expires: cookieExpirationObj });
       }
       setRecordDelete(false);
     }
@@ -102,7 +102,7 @@ export default function LivePointGraph({
     if (newGoalPoint != goalPoint) {
       setGoalPoint(newGoalPoint);
       if (newCookie) {
-        setCookie("goalPoint", newGoalPoint, { path: '/', expires: cookieExpirationObj });
+        setCookie("goalPoint", newGoalPoint, { path: '/prosekacube', expires: cookieExpirationObj });
       }
     }
   }, [newGoalPoint]);
@@ -148,14 +148,14 @@ export default function LivePointGraph({
       });
       setData(newData);
       if (newCookie) {
-        setCookie("data", newData, { path: '/', expires: cookieExpirationObj });
+        setCookie("data", newData, { path: '/prosekacube', expires: cookieExpirationObj });
       }
     }
   }, [newLivePoint]);
   useEffect(() => {
     if (newCookie) {
-      setCookie("goalPoint", goalPoint, { path: '/', expires: cookieExpirationObj });
-      setCookie("data", data, { path: '/', expires: cookieExpirationObj });
+      setCookie("goalPoint", goalPoint, { path: '/prosekacube', expires: cookieExpirationObj });
+      setCookie("data", data, { path: '/prosekacube', expires: cookieExpirationObj });
     }
   }, [newCookie]);
 
