@@ -87,6 +87,18 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
     setResetConfirm(false);
   };
 
+  const resetOnePoint = () => {
+    setRecordDelete("1");
+    if (ifChecked.current.checked) {
+      setNewCookie(true);
+      setInformer("保存しました");
+    }
+    else {
+      setNewCookie(false);
+      setInformer("削除しました");
+    }
+  };
+
   // console.log(informer);
 
   return (
@@ -151,7 +163,7 @@ export const UserInput = ({ setNewLivePoint, setRecordDelete, setNewGoalPoint, s
           <Button type="submit" name="setLivePoint">
             OK
           </Button>
-          <Button type="button" onClick={() => setRecordDelete("1")}>
+          <Button type="button" onClick={resetOnePoint}>
             一つ削除
           </Button>
         </TextDiv>
