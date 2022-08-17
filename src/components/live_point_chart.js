@@ -83,7 +83,7 @@ export default function LivePointGraph({
 
     // ToBeDeleted on Sep. 2022
     return (() => {
-      removeCookie("data", { path: '/prosekacube' });
+      removeCookie("data", { path: '/prosekacube/' });
       removeCookie("goalPoint", { path: '/prosekacube/' });
       removeCookie("data", { path: '/' });
       removeCookie("goalPoint", { path: '/' });
