@@ -80,6 +80,15 @@ export default function LivePointGraph({
     if (cookies["data"] != null) {
       setData(cookies["data"]);
     }
+
+    // ToBeDeleted on Sep. 2022
+    return (() => {
+      removeCookie("data", { path: '/prosekacube' });
+      removeCookie("goalPoint", { path: '/prosekacube/' });
+      removeCookie("data", { path: '/' });
+      removeCookie("goalPoint", { path: '/' });
+    });
+
   }, []);
 
   const endTime = new Date(year, month + 1, 1).getTime() - 1000;
