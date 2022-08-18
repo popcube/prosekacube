@@ -14,14 +14,17 @@ import styled from "styled-components";
 import { useCookies } from "react-cookie";
 
 const dayMs = 24 * 60 * 60 * 1000;
-export const JSTOffset = (new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000;
+const localTimeOffset = new Date().getTimezoneOffset() * 60 * 1000;
+export const JSTOffset = localTimeOffset + 9 * 60 * 60 * 1000;
 
 const ChartDiv = styled.div`
   padding: 24px 0px;
 `;
 
-function CookieExpiration(year, month) {
+export function CookieExpiration(year, month) {
   const endTimeJST = new Date(year, month + 1, 1).getTime();
+  // console.log(new Date(endTimeJST - JSTOffset));
+  // console.log(JSTOffset / 60 / 60 / 1000);
   return new Date(endTimeJST - JSTOffset);
 }
 
@@ -49,6 +52,7 @@ export default function LivePointGraph({
   setRecordDelete,
   newGoalPoint,
   newCookie,
+  setLatestRecord
 }) {
 
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -113,6 +117,15 @@ export default function LivePointGraph({
       }
     }
   }, [newGoalPoint]);
+
+  useEffect(() => {
+    if (data.length == 0) {
+      setLatestRecord([]);
+    }
+    else {
+      setLatestRecord([data[data.length - 1].time, data[data.length - 1].record]);
+    }
+  }, [data])
 
   var i = 0;
   while (data5StartTimeRaw + i * dayMs < startTime) i++;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextDiv, TitleText } from "./components/styled_tags";
+import { TextDiv, TitleText, CalcSpan } from "./components/styled_tags";
 import { useEffect, useState } from "react";
 import LivePointGraph, { JSTOffset } from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
@@ -12,13 +12,6 @@ const CalcTitleSpan = styled.span`
   margin: 0px 7px;
 `;
 
-const CalcSpan = styled.span`
-  display: inline-block;
-  font-weight: bold;
-  color: #4c5270;
-  margin: 0px 5px;
-`;
-
 const ZeroPadding = (paramNum) => {
   if (paramNum > 9) {
     return paramNum.toString();
@@ -27,33 +20,30 @@ const ZeroPadding = (paramNum) => {
   }
 };
 
-const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime, newGoalPoint }) => {
-  const livePointMillsecond = newGoalPoint / (endTime - startTime);
-  const livePointDue = livePointMillsecond * (nowTime - startTime);
-  const livePointHour = livePointMillsecond * (60 * 60 * 1000);
-  const livePointDay = livePointHour * 24;
+export const TimeSpan = ({ timeObj }) => {
 
   const zeroPadHours = ZeroPadding(timeObj.getHours());
   const zeroPadMinutes = ZeroPadding(timeObj.getMinutes());
   const zeroPadSeconds = ZeroPadding(timeObj.getSeconds());
 
-  const TimeDiv = () => {
-    const timeStr = "YYYY/MM/DD HH:MM:SS"
-      .replace("YYYY", year)
-      .replace("MM", month + 1)
-      .replace("DD", timeObj.getDate())
-      .replace("HH", zeroPadHours)
-      .replace("MM", zeroPadMinutes)
-      .replace("SS", zeroPadSeconds);
+  const timeStr = "YYYY/MM/DD HH:MM:SS"
+    .replace("YYYY", timeObj.getFullYear())
+    .replace("MM", timeObj.getMonth() + 1)
+    .replace("DD", timeObj.getDate())
+    .replace("HH", zeroPadHours)
+    .replace("MM", zeroPadMinutes)
+    .replace("SS", zeroPadSeconds);
 
-    return (
-      <TextDiv>
-        {"日本時間は "}
-        <CalcSpan>{timeStr}</CalcSpan>
-        {" です。"}
-      </TextDiv>
-    );
-  };
+  return (
+    <CalcSpan>{timeStr}</CalcSpan>
+  );
+};
+
+const LivePointResult = ({ timeObj, endTime, startTime, nowTime, newGoalPoint }) => {
+  const livePointMillsecond = newGoalPoint / (endTime - startTime);
+  const livePointDue = livePointMillsecond * (nowTime - startTime);
+  const livePointHour = livePointMillsecond * (60 * 60 * 1000);
+  const livePointDay = livePointHour * 24;
 
   const LivePointDue = () => {
     return (
@@ -86,7 +76,11 @@ const LivePointResult = ({ year, month, timeObj, endTime, startTime, nowTime, ne
           {"稼ぐまで"}
         </TitleText>
       </TextDiv>
-      <TimeDiv />
+      <TextDiv>
+        {"日本時間は "}
+        <TimeSpan timeObj={timeObj} />
+        {" です。"}
+      </TextDiv>
       <LivePointDue />
       <LivePointDueUnit />
     </div>
@@ -99,6 +93,7 @@ export default function LivePoint() {
   const [recordDelete, setRecordDelete] = useState(false);
   const [newCookie, setNewCookie] = useState(false);
   const [newGoalPoint, setNewGoalPoint] = useState(8000);
+  const [latestRecord, setLatestRecord] = useState([]);
   const [cookies, ,] = useCookies();
   useEffect(() => {
     if (cookies["goalPoint"] != null) {
@@ -119,9 +114,9 @@ export default function LivePoint() {
     setTimeout(() => {
       setTimeObj(new Date(Date.now() + JSTOffset));
 
-    // tracking line chart debugging on Date
-    // setTimeObj(new Date(endTime));
-    // setTimeObj(new Date(startTime));
+      // tracking line chart debugging on Date
+      // setTimeObj(new Date(endTime));
+      // setTimeObj(new Date(startTime));
     }, 100);
   }, [timeObj]);
 
@@ -129,8 +124,6 @@ export default function LivePoint() {
   return (
     <div>
       <LivePointResult
-        year={year}
-        month={month}
         timeObj={timeObj}
         endTime={endTime}
         startTime={startTime}
@@ -138,10 +131,13 @@ export default function LivePoint() {
         newGoalPoint={Number(newGoalPoint)}
       />
       <UserInput
+        timeObj={timeObj}
         setNewLivePoint={setNewLivePoint}
         setRecordDelete={setRecordDelete}
         setNewGoalPoint={setNewGoalPoint}
+        newGoalPoint={Number(newGoalPoint)}
         setNewCookie={setNewCookie}
+        latestRecord={latestRecord}
       />
       <div style={{ marginTop: "30px" }}>
         <LivePointGraph
@@ -151,6 +147,7 @@ export default function LivePoint() {
           setRecordDelete={setRecordDelete}
           newCookie={newCookie}
           newGoalPoint={Number(newGoalPoint)}
+          setLatestRecord={setLatestRecord}
         />
       </div>
     </div>
