@@ -5,6 +5,28 @@ import LiveBonus from "./live_bonus";
 import { useState } from "react";
 import styled from "styled-components";
 
+const TitleDiv = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`
+
+const TitleH1 = styled.h1`
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 20px;
+  border: 10px outset #BCECE0;
+  background-color: #BCECE0;
+`
+
+const NoticeP = styled.p`
+  display: inline-block;
+  margin: auto 0 20px auto;
+  padding: 6px 12px;
+  border-width: 1px;
+  border-style: solid none;
+  border-color: #4C5270;
+`
+
 const Header = styled.header`
   justify-content: space-between;
   padding: 24px 64px 0;
@@ -25,7 +47,11 @@ const HeaderLi = styled.li`
   border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
 `
 
-const HeaderStr = "プロセカキューブ";
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 64px 0;
+`;
 
 const Body = ({ content }) => {
   // return <div>some line</div>;
@@ -41,11 +67,7 @@ const Body = ({ content }) => {
   }
 };
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 64px 0;
-`;
+
 
 function App() {
   const [content, setContent] = useState("live_point");
@@ -53,7 +75,14 @@ function App() {
   return (
     <div>
       <Header>
-        <h1>{HeaderStr}</h1>
+        <TitleDiv>
+          <TitleH1>
+            プロセカキューブ
+          </TitleH1>
+          <NoticeP>
+            当サイトはファンが運営しており、公式とは一切関係ありません
+          </NoticeP>
+        </TitleDiv>
         <HeaderUl>
           <HeaderLi focused={content === 'live_point'} onClick={() => setContent("live_point")}>ライブポイント</HeaderLi>
           <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi>
