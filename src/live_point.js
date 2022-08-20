@@ -96,9 +96,15 @@ export default function LivePoint() {
   const [latestRecord, setLatestRecord] = useState([]);
   const [cookies, ,] = useCookies();
   useEffect(() => {
-    if (cookies["goalPoint"] != null) {
+    if (localStorage.getItem("goalPoint") != null) {
+      setNewGoalPoint(localStorage.getItem("goalPoint"));
+    }
+    else if (cookies["goalPoint"] != null) {
       setNewGoalPoint(cookies["goalPoint"]);
     }
+    // if (cookies["goalPoint"] != null) {
+    //   setNewGoalPoint(cookies["goalPoint"]);
+    // }
   }, []);
 
   const year = timeObj.getFullYear();

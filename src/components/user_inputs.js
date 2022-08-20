@@ -63,17 +63,28 @@ export const UserInput = ({
   const [informer, setInformer] = useState("");
 
   useEffect(() => {
-    if (cookies["goalPoint"] != null) {
+
+    if (localStorage.getItem("goalPoint") != null) {
+      setGoalPoint(Number(localStorage.getItem("goalPoint")));
+    }
+    else if (cookies["goalPoint"] != null) {
       setGoalPoint(Number(cookies["goalPoint"]));
     }
-    if (cookies["liveBonus"] != null) {
+
+    if (localStorage.getItem("liveBonus") != null) {
+      setLivePointsPerShow(Number(localStorage.getItem("liveBonus")));
+    }
+    else if (cookies["liveBonus"] != null) {
       setLivePointsPerShow(Number(cookies["liveBonus"]));
     }
-    if (cookies["goalPoint"] != null || cookies["data"] != null || cookies["liveBonus"] != null) {
+
+    if ((cookies["goalPoint"] != null || cookies["data"] != null || cookies["liveBonus"] != null) ||
+      localStorage.getItem("goalPoint") != null || localStorage.getItem("data") != null || localStorage.getItem("liveBonus") != null) {
       ifChecked.current.checked = true;
       setNewCookie(true);
       setInformer("ロードしました");
     }
+
   }, []);
 
   useEffect(() => {
@@ -110,7 +121,8 @@ export const UserInput = ({
   const checkStore = (e) => {
     if (e.target.checked) {
       setNewCookie(true);
-      setCookie("liveBonus", livePointsPerShow, { path: '/prosekacube', expires: cookieExpirationObj });
+      // setCookie("liveBonus", livePointsPerShow, { path: '/prosekacube', expires: cookieExpirationObj });
+      localStorage.setItem("liveBonus", livePointsPerShow);
       setInformer("保存しました");
     }
     else {
@@ -145,7 +157,8 @@ export const UserInput = ({
   const selectLiveBonus = (e) => {
     setLivePointsPerShow(e.target.value);
     if (ifChecked.current.checked) {
-      setCookie("liveBonus", e.target.value, { path: '/prosekacube', expires: cookieExpirationObj });
+      // setCookie("liveBonus", e.target.value, { path: '/prosekacube', expires: cookieExpirationObj });
+      localStorage.setItem("liveBonus", e.target.value);
       setInformer("保存しました");
     }
     else {
@@ -166,6 +179,11 @@ export const UserInput = ({
     removeCookie("liveBonus", { path: '/prosekacube' });
     removeCookie("goalPoint", { path: '/prosekacube' });
     removeCookie("data", { path: '/prosekacube' });
+
+    localStorage.removeItem("liveBonus");
+    localStorage.removeItem("goalPoint");
+    localStorage.removeItem("data");
+
     setInformer("リセットしました");
 
     setResetConfirm(false);
