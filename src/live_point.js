@@ -88,6 +88,7 @@ const LivePointResult = ({ timeObj, endTime, startTime, nowTime, newGoalPoint })
 };
 
 export default function LivePoint() {
+
   const [timeObj, setTimeObj] = useState(new Date(Date.now() + JSTOffset));
   const [newLivePoint, setNewLivePoint] = useState("");
   const [recordDelete, setRecordDelete] = useState(false);

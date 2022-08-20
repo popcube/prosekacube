@@ -14,7 +14,10 @@ import { useEffect, useState, useRef } from "react";
 import { useCookies } from "react-cookie";
 import { ModalResetConfirm } from "./modal";
 import { TimeSpan } from "../live_point";
-import { CookieExpiration } from "./live_point_chart";
+import { CookieExpiration, JSTOffset } from "./live_point_chart";
+import { useSelector, useDispatch } from "react-redux";
+import { goalPointInput } from "../redux/goalPointSlice";
+import { dataInput, dataReset, dataDeleteOnePoint } from "../redux/dataSlice";
 
 const ColoredSpan = styled.span`
   display: inline;
@@ -39,6 +42,11 @@ export const UserInput = ({
   latestRecord,
   newGoalPoint
 }) => {
+
+  const reduxData = useSelector(state => state.data);
+  const dispatch = useDispatch();
+  console.log(reduxData);
+
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const cookieExpirationObj = CookieExpiration(year, month);
@@ -131,6 +139,10 @@ export const UserInput = ({
   };
 
   const submitLivePoint = (e) => {
+    dispatch(dataInput({
+      time: new Date().getTime() + JSTOffset,
+      record: livePoint
+    }));
     ifPointButton.current.disabled = true;
     e.preventDefault();
     setNewLivePoint(livePoint);
@@ -143,6 +155,7 @@ export const UserInput = ({
   };
 
   const submitGoalPoint = (e) => {
+    dispatch(goalPointInput(goalPoint));
     ifGoalButton.current.disabled = true;
     e.preventDefault();
     setNewGoalPoint(goalPoint);
@@ -167,14 +180,15 @@ export const UserInput = ({
   };
 
   const resetCookie = () => {
+    dispatch(dataReset());
     ifResetButton.current.diabled = true;
     ifChecked.current.checked = false;
-    setNewCookie(false);
-    setRecordDelete("all");
-    setGoalPoint(8000);
-    setNewGoalPoint(8000);
-    setLivePoint("");
-    setNewLivePoint("");
+    // setNewCookie(false);
+    // setRecordDelete("all");
+    // setGoalPoint(8000);
+    // setNewGoalPoint(8000);
+    // setLivePoint("");
+    // setNewLivePoint("");
 
     removeCookie("liveBonus", { path: '/prosekacube' });
     removeCookie("goalPoint", { path: '/prosekacube' });
@@ -190,6 +204,7 @@ export const UserInput = ({
   };
 
   const resetOnePoint = (e) => {
+    dispatch(dataDeleteOnePoint());
     ifResetOneButton.current.disabled = true;
     setRecordDelete("1");
     setLivePoint("");

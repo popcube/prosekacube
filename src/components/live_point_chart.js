@@ -163,25 +163,25 @@ export default function LivePointGraph({
   );
 
   useEffect(() => setNowData(nowDataObj), [nowDataObj.theory]);
-  useEffect(() => {
-    if (newLivePoint != "") {
-      let newNowTime = new Date().getTime() + JSTOffset;
-      let newData = [
-        ...data,
-        {
-          record: newLivePoint,
-          time: newNowTime,
-        },
-      ].sort((a, b) => {
-        return a.time - b.time;
-      });
-      setData(newData);
-      if (newCookie) {
-        // setCookie("data", newData, { path: '/prosekacube', expires: cookieExpirationObj });
-        localStorage.setItem("data", JSON.stringify(newData));
-      }
-    }
-  }, [newLivePoint]);
+  // useEffect(() => {
+  //   if (newLivePoint != "") {
+  //     let newNowTime = new Date().getTime() + JSTOffset;
+  //     let newData = [
+  //       ...data,
+  //       {
+  //         record: newLivePoint,
+  //         time: newNowTime,
+  //       },
+  //     ].sort((a, b) => {
+  //       return a.time - b.time;
+  //     });
+  //     setData(newData);
+  //     if (newCookie) {
+  //       // setCookie("data", newData, { path: '/prosekacube', expires: cookieExpirationObj });
+  //       localStorage.setItem("data", JSON.stringify(newData));
+  //     }
+  //   }
+  // }, [newLivePoint]);
   useEffect(() => {
     if (newCookie) {
       // setCookie("goalPoint", goalPoint, { path: '/prosekacube', expires: cookieExpirationObj });
