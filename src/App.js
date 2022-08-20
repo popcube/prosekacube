@@ -80,7 +80,7 @@ function App() {
             プロセカキューブ
           </TitleH1>
           <NoticeP>
-            当サイトはファンが運営しており、公式とは一切関係ありません
+            当サイトはファンの運営で、公式とは一切関係がありません
           </NoticeP>
         </TitleDiv>
         <HeaderUl>
