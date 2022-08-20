@@ -4,11 +4,11 @@ export const livePointsPerShow = createSlice({
   name: "livePointsPerShow",
   initialState: 14,
   reducers: {
-    input: (state, action) => action.payload,
-    reset: () => 14
+    livePointsPerShowInput: (state, action) => action.payload,
+    livePointsPerShowReset: () => 14
   }
 })
 
-export const { input, reset } = livePointsPerShow.actions;
+export const { livePointsPerShowInput, livePointsPerShowReset } = livePointsPerShow.actions;
 
 export default livePointsPerShow.reducer;
