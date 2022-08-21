@@ -4,6 +4,14 @@ import { useEffect, useState } from "react";
 import LivePointGraph, { JSTOffset } from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
 import { useCookies } from "react-cookie";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  initialLoad,
+  goalPointInput,
+  dataInput,
+  livePointsPerShowInput,
+  dataReset,
+} from "./redux/livePointTracerSlice";
 
 const CalcTitleSpan = styled.span`
   display: inline-block;
@@ -39,8 +47,10 @@ export const TimeSpan = ({ timeObj }) => {
   );
 };
 
-const LivePointResult = ({ timeObj, endTime, startTime, nowTime, newGoalPoint }) => {
-  const livePointMillsecond = newGoalPoint / (endTime - startTime);
+const LivePointResult = ({ timeObj, endTime, startTime, nowTime }) => {
+  const goalPoint = useSelector(state => state.livePointTracer.goalPoint);
+
+  const livePointMillsecond = goalPoint / (endTime - startTime);
   const livePointDue = livePointMillsecond * (nowTime - startTime);
   const livePointHour = livePointMillsecond * (60 * 60 * 1000);
   const livePointDay = livePointHour * 24;
@@ -72,7 +82,7 @@ const LivePointResult = ({ timeObj, endTime, startTime, nowTime, newGoalPoint })
       <TextDiv>
         <TitleText>
           {"ライブポイントを"}
-          <CalcTitleSpan>{newGoalPoint}</CalcTitleSpan>
+          <CalcTitleSpan>{goalPoint}</CalcTitleSpan>
           {"稼ぐまで"}
         </TitleText>
       </TextDiv>
@@ -88,29 +98,22 @@ const LivePointResult = ({ timeObj, endTime, startTime, nowTime, newGoalPoint })
 };
 
 export default function LivePoint() {
+  const dispatch = useDispatch();
 
   const [timeObj, setTimeObj] = useState(new Date(Date.now() + JSTOffset));
-  const [newLivePoint, setNewLivePoint] = useState("");
-  const [recordDelete, setRecordDelete] = useState(false);
-  const [newCookie, setNewCookie] = useState(false);
-  const [newGoalPoint, setNewGoalPoint] = useState(8000);
-  const [latestRecord, setLatestRecord] = useState([]);
-  const [cookies, ,] = useCookies();
+
   useEffect(() => {
-    if (localStorage.getItem("goalPoint") != null) {
-      setNewGoalPoint(localStorage.getItem("goalPoint"));
-    }
-    else if (cookies["goalPoint"] != null) {
-      setNewGoalPoint(cookies["goalPoint"]);
-    }
-    // if (cookies["goalPoint"] != null) {
-    //   setNewGoalPoint(cookies["goalPoint"]);
-    // }
+
+
+    // // ToBeDeleted on Sep. 2022
+    // removeCookie("data", { path: '/prosekacube/' });
+    // removeCookie("goalPoint", { path: '/prosekacube/' });
+    // removeCookie("data", { path: '/' });
+    // removeCookie("goalPoint", { path: '/' });
   }, []);
 
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
-  const day = timeObj.getDate();
 
   const endTime = new Date(year, month + 1, 1).getTime() - 1000;
   const startTime = new Date(year, month, 1).getTime();
@@ -135,26 +138,13 @@ export default function LivePoint() {
         endTime={endTime}
         startTime={startTime}
         nowTime={nowTime}
-        newGoalPoint={Number(newGoalPoint)}
       />
       <UserInput
         timeObj={timeObj}
-        setNewLivePoint={setNewLivePoint}
-        setRecordDelete={setRecordDelete}
-        setNewGoalPoint={setNewGoalPoint}
-        newGoalPoint={Number(newGoalPoint)}
-        setNewCookie={setNewCookie}
-        latestRecord={latestRecord}
       />
       <div style={{ marginTop: "30px" }}>
         <LivePointGraph
           timeObj={timeObj}
-          newLivePoint={newLivePoint}
-          recordDelete={recordDelete}
-          setRecordDelete={setRecordDelete}
-          newCookie={newCookie}
-          newGoalPoint={Number(newGoalPoint)}
-          setLatestRecord={setLatestRecord}
         />
       </div>
     </div>

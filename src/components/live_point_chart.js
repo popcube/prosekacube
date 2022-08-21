@@ -11,7 +11,7 @@ import {
   Label,
 } from "recharts";
 import styled from "styled-components";
-import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 const dayMs = 24 * 60 * 60 * 1000;
 const localTimeOffset = new Date().getTimezoneOffset() * 60 * 1000;
@@ -21,6 +21,7 @@ const ChartDiv = styled.div`
   padding: 24px 0px;
 `;
 
+// ToBeDeleted
 export function CookieExpiration(year, month) {
   const endTimeJST = new Date(year, month + 1, 1).getTime();
   // console.log(new Date(endTimeJST - JSTOffset));
@@ -47,59 +48,12 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
 
 export default function LivePointGraph({
   timeObj,
-  newLivePoint,
-  recordDelete,
-  setRecordDelete,
-  newGoalPoint,
-  newCookie,
-  setLatestRecord
 }) {
 
-  const [cookies, setCookie, removeCookie] = useCookies();
   const [goalPoint, setGoalPoint] = useState(8000);
-  const [data, setData] = useState([]);
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
-  const cookieExpirationObj = CookieExpiration(year, month);
-
-  useEffect(() => {
-    if (recordDelete == "all") {
-      setData([]);
-      setRecordDelete(false);
-    } else if (recordDelete == "1") {
-      let newData = [...data].slice(0, -1);
-      setData(newData);
-      if (newCookie) {
-        // setCookie("data", newData, { path: '/prosekacube', expires: cookieExpirationObj });
-        localStorage.setItem("data", JSON.stringify(newData));
-      }
-      setRecordDelete(false);
-    }
-  }, [recordDelete]);
-
-  useEffect(() => {
-    if (localStorage.getItem("data") != null) {
-      setData(JSON.parse(localStorage.getItem("data")));
-    }
-    else if (cookies["data"] != null) {
-      setData(cookies["data"]);
-    }
-    // // No need to set goalPoint here. Instead set it in live_point.js
-    // if (cookies["goalPoint"] != null) {
-    //   setGoalPoint(Number(cookies["goalPoint"]));
-    // }
-    // if (cookies["data"] != null) {
-    //   setData(cookies["data"]);
-    // }
-
-    // ToBeDeleted on Sep. 2022
-    removeCookie("data", { path: '/prosekacube/' });
-    removeCookie("goalPoint", { path: '/prosekacube/' });
-    removeCookie("data", { path: '/' });
-    removeCookie("goalPoint", { path: '/' });
-
-  }, []);
 
   const endTime = new Date(year, month + 1, 1).getTime() - 1000;
   const startTime = new Date(year, month, 1).getTime();
@@ -110,31 +64,20 @@ export default function LivePointGraph({
   const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
-  const dataInit = [];
+  const dataInit = [{
+    theory: 0,
+    time: startTime,
+  },
+  {
+    theory: goalPoint,
+    time: endTime,
+  }];
   const nowDataObj = {
     theory: livePointDue,
     time: nowTime,
   };
   const [nowData, setNowData] = useState(nowDataObj);
-
-  useEffect(() => {
-    if (newGoalPoint != goalPoint) {
-      setGoalPoint(newGoalPoint);
-      if (newCookie) {
-        // setCookie("goalPoint", newGoalPoint, { path: '/prosekacube', expires: cookieExpirationObj });
-        localStorage.setItem("goalPoint", newGoalPoint);
-      }
-    }
-  }, [newGoalPoint]);
-
-  useEffect(() => {
-    if (data.length == 0) {
-      setLatestRecord([]);
-    }
-    else {
-      setLatestRecord([data[data.length - 1].time, data[data.length - 1].record]);
-    }
-  }, [data])
+  useEffect(() => setNowData(nowDataObj), [nowDataObj.theory]);
 
   var i = 0;
   while (data5StartTimeRaw + i * dayMs < startTime) i++;
@@ -151,18 +94,7 @@ export default function LivePointGraph({
       time: endTime,
     });
   }
-  dataInit.push(
-    {
-      theory: 0,
-      time: startTime,
-    },
-    {
-      theory: goalPoint,
-      time: endTime,
-    }
-  );
 
-  useEffect(() => setNowData(nowDataObj), [nowDataObj.theory]);
   // useEffect(() => {
   //   if (newLivePoint != "") {
   //     let newNowTime = new Date().getTime() + JSTOffset;
@@ -182,17 +114,6 @@ export default function LivePointGraph({
   //     }
   //   }
   // }, [newLivePoint]);
-  useEffect(() => {
-    if (newCookie) {
-      // setCookie("goalPoint", goalPoint, { path: '/prosekacube', expires: cookieExpirationObj });
-      // setCookie("data", data, { path: '/prosekacube', expires: cookieExpirationObj });
-      if (goalPoint == newGoalPoint) {
-        localStorage.setItem("goalPoint", goalPoint);
-      }
-      localStorage.setItem("data", JSON.stringify(data));
-    }
-  }, [newCookie]);
-
   // console.log(goalPoint);
   // console.log(data);
 
@@ -239,7 +160,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={true}
           type="linear"
-          data={data}
+          data={useSelector(state => state.livePointTracer.data)}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"
@@ -303,7 +224,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={false}
           type="linear"
-          data={data}
+          data={useSelector(state => state.livePointTracer.data)}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"

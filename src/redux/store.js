@@ -1,15 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cookieControlSlice from './cookieControlSlice';
-import dataSlice from './dataSlice';
-import goalPointSlice from './goalPointSlice';
-import livePointsPerShowSlice from './livePointsPerShowSlice';
+import livePointTracerSlice from "./livePointTracerSlice";
 
 const store = configureStore({
+  preloadedState: {
+    livePointTracer: {
+      goalPoint: 8000,
+      data: [],
+      livePointsPerShow: 14,
+      cookieControl: false,
+      info: ""
+    }
+  },
   reducer: {
-    goalPoint: goalPointSlice,
-    data: dataSlice,
-    livePointsPerShow: livePointsPerShowSlice,
-    cookieControl: cookieControlSlice
+    livePointTracer: livePointTracerSlice
   }
 });
 
