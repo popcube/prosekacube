@@ -3,15 +3,7 @@ import { TextDiv, TitleText, CalcSpan } from "./components/styled_tags";
 import { useEffect, useState } from "react";
 import LivePointGraph, { JSTOffset } from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
-import { useCookies } from "react-cookie";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  initialLoad,
-  goalPointInput,
-  dataInput,
-  livePointsPerShowInput,
-  dataReset,
-} from "./redux/livePointTracerSlice";
+import { useSelector } from "react-redux";
 
 const CalcTitleSpan = styled.span`
   display: inline-block;
@@ -98,19 +90,7 @@ const LivePointResult = ({ timeObj, endTime, startTime, nowTime }) => {
 };
 
 export default function LivePoint() {
-  const dispatch = useDispatch();
-
   const [timeObj, setTimeObj] = useState(new Date(Date.now() + JSTOffset));
-
-  useEffect(() => {
-
-
-    // // ToBeDeleted on Sep. 2022
-    // removeCookie("data", { path: '/prosekacube/' });
-    // removeCookie("goalPoint", { path: '/prosekacube/' });
-    // removeCookie("data", { path: '/' });
-    // removeCookie("goalPoint", { path: '/' });
-  }, []);
 
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
@@ -139,9 +119,7 @@ export default function LivePoint() {
         startTime={startTime}
         nowTime={nowTime}
       />
-      <UserInput
-        timeObj={timeObj}
-      />
+      <UserInput />
       <div style={{ marginTop: "30px" }}>
         <LivePointGraph
           timeObj={timeObj}

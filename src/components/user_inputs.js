@@ -11,10 +11,9 @@ import {
 } from "./styled_tags";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
-import { useCookies } from "react-cookie";
 import { ModalResetConfirm } from "./modal";
 import { TimeSpan } from "../live_point";
-import { CookieExpiration, JSTOffset } from "./live_point_chart";
+import { JSTOffset } from "./live_point_chart";
 import { useSelector, useDispatch } from "react-redux";
 import {
   initialLoad,
@@ -41,21 +40,14 @@ const Label = styled.label`
 
 const liveBonusTable = [1, 5, 10, 14, 17, 20, 21, 22, 23, 24, 25];
 
-export const UserInput = ({
-  timeObj,
-}) => {
+export const UserInput = () => {
 
   const dispatch = useDispatch();
   const data = useSelector(state => state.livePointTracer.data);
   const cookieControl = useSelector(state => state.livePointTracer.cookieControl);
   const info = useSelector(state => state.livePointTracer.info);
   const goalPoint = useSelector(state => state.livePointTracer.goalPoint);
-
-  const year = timeObj.getFullYear();
-  const month = timeObj.getMonth();
-  const cookieExpirationObj = CookieExpiration(year, month);
-
-  // console.log(cookieExpirationObj);
+  const livePointsPerShow = useSelector(state => state.livePointTracer.livePointsPerShow)
 
   const ifChecked = useRef(null);
   const ifShowed = useRef(null);
@@ -66,13 +58,9 @@ export const UserInput = ({
 
   const [livePoint, setLivePoint] = useState("");
   const [goalPointForm, setGoalPointForm] = useState(8000);
-  const [cookies, , removeCookie] = useCookies();
   const [resetConfirm, setResetConfirm] = useState(false);
-  const [livePointsPerShow, setLivePointsPerShow] = useState(liveBonusTable[3]);
   const [showDiv2, setShowDiv2] = useState(false);
   const [latestRecordBuffer, setLatetRecordBuffer] = useState([]);
-
-  const [informer, setInformer] = useState("");
 
   useEffect(() => {
     dispatch(initialLoad({
@@ -113,12 +101,6 @@ export const UserInput = ({
           data[data.length - 1].record
         ]);
       }
-      else {
-        setLatetRecordBuffer([]);
-      }
-    }
-    else {
-      setLatetRecordBuffer([]);
     }
   }, [data])
 
@@ -284,7 +266,12 @@ export const UserInput = ({
         <InputDiv2 ref={ifShowed} onTransitionEnd={() => {
           if (data.length == 0) {
             setShowDiv2(false);
-            setLivePointsPerShow(liveBonusTable[3]);
+            dispatch(livePointsPerShowInput({
+              data: liveBonusTable[3],
+              infoSave: "保存しました",
+              infoNoSave: "削除しました"
+            }));
+            setLatetRecordBuffer([]);
           }
         }} >
           <div>
