@@ -11,7 +11,7 @@ import {
   Label,
 } from "recharts";
 import styled from "styled-components";
-import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 const dayMs = 24 * 60 * 60 * 1000;
 const localTimeOffset = new Date().getTimezoneOffset() * 60 * 1000;
@@ -20,13 +20,6 @@ export const JSTOffset = localTimeOffset + 9 * 60 * 60 * 1000;
 const ChartDiv = styled.div`
   padding: 24px 0px;
 `;
-
-export function CookieExpiration(year, month) {
-  const endTimeJST = new Date(year, month + 1, 1).getTime();
-  // console.log(new Date(endTimeJST - JSTOffset));
-  // console.log(JSTOffset / 60 / 60 / 1000);
-  return new Date(endTimeJST - JSTOffset);
-}
 
 function TimeToString(endTime) {
   return function (time) {
@@ -45,61 +38,12 @@ function CurrentDueHOC(startTime, endTime, targetPoint) {
   return (nowTime) => (targetPoint * (nowTime - startTime)) / (endTime - startTime);
 }
 
-export default function LivePointGraph({
-  timeObj,
-  newLivePoint,
-  recordDelete,
-  setRecordDelete,
-  newGoalPoint,
-  newCookie,
-  setLatestRecord
-}) {
+export default function LivePointGraph({ timeObj }) {
+  const goalPoint = Number(useSelector(state => state.livePointTracer.goalPoint));
 
-  const [cookies, setCookie, removeCookie] = useCookies();
-  const [goalPoint, setGoalPoint] = useState(8000);
-  const [data, setData] = useState([]);
   const year = timeObj.getFullYear();
   const month = timeObj.getMonth();
   const day = timeObj.getDate();
-  const cookieExpirationObj = CookieExpiration(year, month);
-
-  useEffect(() => {
-    if (recordDelete == "all") {
-      setData([]);
-      setRecordDelete(false);
-    } else if (recordDelete == "1") {
-      let newData = [...data].slice(0, -1);
-      setData(newData);
-      if (newCookie) {
-        // setCookie("data", newData, { path: '/prosekacube', expires: cookieExpirationObj });
-        localStorage.setItem("data", JSON.stringify(newData));
-      }
-      setRecordDelete(false);
-    }
-  }, [recordDelete]);
-
-  useEffect(() => {
-    if (localStorage.getItem("data") != null) {
-      setData(JSON.parse(localStorage.getItem("data")));
-    }
-    else if (cookies["data"] != null) {
-      setData(cookies["data"]);
-    }
-    // // No need to set goalPoint here. Instead set it in live_point.js
-    // if (cookies["goalPoint"] != null) {
-    //   setGoalPoint(Number(cookies["goalPoint"]));
-    // }
-    // if (cookies["data"] != null) {
-    //   setData(cookies["data"]);
-    // }
-
-    // ToBeDeleted on Sep. 2022
-    removeCookie("data", { path: '/prosekacube/' });
-    removeCookie("goalPoint", { path: '/prosekacube/' });
-    removeCookie("data", { path: '/' });
-    removeCookie("goalPoint", { path: '/' });
-
-  }, []);
 
   const endTime = new Date(year, month + 1, 1).getTime() - 1000;
   const startTime = new Date(year, month, 1).getTime();
@@ -110,31 +54,20 @@ export default function LivePointGraph({
   const data5StartTimeRaw = new Date(year, month, day - 3).getTime();
   const data5EndTimeRaw = new Date(year, month, day + 4).getTime();
   const data5Init = [];
-  const dataInit = [];
+  const dataInit = [{
+    theory: 0,
+    time: startTime,
+  },
+  {
+    theory: goalPoint,
+    time: endTime,
+  }];
   const nowDataObj = {
     theory: livePointDue,
     time: nowTime,
   };
   const [nowData, setNowData] = useState(nowDataObj);
-
-  useEffect(() => {
-    if (newGoalPoint != goalPoint) {
-      setGoalPoint(newGoalPoint);
-      if (newCookie) {
-        // setCookie("goalPoint", newGoalPoint, { path: '/prosekacube', expires: cookieExpirationObj });
-        localStorage.setItem("goalPoint", newGoalPoint);
-      }
-    }
-  }, [newGoalPoint]);
-
-  useEffect(() => {
-    if (data.length == 0) {
-      setLatestRecord([]);
-    }
-    else {
-      setLatestRecord([data[data.length - 1].time, data[data.length - 1].record]);
-    }
-  }, [data])
+  useEffect(() => setNowData(nowDataObj), [nowDataObj.theory]);
 
   var i = 0;
   while (data5StartTimeRaw + i * dayMs < startTime) i++;
@@ -151,50 +84,43 @@ export default function LivePointGraph({
       time: endTime,
     });
   }
-  dataInit.push(
-    {
-      theory: 0,
-      time: startTime,
-    },
-    {
-      theory: goalPoint,
-      time: endTime,
-    }
-  );
 
-  useEffect(() => setNowData(nowDataObj), [nowDataObj.theory]);
-  useEffect(() => {
-    if (newLivePoint != "") {
-      let newNowTime = new Date().getTime() + JSTOffset;
-      let newData = [
-        ...data,
-        {
-          record: newLivePoint,
-          time: newNowTime,
-        },
-      ].sort((a, b) => {
-        return a.time - b.time;
-      });
-      setData(newData);
-      if (newCookie) {
-        // setCookie("data", newData, { path: '/prosekacube', expires: cookieExpirationObj });
-        localStorage.setItem("data", JSON.stringify(newData));
-      }
-    }
-  }, [newLivePoint]);
-  useEffect(() => {
-    if (newCookie) {
-      // setCookie("goalPoint", goalPoint, { path: '/prosekacube', expires: cookieExpirationObj });
-      // setCookie("data", data, { path: '/prosekacube', expires: cookieExpirationObj });
-      if (goalPoint == newGoalPoint) {
-        localStorage.setItem("goalPoint", goalPoint);
-      }
-      localStorage.setItem("data", JSON.stringify(data));
-    }
-  }, [newCookie]);
+  const CustomYAxisTick = ({
+    tickFormatter,
+    verticalAnchor,
+    visibleTicksCount,
+    x,
+    y,
+    ...props
+  }) => {
+    return <text y={y + 4} x={x - 5} {...props} style={{
+      whiteSpace: "nowrap",
+      fontSize: "80%",
+      fontWeight: "bold",
+      fill: "#4c5270",
+    }}>
+      {props.payload.value.toFixed(0)} pt
+    </text>
+  }
 
-  // console.log(goalPoint);
-  // console.log(data);
+  const CustomXAxisTick = ({
+    tickFormatter,
+    verticalAnchor,
+    visibleTicksCount,
+    labelformatter,
+    x,
+    y,
+    ...props
+  }) => {
+    return <text y={y + 15} x={x} {...props} style={{
+      whiteSpace: "nowrap",
+      fontSize: "80%",
+      fontWeight: "bold",
+      fill: "#4c5270",
+    }}>
+      {labelformatter(props.payload.value)}
+    </text>
+  }
 
   return (
     <ChartDiv>
@@ -211,7 +137,7 @@ export default function LivePointGraph({
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           interval={0}
-          tickFormatter={TimeToString(true)}
+          tick={<CustomXAxisTick labelformatter={TimeToString(true)} />}
           ticks={[startTime, endTime]}
           stroke="black"
           dataKey="time"
@@ -220,8 +146,8 @@ export default function LivePointGraph({
         />
         <YAxis
           interval={0}
-          tickFormatter={(e) => `${e.toFixed(0)} pt`}
           ticks={[0, goalPoint]}
+          tick={<CustomYAxisTick />}
           stroke="black"
           dataKey="theory"
           type="number"
@@ -239,7 +165,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={true}
           type="linear"
-          data={data}
+          data={useSelector(state => state.livePointTracer.data)}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"
@@ -273,8 +199,8 @@ export default function LivePointGraph({
           stroke="black"
           domain={[data5StartTimeRaw, data5EndTimeRaw]}
           allowDataOverflow={true}
-          tickFormatter={TimeToString(endTime)}
           ticks={data5Init.map((e) => e.time)}
+          tick={<CustomXAxisTick labelformatter={TimeToString(endTime)} />}
         />
         <YAxis
           interval={0}
@@ -288,8 +214,8 @@ export default function LivePointGraph({
             (data5Init[data5Init.length - 1].theory - data5Init[0].theory) * 0.15,
           ]}
           allowDataOverflow={true}
-          tickFormatter={(e) => `${e.toFixed(0)} pt`}
-          ticks={data5Init.map((e) => e.theory)}
+          ticks={data5Init.map(e => e.theory)}
+          tick={<CustomYAxisTick />}
         />
         <Legend />
         <Area
@@ -303,7 +229,7 @@ export default function LivePointGraph({
         <Area
           isAnimationActive={false}
           type="linear"
-          data={data}
+          data={useSelector(state => state.livePointTracer.data)}
           dataKey="record"
           stroke="#4C5270"
           fill="#36eee0"

@@ -7,14 +7,24 @@ import {
   Button,
   ActionText,
   CalcSpan,
-  Select
+  Select,
 } from "./styled_tags";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
-import { useCookies } from "react-cookie";
 import { ModalResetConfirm } from "./modal";
 import { TimeSpan } from "../live_point";
-import { CookieExpiration } from "./live_point_chart";
+import { JSTOffset } from "./live_point_chart";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  initialLoad,
+  infoSet,
+  goalPointInput,
+  dataInput,
+  dataDeleteOnePoint,
+  livePointsPerShowInput,
+  cookieSet,
+  allReset,
+} from "../redux/livePointTracerSlice";
 
 const ColoredSpan = styled.span`
   display: inline;
@@ -30,20 +40,13 @@ const Label = styled.label`
 
 const liveBonusTable = [1, 5, 10, 14, 17, 20, 21, 22, 23, 24, 25];
 
-export const UserInput = ({
-  timeObj,
-  setNewLivePoint,
-  setRecordDelete,
-  setNewGoalPoint,
-  setNewCookie,
-  latestRecord,
-  newGoalPoint
-}) => {
-  const year = timeObj.getFullYear();
-  const month = timeObj.getMonth();
-  const cookieExpirationObj = CookieExpiration(year, month);
-
-  // console.log(cookieExpirationObj);
+export const UserInput = () => {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.livePointTracer.data);
+  const cookieControl = useSelector((state) => state.livePointTracer.cookieControl);
+  const info = useSelector((state) => state.livePointTracer.info);
+  const goalPoint = useSelector((state) => state.livePointTracer.goalPoint);
+  const livePointsPerShow = useSelector((state) => state.livePointTracer.livePointsPerShow);
 
   const ifChecked = useRef(null);
   const ifShowed = useRef(null);
@@ -53,49 +56,35 @@ export const UserInput = ({
   const ifResetOneButton = useRef(null);
 
   const [livePoint, setLivePoint] = useState("");
-  const [goalPoint, setGoalPoint] = useState(8000);
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [goalPointForm, setGoalPointForm] = useState(8000);
   const [resetConfirm, setResetConfirm] = useState(false);
-  const [livePointsPerShow, setLivePointsPerShow] = useState(liveBonusTable[3]);
   const [showDiv2, setShowDiv2] = useState(false);
   const [latestRecordBuffer, setLatetRecordBuffer] = useState([]);
 
-  const [informer, setInformer] = useState("");
-
   useEffect(() => {
-
-    if (localStorage.getItem("goalPoint") != null) {
-      setGoalPoint(Number(localStorage.getItem("goalPoint")));
-    }
-    else if (cookies["goalPoint"] != null) {
-      setGoalPoint(Number(cookies["goalPoint"]));
-    }
-
-    if (localStorage.getItem("liveBonus") != null) {
-      setLivePointsPerShow(Number(localStorage.getItem("liveBonus")));
-    }
-    else if (cookies["liveBonus"] != null) {
-      setLivePointsPerShow(Number(cookies["liveBonus"]));
-    }
-
-    if ((cookies["goalPoint"] != null || cookies["data"] != null || cookies["liveBonus"] != null) ||
-      localStorage.getItem("goalPoint") != null || localStorage.getItem("data") != null || localStorage.getItem("liveBonus") != null) {
-      ifChecked.current.checked = true;
-      setNewCookie(true);
-      setInformer("ロードしました");
-    }
-
+    dispatch(
+      initialLoad({
+        info: "ロードしました",
+      })
+    );
   }, []);
 
   useEffect(() => {
-    if (latestRecord.length != 0) {
+    ifChecked.current.checked = cookieControl;
+  }, [cookieControl]);
+
+  useEffect(() => {
+    setGoalPointForm(goalPoint);
+  }, [goalPoint]);
+
+  useEffect(() => {
+    if (data.length != 0) {
       setShowDiv2(true);
-    }
-    if (latestRecord.length == 0 && ifShowed.current != null) {
+    } else if (ifShowed.current != null) {
       ifShowed.current.style.opacity = "0";
       ifShowed.current.style.transform = "translateY(-100%)";
     }
-  }, [latestRecord]);
+  }, [data]);
 
   useEffect(() => {
     if (ifShowed.current != null) {
@@ -105,13 +94,15 @@ export const UserInput = ({
   }, [ifShowed.current]);
 
   useEffect(() => {
-    if (latestRecord.length != 0) {
-      setLatetRecordBuffer(latestRecord);
+    if (data != null) {
+      if (data.length > 0) {
+        setLatetRecordBuffer([data[data.length - 1].time, data[data.length - 1].record]);
+      }
     }
-  }, [latestRecord])
+  }, [data]);
 
   const actionTextEnd = () => {
-    setInformer("");
+    dispatch(infoSet(""));
     ifGoalButton.current.disabled = false;
     ifPointButton.current.disabled = false;
     ifResetButton.current.disabled = false;
@@ -119,87 +110,76 @@ export const UserInput = ({
   };
 
   const checkStore = (e) => {
-    if (e.target.checked) {
-      setNewCookie(true);
-      // setCookie("liveBonus", livePointsPerShow, { path: '/prosekacube', expires: cookieExpirationObj });
-      localStorage.setItem("liveBonus", livePointsPerShow);
-      setInformer("保存しました");
-    }
-    else {
-      setNewCookie(false);
-    }
+    dispatch(
+      cookieSet({
+        data: e.target.checked,
+        info: "保存しました",
+      })
+    );
   };
 
   const submitLivePoint = (e) => {
     ifPointButton.current.disabled = true;
+
+    dispatch(
+      dataInput({
+        data: {
+          time: new Date().getTime() + JSTOffset,
+          record: livePoint,
+        },
+        infoSave: "保存しました",
+        infoNoSave: "設定しました",
+      })
+    );
+
     e.preventDefault();
-    setNewLivePoint(livePoint);
-    if (ifChecked.current.checked) {
-      setInformer("保存しました");
-    }
-    else {
-      setInformer("設定しました");
-    }
   };
 
   const submitGoalPoint = (e) => {
     ifGoalButton.current.disabled = true;
+
+    dispatch(
+      goalPointInput({
+        data: goalPointForm,
+        infoSave: "保存しました",
+        infoNoSave: "設定しました",
+      })
+    );
+
     e.preventDefault();
-    setNewGoalPoint(goalPoint);
-    if (ifChecked.current.checked) {
-      setInformer("保存しました");
-    }
-    else {
-      setInformer("設定しました");
-    }
   };
 
   const selectLiveBonus = (e) => {
-    setLivePointsPerShow(e.target.value);
-    if (ifChecked.current.checked) {
-      // setCookie("liveBonus", e.target.value, { path: '/prosekacube', expires: cookieExpirationObj });
-      localStorage.setItem("liveBonus", e.target.value);
-      setInformer("保存しました");
-    }
-    else {
-      setInformer("設定しました");
-    }
+    dispatch(
+      livePointsPerShowInput({
+        data: e.target.value,
+        infoSave: "保存しました",
+        infoNoSave: "設定しました",
+      })
+    );
   };
 
   const resetCookie = () => {
-    ifResetButton.current.diabled = true;
-    ifChecked.current.checked = false;
-    setNewCookie(false);
-    setRecordDelete("all");
-    setGoalPoint(8000);
-    setNewGoalPoint(8000);
-    setLivePoint("");
-    setNewLivePoint("");
+    ifResetButton.current.disabled = true;
 
-    removeCookie("liveBonus", { path: '/prosekacube' });
-    removeCookie("goalPoint", { path: '/prosekacube' });
-    removeCookie("data", { path: '/prosekacube' });
-
-    localStorage.removeItem("liveBonus");
-    localStorage.removeItem("goalPoint");
-    localStorage.removeItem("data");
-
-    setInformer("リセットしました");
+    dispatch(
+      allReset({
+        info: "リセットしました",
+      })
+    );
 
     setResetConfirm(false);
   };
 
   const resetOnePoint = (e) => {
     ifResetOneButton.current.disabled = true;
-    setRecordDelete("1");
-    setLivePoint("");
-    setNewLivePoint("");
-    if (ifChecked.current.checked) {
-      setInformer("保存しました");
-    }
-    else {
-      setInformer("削除しました");
-    }
+
+    dispatch(
+      dataDeleteOnePoint({
+        infoSave: "保存しました",
+        infoNoSave: "設定しました",
+      })
+    );
   };
 
   const challengeLiveDueNum = ([curTime, curPt]) => {
@@ -207,19 +187,18 @@ export const UserInput = ({
     const endTimeDate = new Date(curTimeObj.getFullYear(), curTimeObj.getMonth() + 1, 0).getDate();
     const remainingDate = endTimeDate - curTimeObj.getDate() + 1;
 
-    return Math.min(remainingDate, Math.ceil((newGoalPoint - curPt) / 30));
-  }
+    return Math.min(remainingDate, Math.ceil((goalPoint - curPt) / 30));
+  };
 
   const normalLiveDueNum = ([curTime, curPt]) => {
     const challengeLiveNum = challengeLiveDueNum([curTime, curPt]);
 
-    if (newGoalPoint - curPt <= 30 * challengeLiveNum) {
+    if (goalPoint - curPt <= 30 * challengeLiveNum) {
       return 0;
+    } else {
+      return Math.ceil((goalPoint - curPt - challengeLiveNum * 30) / livePointsPerShow);
     }
-    else {
-      return Math.ceil((newGoalPoint - curPt - challengeLiveNum * 30) / livePointsPerShow);
-    }
-  }
+  };
 
   return (
     <div>
@@ -245,11 +224,8 @@ export const UserInput = ({
               <Button ref={ifResetButton} type="button" onClick={() => setResetConfirm(true)}>
                 リセットします
               </Button>
-              <ActionText
-                toDisplay={informer.length != 0}
-                onAnimationEnd={actionTextEnd}
-              >
-                {informer}
+              <ActionText toDisplay={info.length != 0} onAnimationEnd={actionTextEnd}>
+                {info}
               </ActionText>
             </a>
           </TextDiv>
@@ -261,10 +237,10 @@ export const UserInput = ({
               type="number"
               min="0"
               max="8000"
-              value={goalPoint}
-              onChange={(e) => setGoalPoint(e.target.value)}
+              value={goalPointForm}
+              onChange={(e) => setGoalPointForm(e.target.value)}
             />
-            <Button ref={ifGoalButton} type="submit" name="setGoalPoint">
+            <Button ref={ifGoalButton} type="submit" name="setGoalPointForm">
               OK
             </Button>
           </TextDiv>
@@ -275,7 +251,7 @@ export const UserInput = ({
             <Input
               type="number"
               min="0"
-              max={newGoalPoint}
+              max={goalPoint}
               value={livePoint}
               onChange={(e) => setLivePoint(e.target.value)}
             />
@@ -288,26 +264,38 @@ export const UserInput = ({
           </TextDiv>
         </form>
       </InputDiv>
-      {
-        showDiv2 &&
-        <InputDiv2 ref={ifShowed} onTransitionEnd={() => {
-          if (latestRecord.length == 0) {
-            setShowDiv2(false);
-            setLivePointsPerShow(liveBonusTable[3]);
-          }
-        }} >
+      {showDiv2 && (
+        <InputDiv2
+          ref={ifShowed}
+          onTransitionEnd={() => {
+            if (data.length == 0) {
+              setShowDiv2(false);
+              dispatch(
+                livePointsPerShowInput({
+                  data: liveBonusTable[3],
+                  infoSave: "",
+                  infoNoSave: "",
+                })
+              );
+              setLatetRecordBuffer([]);
+            }
+          }}
+        >
           <div>
             <TextDiv>
               最後の記録は
-              <TimeSpan timeObj={new Date(latestRecordBuffer[0])} />
-              、
+              <TimeSpan timeObj={new Date(latestRecordBuffer[0])} />、
               <CalcSpan>{latestRecordBuffer[1]}</CalcSpan>
               ポイントです
             </TextDiv>
             <TextDiv>
               <Label>ライブボーナス消費設定が</Label>
               <Select name="liveBonusSetting" value={livePointsPerShow} onChange={selectLiveBonus}>
-                {liveBonusTable.map((val, idx) => <option value={val} key={idx}>{idx}</option>)}
+                {liveBonusTable.map((val, idx) => (
+                  <option value={val} key={idx}>
+                    {idx}
+                  </option>
+                ))}
               </Select>
               のとき、目標ポイントは
             </TextDiv>
@@ -320,11 +308,10 @@ export const UserInput = ({
             </TextDiv>
           </div>
         </InputDiv2>
-      }
-      {
-        resetConfirm &&
+      )}
+      {resetConfirm && (
         <ModalResetConfirm confirm={resetCookie} cancel={() => setResetConfirm(false)} />
-      }
+      )}
     </div>
   );
 };
