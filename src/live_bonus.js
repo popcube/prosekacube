@@ -1,4 +1,4 @@
-import { ImgContainer, TextDiv } from "./components/styled_tags"
+import { ImgContainer } from "./components/styled_tags"
 
 import img_1 from "./docs/livebonus_rec1.png";
 import img_2 from "./docs/livebonus_rec2.png";

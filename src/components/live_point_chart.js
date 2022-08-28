@@ -5,7 +5,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
   Legend,
   ReferenceDot,
   Label,
@@ -85,6 +84,7 @@ export default function LivePointGraph({ timeObj }) {
     });
   }
 
+  /* eslint-disable no-unused-vars */
   const CustomYAxisTick = ({
     tickFormatter,
     verticalAnchor,
@@ -102,7 +102,9 @@ export default function LivePointGraph({ timeObj }) {
       {props.payload.value.toFixed(0)} pt
     </text>
   }
+  /* eslint-enable no-unused-vars */
 
+  /* eslint-disable no-unused-vars */
   const CustomXAxisTick = ({
     tickFormatter,
     verticalAnchor,
@@ -121,6 +123,7 @@ export default function LivePointGraph({ timeObj }) {
       {labelformatter(props.payload.value)}
     </text>
   }
+  /* eslint-enable no-unused-vars */
 
   return (
     <ChartDiv>

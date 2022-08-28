@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { TitleDiv, ImgContainer } from "./../components/styled_tags"
+import { ImgContainer } from "./../components/styled_tags"
 
 // python auto-generation part 1 start
 import img_latest from "./../docs/figs/latest/2022_08_15.png";

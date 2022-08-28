@@ -171,7 +171,7 @@ export const UserInput = () => {
     setResetConfirm(false);
   };
 
-  const resetOnePoint = (e) => {
+  const resetOnePoint = () => {
     ifResetOneButton.current.disabled = true;
 
     dispatch(
