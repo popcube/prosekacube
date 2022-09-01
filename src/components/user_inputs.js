@@ -113,7 +113,8 @@ export const UserInput = () => {
     dispatch(
       cookieSet({
         data: e.target.checked,
-        info: "保存しました",
+        infoSave: "保存しました",
+        infoNoSave: "保存解除しました",
       })
     );
   };

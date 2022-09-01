@@ -6,7 +6,7 @@ const initialState = {
   data: [],
   livePointsPerShow: 14,
   cookieControl: false,
-  info: ""
+  info: "",
 };
 
 export const livePointTracerSlice = createSlice({
@@ -14,7 +14,6 @@ export const livePointTracerSlice = createSlice({
   initialState,
 
   reducers: {
-
     initialLoad: (state, action) => {
       let loadFlg = false;
 
@@ -26,11 +25,13 @@ export const livePointTracerSlice = createSlice({
       if (localStorage.getItem("data") != null) {
         const data = JSON.parse(localStorage.getItem("data"));
         if (data.length > 0) {
-          if (new Date(data[data.length - 1].time).getMonth() < new Date(Date.now() + JSTOffset).getMonth()) {
+          if (
+            new Date(data[data.length - 1].time).getMonth() <
+            new Date(Date.now() + JSTOffset).getMonth()
+          ) {
             localStorage.removeItem("data");
             //Object.assign(state, { data: initialState.data });
-          }
-          else {
+          } else {
             Object.assign(state, { data });
             loadFlg = true;
           }
@@ -38,7 +39,9 @@ export const livePointTracerSlice = createSlice({
       }
 
       if (localStorage.getItem("livePointsPerShow") != null) {
-        Object.assign(state, { livePointsPerShow: Number(localStorage.getItem("livePointsPerShow")) });
+        Object.assign(state, {
+          livePointsPerShow: Number(localStorage.getItem("livePointsPerShow")),
+        });
         loadFlg = true;
       }
 
@@ -56,37 +59,29 @@ export const livePointTracerSlice = createSlice({
       if (state.cookieControl) {
         localStorage.setItem("goalPoint", action.payload.data);
         Object.assign(state, { goalPoint: action.payload.data, info: action.payload.infoSave });
-      }
-      else {
+      } else {
         Object.assign(state, { goalPoint: action.payload.data, info: action.payload.infoNoSave });
       }
       return state;
     },
 
     dataInput: (state, action) => {
-      let newData = [
-        ...(state.data),
-        action.payload.data
-      ];
+      let newData = [...state.data, action.payload.data];
       if (state.cookieControl) {
         localStorage.setItem("data", JSON.stringify(newData));
         Object.assign(state, { data: newData, info: action.payload.infoSave });
-
-      }
-      else {
+      } else {
         Object.assign(state, { data: newData, info: action.payload.infoNoSave });
       }
       return state;
     },
 
     dataDeleteOnePoint: (state, action) => {
-      let newData = state.data.length > 0 ? [...(state.data)].slice(0, -1) : state.data;
+      let newData = state.data.length > 0 ? [...state.data].slice(0, -1) : state.data;
       if (state.cookieControl) {
         localStorage.setItem("data", JSON.stringify(newData));
         Object.assign(state, { data: newData, info: action.payload.infoSave });
-
-      }
-      else {
+      } else {
         Object.assign(state, { data: newData, info: action.payload.infoNoSave });
       }
       return state;
@@ -95,10 +90,15 @@ export const livePointTracerSlice = createSlice({
     livePointsPerShowInput: (state, action) => {
       if (state.cookieControl) {
         localStorage.setItem("livePointsPerShow", action.payload.data);
-        Object.assign(state, { livePointsPerShow: action.payload.data, info: action.payload.infoSave });
-      }
-      else {
-        Object.assign(state, { livePointsPerShow: action.payload.data, info: action.payload.infoNoSave });
+        Object.assign(state, {
+          livePointsPerShow: action.payload.data,
+          info: action.payload.infoSave,
+        });
+      } else {
+        Object.assign(state, {
+          livePointsPerShow: action.payload.data,
+          info: action.payload.infoNoSave,
+        });
       }
       return state;
     },
@@ -108,8 +108,17 @@ export const livePointTracerSlice = createSlice({
         localStorage.setItem("goalPoint", state.goalPoint);
         localStorage.setItem("data", JSON.stringify(state.data));
         localStorage.setItem("livePointsPerShow", state.livePointsPerShow);
+        Object.assign(state, {
+          cookieControl: action.payload.data,
+          info: action.payload.infoSave,
+        });
+      } else {
+        Object.assign(state, {
+          cookieControl: action.payload.data,
+          info: action.payload.infoNoSave,
+        });
       }
-      return Object.assign(state, { cookieControl: action.payload.data, info: action.payload.info });
+      return state;
     },
 
     allReset: (state, action) => {
@@ -118,9 +127,8 @@ export const livePointTracerSlice = createSlice({
       localStorage.removeItem("livePointsPerShow");
       return Object.assign({}, initialState, { info: action.payload.info });
     },
-
-  }
-})
+  },
+});
 
 export const {
   initialLoad,
