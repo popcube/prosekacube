@@ -293,7 +293,7 @@ export const UserInput = () => {
               <Label>ライブボーナス消費設定が</Label>
               <Select name="liveBonusSetting" value={livePointsPerShow} onChange={selectLiveBonus}>
                 {liveBonusTable.map((val, idx) => (
-                  <option value={val} key={idx}>
+                  <option value={val} key={idx}> {/*// eslint-disable-line react/no-unknown-property*/}
                     {idx}
                   </option>
                 ))}

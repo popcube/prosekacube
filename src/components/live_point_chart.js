@@ -84,7 +84,7 @@ export default function LivePointGraph({ timeObj }) {
     });
   }
 
-  /* eslint-disable no-unused-vars */
+  /* eslint-disable no-unused-vars, react/no-unknown-property*/
   const CustomYAxisTick = ({
     tickFormatter,
     verticalAnchor,
@@ -102,9 +102,9 @@ export default function LivePointGraph({ timeObj }) {
       {props.payload.value.toFixed(0)} pt
     </text>
   }
-  /* eslint-enable no-unused-vars */
+  /* eslint-enable */
 
-  /* eslint-disable no-unused-vars */
+  /* eslint-disable no-unused-vars, react/no-unknown-property */
   const CustomXAxisTick = ({
     tickFormatter,
     verticalAnchor,
@@ -123,7 +123,7 @@ export default function LivePointGraph({ timeObj }) {
       {labelformatter(props.payload.value)}
     </text>
   }
-  /* eslint-enable no-unused-vars */
+  /* eslint-enable */
 
   return (
     <ChartDiv>

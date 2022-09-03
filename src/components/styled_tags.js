@@ -104,10 +104,10 @@ export const InputDiv2 = styled.div`
 export const ImgContainer = ({ src, title, alt, latest }) => {
   return (
     <ImgDiv style={latest ? {} : { border: "1px solid #4C5270" }}>
-      <div align="left">
+      <div>
         <TitleText style={latest ? {} : { color: "#4C5270" }}>{title}</TitleText>
       </div>
-      <div align="left">
+      <div>
         <img src={src} alt={alt} />
       </div>
     </ImgDiv>

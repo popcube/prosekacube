@@ -31,7 +31,7 @@ const DynamicImgContainers = () => {
 
 export default function MadSkillz() {
   return (
-    <div align="center">
+    <div>
       <ImgContainer latest={true} src={img_latest} title="最新の皆伝称号の対応レベル" alt="最新の皆伝称号の対応レベルのグラフ" />
       <DynamicImgContainers />
     </div>

@@ -70,7 +70,7 @@ const LivePointResult = ({ timeObj, endTime, startTime, nowTime }) => {
   };
 
   return (
-    <div align="left">
+    <div>
       <TextDiv>
         <TitleText>
           {"ライブポイントを"}
