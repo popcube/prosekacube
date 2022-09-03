@@ -201,6 +201,7 @@ export const UserInput = () => {
     }
   };
 
+  /* eslint-disable react/no-unknown-property */
   return (
     <div>
       <InputDiv>
@@ -293,7 +294,7 @@ export const UserInput = () => {
               <Label>ライブボーナス消費設定が</Label>
               <Select name="liveBonusSetting" value={livePointsPerShow} onChange={selectLiveBonus}>
                 {liveBonusTable.map((val, idx) => (
-                  <option value={val} key={idx}> {/*// eslint-disable-line react/no-unknown-property*/}
+                  <option value={val} key={idx}>
                     {idx}
                   </option>
                 ))}
@@ -315,4 +316,5 @@ export const UserInput = () => {
       )}
     </div>
   );
+  /* eslint-enable */
 };
