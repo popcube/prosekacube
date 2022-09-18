@@ -256,6 +256,7 @@ export const UserInput = () => {
               max={goalPoint}
               value={livePoint}
               onChange={(e) => setLivePoint(e.target.value)}
+              autoFocus={true}
             />
             <Button ref={ifPointButton} type="submit" name="setLivePoint">
               OK

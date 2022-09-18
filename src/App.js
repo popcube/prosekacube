@@ -14,8 +14,9 @@ const TitleH1 = styled.h1`
   display: inline-block;
   padding: 5px 10px;
   margin-right: 20px;
-  border: 10px outset #BCECE0;
-  background-color: #BCECE0;
+  border: 10px solid;
+  border-image: linear-gradient(to bottom right, #4C5270, #36EEE0, #BCECE0, #36EEE0) 1;
+  background: linear-gradient(to bottom right, #36EEE0, #BCECE0, #36EEE0, #4C5270);
 `
 
 const NoticeP = styled.p`
