@@ -105,19 +105,19 @@ while read_time(data[data_offset_idx]["release date"]) >= oldest_time and data_o
 
     # print(sum([Mas_data[s] for s in key_data]))
 
-    mad_skillz_dist = [[0 for k in key_data] for j in range(10 + 1)]
+    mad_skillz_dist = [[0 for k in key_data] for j in range(20 + 1)]
     Mas_tot_num = sum([Mas_data[s] for s in key_data])
 
     # テーブル用データ
-    mad_skillz_stats = [["", ""] for i in range(10)]
+    mad_skillz_stats = [["", ""] for i in range(20)]
 
     # 今の場所を指すポインタ　[楽曲レベル、曲数]
     temp_diff_pos = [0, 0]
-    for i in range(11):
+    for i in range(21):
         diff_song_num = 10
         if i == 0:
             diff_song_num *= 3
-        if i == 10:
+        if i == 20:
             diff_song_num = Mas_tot_num + 1
 
         # numbering variable
@@ -166,11 +166,13 @@ while read_time(data[data_offset_idx]["release date"]) >= oldest_time and data_o
                        color=bar_color[0], label="MASTER")
 
     y_offset = [0 for k in key_data]
-    ms_cm = plt.cm.get_cmap("Set3", 12)
-    for i in range(11):
+    # ms_cm_colors = list(plt.cm.get_cmap(
+    #     "Set3", 12).colors) + list(plt.cm.get_cmap("tab10", 10).colors)
+    ms_cm_colors = plt.cm.get_cmap("Set3").colors * 2
+    for i in range(21):
         p[1] = axes[1].bar(key_data, mad_skillz_dist[i],
                            bottom=y_offset, width=0.5,
-                           color=ms_cm.colors[i], label="皆伝称号")
+                           color=ms_cm_colors[i], label="皆伝称号")
         y_offset = [y_offset[j] + mad_skillz_dist[i][j]
                     for j in range(len(key_data))]
 
@@ -190,8 +192,8 @@ while read_time(data[data_offset_idx]["release date"]) >= oldest_time and data_o
     #    axes[i].autoscale()
 
     ms_table = plt.table(cellText=list(zip(*mad_skillz_stats)),
-                         colLabels=range(1, 11),
-                         colColours=ms_cm.colors[1:],
+                         colLabels=range(1, 21),
+                         colColours=ms_cm_colors[1:],
                          rowLabels=["song level", "no. of songs"],
                          bbox=[0, -1.3, 1, 0.7],
                          label="mad skill level")
