@@ -2,6 +2,7 @@ import "./App.css";
 import MadSkillz from "./dynamic/mad_skillz";
 import LivePoint from "./live_point";
 import LiveBonus from "./live_bonus";
+import SongLength from "./song_length";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -63,6 +64,8 @@ const Body = ({ content }) => {
       return <LivePoint />;
     case "live_bonus_calc":
       return <LiveBonus />;
+    case "song_length":
+      return <SongLength />
     default:
       return <div>no button pushed</div>;
   }
@@ -88,6 +91,7 @@ function App() {
           <HeaderLi focused={content === 'live_point'} onClick={() => setContent("live_point")}>ライブポイント</HeaderLi>
           <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi>
           <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi>
+          <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>楽曲の長さ</HeaderLi>
         </HeaderUl>
       </Header>
       <Container>
