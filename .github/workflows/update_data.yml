@@ -54,9 +54,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install fonts-ipaexfont
           pip install matplotlib
-          pip install pillow
-          git config --global user.name ${{ github.actor }}
-          git config --global user.email ${{ secrets.MY_EMAIL }}
+          # pip install pillow
 
       - name: "##### main run #####"
         run: |
@@ -81,12 +79,15 @@ jobs:
           
           echo "script run for $(TZ=JST-9 date +"%Y/%m/%d %H:%M:%S")"
           python ./scripts/difficulty_stats_calc.py $(TZ=JST-9 date +%Y/%m/%d)
-          
+      
+      - name: "##### main run 2 #####"
+        run: |
+          python ./scripts/make_song_length.py
 
       - name: Upload png(s)
         uses: actions/upload-artifact@v3
         with:
-          name: madskillz_req
+          name: fig_folder
           path: ./docs/figs
           
   job3:
@@ -116,7 +117,7 @@ jobs:
       - name: Download figs
         uses: actions/download-artifact@v3
         with:
-          name: madskillz_req
+          name: fig_folder
           path: ./docs/figs
       
       - name: Delete data older than one year ago
