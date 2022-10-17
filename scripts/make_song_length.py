@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import datetime
 import numpy as np
+import statistics as stats
 
 
 def get_timestamp(date):
@@ -80,7 +81,7 @@ for chart_type in ['all', 'latest_month']:
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
 
     plt.gca().set_ylim(0, max(f_seconds) + 30)
-    plt.gca().set_xlabel("時間", fontname="IPAexGothic")
+    plt.gca().set_xlabel("実装時期", fontname="IPAexGothic")
     plt.gca().set_ylabel("秒数", fontname="IPAexGothic")
     plt.gca().grid(True)
 
@@ -121,11 +122,17 @@ for chart_type in ['all', 'latest_month']:
     for label in plt.gca().get_xticklabels(which='major'):
         label.set(rotation=30, horizontalalignment='right')
 
-    plt.gcf().text(0.95, 0.95,
+    plt.gcf().text(0.15, 0.22,
+                   f"平均: {stats.mean(f_seconds):6.2f}秒\n中央値: {stats.median(f_seconds):5.1f}秒\n標準偏差: {stats.stdev(f_seconds):6.2f}秒",
+                   fontname="IPAexGothic",
+                   backgroundcolor="#FFFF66",
+                   ha="left", va="bottom")
+
+    plt.gcf().text(0.95, 0.22,
                    f"latest song\n{f_lines_raw[-1].split(',')[3]}",
                    fontname="IPAexGothic",
                    backgroundcolor="#FFFF66",
-                   ha="right", va="top")
+                   ha="right", va="bottom")
 
     if chart_type == 'all':
         figpath = figfoler + "/song_length_all.png"
