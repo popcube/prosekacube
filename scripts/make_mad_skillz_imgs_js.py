@@ -18,7 +18,7 @@ target_data = ""
 # read png list
 for f in os.listdir("./src/docs/figs"):
     if os.path.isfile(f"./src/docs/figs/{f}"):
-        if not f.startswith("song_length_"):
+        if not f.startswith("song_"):
             png_list.append(f)
 png_list.sort(reverse=True)
 latest_list = os.listdir("./src/docs/figs/latest")
