@@ -80,9 +80,13 @@ jobs:
           echo "script run for $(TZ=JST-9 date +"%Y/%m/%d %H:%M:%S")"
           python ./scripts/difficulty_stats_calc.py $(TZ=JST-9 date +%Y/%m/%d)
       
-      - name: "##### main run 2 #####"
+      - name: "##### make_song_length.py #####"
         run: |
           python ./scripts/make_song_length.py
+        
+      - name: "##### make_song_level.py #####"
+        run: |
+          python ./scripts/make_song_level.py
 
       - name: Upload png(s)
         uses: actions/upload-artifact@v3
