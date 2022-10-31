@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import datetime
+import calendar
 import numpy as np
 import statistics as stats
+import csv
 
 
 def get_timestamp(date):
@@ -20,12 +22,12 @@ figfoler = "./docs/figs"
 f_lines_raw = []
 
 with open(fname, encoding="utf-8") as f:
-    f_lines_raw = f.readlines()
+    f_lines_raw = list(csv.reader(f))
 
 # f_lines_before = [line.split(',')[12] for line in f_lines_raw]
-f_lines_raw.sort(key=lambda x: get_timestamp(x.split(",")[-1]).timestamp())
-f_lines = [line.split(',')[9] for line in f_lines_raw]
-f_timestamps = [get_timestamp(line.split(',')[-1]) for line in f_lines_raw]
+f_lines_raw.sort(key=lambda x: get_timestamp(x[-1]).timestamp())
+f_lines = [line[9] for line in f_lines_raw]
+f_timestamps = [get_timestamp(line[-1]) for line in f_lines_raw]
 f_timestamp_nums = [date.timestamp() for date in f_timestamps]
 
 for chart_type in ['all', 'latest_month']:
@@ -35,6 +37,16 @@ for chart_type in ['all', 'latest_month']:
         year = timestamp_now.year
         month = timestamp_now.month
         day = timestamp_now.day
+
+        # 1月のとき
+        if month == 1:
+            month = 13
+            year -= 1
+
+        # 先月の日数が少ないとき
+        if calendar.monthrange(year, month-1)[1] < day:
+            day = calendar.monthrange(year, month-1)[1]
+
         timestamp_start = datetime.datetime(year, month-1, day)
 
         for idx in range(len(f_timestamps)):
@@ -78,7 +90,7 @@ for chart_type in ['all', 'latest_month']:
 
     max_idx = f_levels.index(max(f_levels))
     min_idx = f_levels.index(min(f_levels))
-    f_names = [line.split(",")[3] for line in f_lines_raw]
+    f_names = [line[3] for line in f_lines_raw]
 
     annot_list = [
         (f_names[min_idx], (f_timestamps[min_idx], f_levels[min_idx])),
@@ -101,7 +113,7 @@ for chart_type in ['all', 'latest_month']:
                    ha="left", va="bottom")
 
     plt.gcf().text(0.95, 0.22,
-                   f"latest song\n{f_lines_raw[-1].split(',')[3]}",
+                   f"latest song\n{f_lines_raw[-1][3]}",
                    fontname="IPAexGothic",
                    backgroundcolor="#FFFF66",
                    ha="right", va="bottom")

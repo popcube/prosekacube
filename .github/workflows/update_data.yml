@@ -13,16 +13,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - name: npm module install
-        run: |
-          npm install request
-          npm install jsdom
-          npm install fs
-          npm install process
+      # - name: npm module install
+      #   run: |
+      #     npm install request
+      #     npm install jsdom
+      #     npm install fs
+      #     npm install process
           
 
+      # - name: Wiki scrape
+      #   run: node scripts/fetch_song_list.js
+
+      - name: intall lib
+        run: |
+          pip install pandas
+          pip install lxml
+          pip install html5lib
+          pip install bs4
+
       - name: Wiki scrape
-        run: node scripts/fetch_song_list.js
+        run: python scripts/fetch_song_list.py    
 
       - name: Upload csv
         uses: actions/upload-artifact@v3
