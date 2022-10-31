@@ -5,6 +5,7 @@
 import datetime
 import os
 import sys
+import csv
 from matplotlib import pyplot as plt
 
 
@@ -39,10 +40,10 @@ csv_key_data = ["No", "default index", "type", "name", "unit", "E", "N", "H", "E
                 "M", "EX notes", "M notes", "time", "BPM", "MV", "MV personnel", "release date"]
 
 with open(fname, "r", encoding='utf-8') as f:
-    data_temp = f.readlines()
+    data_temp = csv.reader(f)
 
     for i, line in enumerate(data_temp):
-        temp_dic = dict(zip(csv_key_data, line.rstrip("\n").split(",")))
+        temp_dic = dict(zip(csv_key_data, line))
 
         if len(temp_dic) != len(csv_key_data):
             print("###ERROR!###", temp_dic)
@@ -52,8 +53,7 @@ with open(fname, "r", encoding='utf-8') as f:
 key_data_max = max([line["M"] for line in data])
 print("key_data_max", key_data_max)
 
-# song difficulty key list 21-34
-# for master, 26-34
+# song difficulty key list
 key_data = [str(i) for i in range(26, 36 + 1)]
 
 # sort data from newest to oldest
@@ -94,8 +94,8 @@ while read_time(data[data_offset_idx]["release date"]) >= oldest_time and data_o
     Mas_data = get_data(data_offset_idx, "M")
     date_text = data[data_offset_idx]["release date"]
     song_text = data[data_offset_idx]["name"]
-    if song_text == "Hello world!":
-        song_text = "Hello,World!"
+    # if song_text == "Hello world!":
+    #     song_text = "Hello,World!"
     print()
     print(date_text, song_text)
 
