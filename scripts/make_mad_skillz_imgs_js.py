@@ -1,4 +1,5 @@
 import os
+import re
 
 import_line = 'import img_num from "./../docs/figs/png";\n'
 import_latest_line = 'import img_latest from "./../docs/figs/latest/png";\n'
@@ -15,10 +16,12 @@ img_containers = []
 latest_list = []
 target_data = ""
 
+re_img = re.compile(r"[0-9]{4}_[0-9]{2}_[0-9]{2}.png")
+
 # read png list
 for f in os.listdir("./src/docs/figs"):
     if os.path.isfile(f"./src/docs/figs/{f}"):
-        if not f.startswith("song_"):
+        if re_img.match(f):
             png_list.append(f)
 png_list.sort(reverse=True)
 latest_list = os.listdir("./src/docs/figs/latest")
