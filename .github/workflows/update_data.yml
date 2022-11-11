@@ -13,17 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      # - name: npm module install
-      #   run: |
-      #     npm install request
-      #     npm install jsdom
-      #     npm install fs
-      #     npm install process
-          
-
-      # - name: Wiki scrape
-      #   run: node scripts/fetch_song_list.js
-
       - name: intall lib
         run: |
           pip install pandas
@@ -56,15 +45,16 @@ jobs:
           name: songlist
           path: ./docs
 
-      - name: Setup Python
-        uses: actions/setup-python@v3
+      - name: Python Setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
       - name: Other setups
         run: |
           sudo apt-get update
           sudo apt-get install fonts-ipaexfont
           pip install matplotlib
-          # pip install pillow
 
       - name: "##### main run #####"
         run: |
