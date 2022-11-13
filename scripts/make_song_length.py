@@ -25,7 +25,6 @@ def str_to_seconds(in_str):
     except Exception as e:
         print(in_str)
         print(e)
-        
 
     return minute * 60 + second
 
@@ -37,15 +36,10 @@ f_lines_raw = []
 with open(fname, encoding="utf-8") as f:
     f_lines_raw = list(csv.reader(f))
 
-# f_lines_before = [line.split(',')[12] for line in f_lines_raw]
 f_lines_raw.sort(key=lambda x: get_timestamp(x[-1]).timestamp())
 f_lines = [line[12] for line in f_lines_raw]
 f_timestamps = [get_timestamp(line[-1]) for line in f_lines_raw]
 f_timestamp_nums = [date.timestamp() for date in f_timestamps]
-
-# for i in range(len(f_lines_raw)):
-#     if f_lines_before[i] != f_lines[i]:
-#         print("ERROR")
 
 for chart_type in ['all', 'latest_month']:
     if chart_type == 'latest_month':
@@ -71,8 +65,6 @@ for chart_type in ['all', 'latest_month']:
                 latest_month_idx = idx
                 break
 
-        # print(f_timestamps[latest_month_idx])
-
         f_lines_raw = f_lines_raw[latest_month_idx:]
         f_lines = f_lines[latest_month_idx:]
         f_timestamps = f_timestamps[latest_month_idx:]
@@ -86,7 +78,8 @@ for chart_type in ['all', 'latest_month']:
 
     plt.plot(f_timestamps, f_seconds, color='#4C5270', fillstyle='none', marker='o',
              linewidth=1, markersize=3)
-    plt.plot(f_timestamps, trends, color="cyan", linewidth=1)
+    plt.plot([f_timestamps[0], f_timestamps[-1]], [trends[0],
+             trends[-1]], color="cyan", marker='o', linewidth=1)
 
     if chart_type == 'all':
         plt.gca().xaxis.set_major_locator(mdates.MonthLocator(bymonth=(3, 6, 9, 12)))
@@ -102,25 +95,6 @@ for chart_type in ['all', 'latest_month']:
     plt.gca().set_ylabel("秒数", fontname="IPAexGothic")
     plt.gca().grid(True)
 
-    # annot_list = []
-    # if chart_type == 'all':
-    #     annot_list_raw = [
-    #         ("メルト", "3:02"),
-    #         ("初音天地開闢神話", "3:03"),
-    #         ("独りんぼエンヴィー", "1:17")
-    #     ]
-
-    #     annot_list = [
-    #         (
-    #             line[0],
-    #             (
-    #                 f_timestamps[f_seconds.index(str_to_seconds(line[1]))],
-    #                 str_to_seconds(line[1])
-    #             )
-    #         ) for line in annot_list_raw
-    #     ]
-
-    # elif chart_type == 'latest_month':
     max_idx = f_seconds.index(max(f_seconds))
     min_idx = f_seconds.index(min(f_seconds))
     f_names = [line[3] for line in f_lines_raw]
@@ -149,6 +123,18 @@ for chart_type in ['all', 'latest_month']:
                    f"latest song\n{f_lines_raw[-1][3]}",
                    fontname="IPAexGothic",
                    backgroundcolor="#FFFF66",
+                   ha="right", va="bottom")
+
+    plt.gcf().text(0.15, 0.33,
+                   f'{trends[0]:.1f}',
+                   fontname="IPAexGothic",
+                   color="cyan",
+                   ha="left", va="bottom")
+
+    plt.gcf().text(0.95, 0.3,
+                   f'{trends[-1]:.1f}',
+                   fontname="IPAexGothic",
+                   color="cyan",
                    ha="right", va="bottom")
 
     if chart_type == 'all':

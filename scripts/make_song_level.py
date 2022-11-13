@@ -72,7 +72,9 @@ for chart_type in ['all', 'latest_month']:
 
     plt.plot(f_timestamps, f_levels, color='#4C5270', fillstyle='none', marker='o',
              linewidth=1, markersize=3)
-    plt.plot(f_timestamps, trends, color="cyan", linewidth=1)
+    # plt.plot(f_timestamps, trends, color="cyan", linewidth=1)
+    plt.plot([f_timestamps[0], f_timestamps[-1]], [trends[0],
+             trends[-1]], color="cyan", marker='o', linewidth=1)
 
     if chart_type == 'all':
         plt.gca().xaxis.set_major_locator(mdates.MonthLocator(bymonth=(3, 6, 9, 12)))
@@ -116,6 +118,18 @@ for chart_type in ['all', 'latest_month']:
                    f"latest song\n{f_lines_raw[-1][3]}",
                    fontname="IPAexGothic",
                    backgroundcolor="#FFFF66",
+                   ha="right", va="bottom")
+
+    plt.gcf().text(0.15, 0.33,
+                   f'{trends[0]:.1f}',
+                   fontname="IPAexGothic",
+                   color="cyan",
+                   ha="left", va="bottom")
+
+    plt.gcf().text(0.95, 0.3,
+                   f'{trends[-1]:.1f}',
+                   fontname="IPAexGothic",
+                   color="cyan",
                    ha="right", va="bottom")
 
     if chart_type == 'all':
