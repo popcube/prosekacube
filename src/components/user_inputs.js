@@ -120,32 +120,36 @@ export const UserInput = () => {
   };
 
   const submitLivePoint = (e) => {
-    ifPointButton.current.disabled = true;
+    if (livePoint !== "") {
+      ifPointButton.current.disabled = true;
 
-    dispatch(
-      dataInput({
-        data: {
-          time: new Date().getTime() + JSTOffset,
-          record: livePoint,
-        },
-        infoSave: "保存しました",
-        infoNoSave: "設定しました",
-      })
-    );
+      dispatch(
+        dataInput({
+          data: {
+            time: new Date().getTime() + JSTOffset,
+            record: livePoint,
+          },
+          infoSave: "保存しました",
+          infoNoSave: "設定しました",
+        })
+      );
+    }
 
     e.preventDefault();
   };
 
   const submitGoalPoint = (e) => {
-    ifGoalButton.current.disabled = true;
+    if (goalPointForm !== "") {
+      ifGoalButton.current.disabled = true;
 
-    dispatch(
-      goalPointInput({
-        data: goalPointForm,
-        infoSave: "保存しました",
-        infoNoSave: "設定しました",
-      })
-    );
+      dispatch(
+        goalPointInput({
+          data: goalPointForm,
+          infoSave: "保存しました",
+          infoNoSave: "設定しました",
+        })
+      );
+    }
 
     e.preventDefault();
   };
@@ -237,7 +241,7 @@ export const UserInput = () => {
             <Label>目標のライブポイント</Label>
             <Input
               type="number"
-              min="0"
+              min="1"
               max="8000"
               value={goalPointForm}
               onChange={(e) => setGoalPointForm(e.target.value)}
@@ -253,7 +257,7 @@ export const UserInput = () => {
             <Input
               type="number"
               min="0"
-              max={goalPoint}
+              max="8000"
               value={livePoint}
               onChange={(e) => setLivePoint(e.target.value)}
               autoFocus={true}
