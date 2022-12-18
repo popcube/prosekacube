@@ -1,38 +1,10 @@
 name: bash test
-on: [workflow_dispatch, push]
+on: [workflow_dispatch]
 
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo 'TZ-9: '$(TZ=JST-9 date +"%Y/%m/%d %H%M%S")
-          echo 'TZ-9: '$(TZ=JST-23 date +"%Y/%m/%d %H%M%S")
-          echo 'TZ-0: '$(date +"%Y/%m/%d %H%M%S")
-          echo $(TZ=-9 date +%Y)
-          echo $(TZ=-9 date +%m)
-          echo $(($(TZ=-9 date +%Y) - 1))
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.MY_TOKEN }}
-
-      - run: |
-          echo test >> ./docs/figs/2020_12_30.png
-          ls -la ./docs/figs/
-          echo "./docs/figs/$(($(TZ=-9 date +%Y) - 2))_*.png"
-          rm -f ./docs/figs/$(($(TZ=-9 date +%Y) - 2))_*.png
-          for data in `seq -f "%02g" $(($(TZ=-9 date +%m) - 1))`
-          do
-            echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png
-            find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png | xargs rm -f
-          done
-          ls -la ./docs/figs/
-          for data in `seq -f "%02g" $((5 - 1))`
-          do
-            echo find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 0))_${data}_*.png
-            find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 0))_${data}_*.png | xargs rm -f
-          done
-          ls -la ./docs/figs/
+          curl -h "Authorization: Bearer ${{ secrets.TWT_BEARER_TOKEN }}" https://api.twitter.com/2/users/by/username/pj_sekai
 
