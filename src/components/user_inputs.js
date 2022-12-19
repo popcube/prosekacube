@@ -313,6 +313,7 @@ export const UserInput = () => {
               <CalcSpan>{challengeLiveDueNum(latestRecordBuffer)}</CalcSpan>
               回で達成します
             </TextDiv>
+            <TextDiv>※　デイリーボーナスポイントは含みません</TextDiv>
           </div>
         </InputDiv2>
       )}
