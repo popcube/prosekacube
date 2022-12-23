@@ -51,10 +51,11 @@ with open(fname, "r", encoding='utf-8') as f:
         data.append(temp_dic)
 
 key_data_max = max([line["M"] for line in data])
-print("key_data_max", key_data_max)
+key_data_min = min([line["M"] for line in data])
+# print("key_data_max", key_data_max)
 
 # song difficulty key list
-key_data = [str(i) for i in range(26, 36 + 1)]
+key_data = [str(i) for i in range(key_data_min, key_data_max + 1)]
 
 # sort data from newest to oldest
 data.sort(key=lambda x: read_time(x["release date"]), reverse=True)
@@ -94,16 +95,8 @@ while read_time(data[data_offset_idx]["release date"]) >= oldest_time and data_o
     Mas_data = get_data(data_offset_idx, "M")
     date_text = data[data_offset_idx]["release date"]
     song_text = data[data_offset_idx]["name"]
-    # if song_text == "Hello world!":
-    #     song_text = "Hello,World!"
     print()
     print(date_text, song_text)
-
-    # data_offset_idx += 1
-    # if data_offset_idx >= len(data): break
-    # continue
-
-    # print(sum([Mas_data[s] for s in key_data]))
 
     mad_skillz_dist = [[0 for k in key_data] for j in range(20 + 1)]
     Mas_tot_num = sum([Mas_data[s] for s in key_data])
