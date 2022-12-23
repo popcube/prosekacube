@@ -50,8 +50,8 @@ with open(fname, "r", encoding='utf-8') as f:
 
         data.append(temp_dic)
 
-key_data_max = max([line["M"] for line in data])
-key_data_min = min([line["M"] for line in data])
+key_data_max = max([int(line["M"]) for line in data])
+key_data_min = min([int(line["M"]) for line in data])
 # print("key_data_max", key_data_max)
 
 # song difficulty key list
