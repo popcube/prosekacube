@@ -38,6 +38,7 @@ figfoler = "./docs/figs/latest"
 data = []
 csv_key_data = ["No", "default index", "type", "name", "unit", "E", "N", "H", "EX",
                 "M", "EX notes", "M notes", "time", "BPM", "MV", "MV personnel", "release date"]
+mad_skill_max = 20
 
 with open(fname, "r", encoding='utf-8') as f:
     data_temp = csv.reader(f)
@@ -98,19 +99,20 @@ while read_time(data[data_offset_idx]["release date"]) >= oldest_time and data_o
     print()
     print(date_text, song_text)
 
-    mad_skillz_dist = [[0 for k in key_data] for j in range(20 + 1)]
+    mad_skillz_dist = [[0 for k in key_data]
+                       for j in range(mad_skill_max + 1)]
     Mas_tot_num = sum([Mas_data[s] for s in key_data])
 
     # テーブル用データ
-    mad_skillz_stats = [["", ""] for i in range(20)]
+    mad_skillz_stats = [["", ""] for i in range(mad_skill_max)]
 
     # 今の場所を指すポインタ　[楽曲レベル、曲数]
     temp_diff_pos = [0, 0]
-    for i in range(21):
+    for i in range(mad_skill_max + 1):
         diff_song_num = 10
         if i == 0:
             diff_song_num *= 3
-        if i == 20:
+        elif i == mad_skill_max:
             diff_song_num = Mas_tot_num + 1
 
         # numbering variable
