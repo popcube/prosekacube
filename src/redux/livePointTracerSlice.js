@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { JSTOffset } from "../components/live_point_chart";
 
 const initialState = {
-  goalPoint: 8000,
+  goalPoint: 10000,
   data: [],
   livePointsPerShow: 14,
   cookieControl: false,

@@ -39,6 +39,7 @@ const Label = styled.label`
 `;
 
 const liveBonusTable = [1, 5, 10, 14, 17, 20, 21, 22, 23, 24, 25];
+const goalPointInit = 10000
 
 export const UserInput = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ export const UserInput = () => {
   const ifResetOneButton = useRef(null);
 
   const [livePoint, setLivePoint] = useState("");
-  const [goalPointForm, setGoalPointForm] = useState(8000);
+  const [goalPointForm, setGoalPointForm] = useState(goalPointInit);
   const [resetConfirm, setResetConfirm] = useState(false);
   const [showDiv2, setShowDiv2] = useState(false);
   const [latestRecordBuffer, setLatetRecordBuffer] = useState([]);
@@ -242,7 +243,7 @@ export const UserInput = () => {
             <Input
               type="number"
               min="1"
-              max="8000"
+              max={goalPointInit.toString()}
               value={goalPointForm}
               onChange={(e) => setGoalPointForm(e.target.value)}
             />
@@ -257,7 +258,7 @@ export const UserInput = () => {
             <Input
               type="number"
               min="0"
-              max="8000"
+              max={goalPointInit.toString()}
               value={livePoint}
               onChange={(e) => setLivePoint(e.target.value)}
               autoFocus={true}
