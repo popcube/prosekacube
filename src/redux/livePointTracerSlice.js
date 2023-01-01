@@ -26,7 +26,7 @@ export const livePointTracerSlice = createSlice({
         const data = JSON.parse(localStorage.getItem("data"));
         if (data.length > 0) {
           if (
-            new Date(data[data.length - 1].time).getMonth() <
+            new Date(data[data.length - 1].time).getMonth() !=
             new Date(Date.now() + JSTOffset).getMonth()
           ) {
             localStorage.removeItem("data");

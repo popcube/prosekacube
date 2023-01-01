@@ -296,7 +296,7 @@ export const UserInput = () => {
               <CalcSpan>{latestRecordBuffer[1]}</CalcSpan>
               ポイントです
             </TextDiv>
-            <TextDiv>
+            {/* <TextDiv>
               <Label>ライブボーナス消費設定が</Label>
               <Select name="liveBonusSetting" value={livePointsPerShow} onChange={selectLiveBonus}>
                 {liveBonusTable.map((val, idx) => (
@@ -314,7 +314,7 @@ export const UserInput = () => {
               <CalcSpan>{challengeLiveDueNum(latestRecordBuffer)}</CalcSpan>
               回で達成します
             </TextDiv>
-            <TextDiv>※：デイリーボーナスポイントは含みません</TextDiv>
+            <TextDiv>※：デイリーボーナスポイントは含みません</TextDiv> */}
           </div>
         </InputDiv2>
       )}
