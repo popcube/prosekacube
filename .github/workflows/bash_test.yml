@@ -37,7 +37,7 @@ jobs:
           echo "${{ env.artifact_id }}"
           
           curl -XGET -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
-          "https://api.github.com/repos/popcube/Twitter_api/actions/artifacts/"${{ env.artifact_id }}"/zip" \
+          "https://api.github.com/repos/popcube/Twitter_api/actions/artifacts/${{ env.artifact_id }}/zip" \
           -o "twt_api.zip"
           
           ls -la
