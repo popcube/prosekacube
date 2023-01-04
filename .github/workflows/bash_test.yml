@@ -23,7 +23,7 @@ jobs:
           jq -r '.artifacts[0].id | tostring | "artifact_id=" + .' | tee log.txt >> $GITHUB_ENV
           
           cat log.txt
-          grep -e artifact_id=[0-9]+ log.txt ||\
+          grep -e artifact_id=[0-9]+$ log.txt ||\
           echo "artifact id is not found. fix bug or retry later" && exit 1
       
       - name: download artifact
