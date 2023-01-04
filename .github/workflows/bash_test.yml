@@ -10,14 +10,6 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-#       - name: Set the value
-#         id: step_one
-#         run: |
-#           echo "action_state=yellow" >> $GITHUB_ENV
-#       - name: Use the value
-#         id: step_two
-#         run: |
-#           echo "${{ env.action_state }}" # This will output 'yellow'
       
       - name: setup
         run: |
@@ -36,15 +28,14 @@ jobs:
         run: |
           echo "${{ env.artifact_id }}"
           
-          curl -XGET -D- -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
+          curl -XGET -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
           "https://api.github.com/repos/popcube/Twitter_api/actions/artifacts/${{ env.artifact_id }}/zip" \
           -L -o "twt_api.zip"
           
           ls -la
           
           unzip twt_api.zip
-          
-          cd twt_api
           ls -la
+          cat goodday.txt
           
 
