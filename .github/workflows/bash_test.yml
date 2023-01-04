@@ -10,8 +10,28 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo ${{ inputs.rid }}
-          curl -D- -XGET -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
-          "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts"
+      - name: setup
+        run: |
+          sudo apt-get install jq          
+          echo workflow run id is ${{ inputs.rid }}
+        
+      - name: get artifact id
+        run: |        
+          curl -XGET -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
+          "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts" |
+          jq '.artifacts[0].id | tostring |"aid=" + .' >> $GITHUB_ENV
+      
+      - name: download artifact
+        run: |
+          curl -XGET -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
+          "https://api.github.com/repos/popcube/Twitter_api/actions/artifacts/${{ env.aid }}/zip" \
+          -o "twt_api.zip"
+          
+          ls -la
+          
+          unzip twt_api.zip
+          
+          cd twt_api
+          ls -la
+          
 
