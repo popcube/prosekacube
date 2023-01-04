@@ -17,8 +17,8 @@ jobs:
         
       - name: get artifact id
         run: |        
-          curl -XGET -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
-          "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts" |
+          curl -XGET -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
+          "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts" |\
           jq '.artifacts[0].id | tostring |"aid=" + .' >> $GITHUB_ENV
       
       - name: download artifact
