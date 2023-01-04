@@ -17,13 +17,19 @@ jobs:
           echo workflow run id is ${{ inputs.rid }}
         
       - name: get artifact id
-        run: |        
-          curl -XGET -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
-          "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts" |\
-          jq -r '.artifacts[0].id | tostring | "artifact_id=" + .' | tee log.txt >> $GITHUB_ENV
-        
-          grep -E 'artifact_id=[0-9]+$' log.txt ||\
-          (echo "artifact id is not found. fix bug or retry later" && exit 1)
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          retry_wait_seconds: 60
+          retry_on: error
+          max_attempts: 3
+          command: |
+            curl -XGET -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
+            "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts" |\
+            jq -r '.artifacts[0].id | tostring | "artifact_id=" + .' | tee log.txt >> $GITHUB_ENV
+
+            grep -E 'artifact_id=[0-9]+$' log.txt ||\
+            (echo "artifact id is not found. fix bug or retry later" && exit 1)
       
       - name: download artifact
         run: |
