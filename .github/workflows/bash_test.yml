@@ -1,10 +1,15 @@
 name: bash test
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+    inputs:
+      rid:
+        description: workflow run id in Twitter_api repository
+        required: true
 
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -h "Authorization: Bearer ${{ secrets.TWT_BEARER_TOKEN }}" https://api.twitter.com/2/users/by/username/pj_sekai
+          console.log(${{ inputs.rid }})
 
