@@ -13,5 +13,5 @@ jobs:
       - run: |
           echo ${{ inputs.rid }}
           curl -D- -XGET -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
-          "https://api.github.com/repos/popcube/prosekacube/actions/runs/${{ inputs.rid }}/artifacts"
+          "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts"
 
