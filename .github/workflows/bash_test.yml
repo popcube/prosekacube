@@ -19,16 +19,16 @@ jobs:
         run: |        
           curl -XGET -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
           "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts" |\
-          jq '.artifacts[0].id | tostring |"aid=" + .' | tee log.txt >> $GITHUB_ENV
+          jq '.artifacts[0].id | tostring |"artifact_id=" + .' | tee log.txt >> $GITHUB_ENV
           
           cat log.txt
       
       - name: download artifact
         run: |
-          echo ${{ env.aid }}
+          echo "${{ env.artifact_id }}"
           
           curl -XGET -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
-          "https://api.github.com/repos/popcube/Twitter_api/actions/artifacts/${{ env.aid }}/zip" \
+          "https://api.github.com/repos/popcube/Twitter_api/actions/artifacts/"${{ env.artifact_id }}"/zip" \
           -o "twt_api.zip"
           
           ls -la
