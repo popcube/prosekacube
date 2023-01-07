@@ -3,6 +3,7 @@ import MadSkillz from "./dynamic/mad_skillz";
 import LivePoint from "./live_point";
 import LiveBonus from "./live_bonus";
 import SongLength from "./song_length";
+import TwtApi from "./twt_api";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -66,6 +67,8 @@ const Body = ({ content }) => {
       return <LiveBonus />;
     case "song_length":
       return <SongLength />
+    case "twt_api":
+      return <TwtApi />
     default:
       return <div>no button pushed</div>;
   }
@@ -73,7 +76,7 @@ const Body = ({ content }) => {
 
 
 
-function App() {
+export default function App() {
   const [content, setContent] = useState("live_point");
 
   return (
@@ -91,7 +94,8 @@ function App() {
           <HeaderLi focused={content === 'live_point'} onClick={() => setContent("live_point")}>ライブポイント</HeaderLi>
           <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi>
           <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi>
-          <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>その他</HeaderLi>
+          <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>推移グラフ</HeaderLi>
+          <HeaderLi focused={content === 'twt_api'} onClick={() => setContent("twt_api")}>Twitter観測</HeaderLi>
         </HeaderUl>
       </Header>
       <Container>
@@ -100,5 +104,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
