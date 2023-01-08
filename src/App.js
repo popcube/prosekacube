@@ -33,13 +33,13 @@ const NoticeP = styled.p`
 
 const HeaderDiv = styled.div`
   display: flex;
+  margin: 0;
 `
 
 const Header = styled.header`
   justify-content: space-between;
   padding: 24px 64px 0;
   white-space: nowrap;
-  border-bottom: 1px solid #D0D0D0;
 `
 
 const HeaderUl = styled.ul`
@@ -50,7 +50,7 @@ const HeaderUl = styled.ul`
 
 const HeaderLi = styled.li`
   list-style: none;
-  padding: 4px 12px;
+  padding: 4px 12px 0px;
   cursor: pointer;
   border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
 `
@@ -58,7 +58,7 @@ const HeaderLi = styled.li`
 const HeaderFaqDiv = styled.div`
   margin: auto 0 0 auto;
   list-style: none;
-  padding: 4px 12px;
+  padding: 4px 12px 0px;
   cursor: pointer;
   border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
 `
@@ -155,11 +155,14 @@ function App() {
           </HeaderFaqDiv>
         </HeaderDiv>
       </Header>
+      <hr style={{ color: "#D0D0D0", margin: 0 }} />
       <Container>
         <Body content={content} />
       </Container>
     </div>
   );
 }
+
+// hr border-top: 1px solid #D0D0D0;
 
 export default App;
