@@ -52,16 +52,16 @@ const HeaderLi = styled.li`
   list-style: none;
   padding: 4px 12px 0px;
   cursor: pointer;
-  border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
+  border-bottom: ${props => props.focused ? '2px solid #F652A0' : '1px solid #D0D0D0'};
 `
 
-const HeaderFaqDiv = styled.div`
-  margin: auto 0 0 auto;
-  list-style: none;
-  padding: 4px 12px 0px;
-  cursor: pointer;
-  border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
-`
+// const HeaderFaqDiv = styled.div`
+//   margin: auto 0 0 auto;
+//   list-style: none;
+//   padding: 4px 12px 0px;
+//   cursor: pointer;
+//   border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
+// `
 
 const Container = styled.div`
   display: flex;
@@ -149,13 +149,11 @@ function App() {
             <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi>
             <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi>
             <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>推移グラフ</HeaderLi>
+            <HeaderLi focused={content === 'faq'} onClick={() => setContent("faq")}>このサイトについて</HeaderLi>
           </HeaderUl>
-          <HeaderFaqDiv focused={content === 'faq'} onClick={() => setContent("faq")}>
-            このサイトについて
-          </HeaderFaqDiv>
         </HeaderDiv>
       </Header>
-      <hr style={{ backgroundColor: "#D0D0D0", margin: 0, width: "auto", borderWidth: 0, height: "2px" }} />
+      {/* <hr style={{ backgroundColor: "#D0D0D0", margin: 0, width: "auto", borderWidth: 0, height: "2px" }} /> */}
       <Container>
         <Body content={content} />
       </Container>
