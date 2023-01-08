@@ -7,9 +7,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import { TextDiv, TitleDiV } from "./components/styled_tags";
 
-const TitleDiv = styled.div`
-  display: flex;
-  justify-content: flex-start;
+const FaqDiv = styled(TitleDiV)`
+  margin-top: 30px;
+  margin-bottom: 10px;
 `
 
 const TitleH1 = styled.h1`
@@ -29,6 +29,10 @@ const NoticeP = styled.p`
   border-style: solid none;
   border-color: #4C5270;
   font-size: 50%;
+`
+
+const HeaderDiv = styled.div`
+  display: flex;
 `
 
 const Header = styled.header`
@@ -68,9 +72,9 @@ const Container = styled.div`
 const Faq = () => {
   return (
     <div>
-      <TitleDiV style={{ marginTop: "30px" }}>
+      <FaqDiv>
         Q. 誰が運営しているの？
-      </TitleDiV>
+      </FaqDiv>
       <TextDiv>
         プロセカ・ボカロファンのWBが運営しています。お問い合わせは以下からお願いします。
       </TextDiv>
@@ -80,9 +84,9 @@ const Faq = () => {
       <TextDiv>
         <a href="https://note.com/whity_breath" target="_blank" rel="noreferrer">WBのnotes</a>
       </TextDiv>
-      <TitleDiV style={{ marginTop: "30px" }}>
+      <FaqDiv>
         Q. コンテンツは何？
-      </TitleDiV>
+      </FaqDiv>
       <TextDiv>
         プロセカ用のツールや、ゲームコンテンツの推移グラフなどがあります。
       </TextDiv>
@@ -92,9 +96,9 @@ const Faq = () => {
       <TextDiv>
         WBのウェブサイト作成の勉強も兼ねています。
       </TextDiv>
-      <TitleDiV style={{ marginTop: "30px" }}>
+      <FaqDiv>
         Q. 公式と関係ある？
-      </TitleDiV>
+      </FaqDiv>
       <TextDiv>
         関係はありません。
       </TextDiv>
@@ -131,15 +135,15 @@ function App() {
   return (
     <div>
       <Header>
-        <TitleDiv>
+        <HeaderDiv>
           <TitleH1>
             プロセカキューブ
           </TitleH1>
           <NoticeP>
             当サイトはファンの運営で、公式とは一切関係がありません
           </NoticeP>
-        </TitleDiv>
-        <TitleDiv>
+        </HeaderDiv>
+        <HeaderDiv>
           <HeaderUl>
             <HeaderLi focused={content === 'live_point'} onClick={() => setContent("live_point")}>ライブポイント</HeaderLi>
             <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi>
@@ -149,7 +153,7 @@ function App() {
           <HeaderFaqDiv focused={content === 'faq'} onClick={() => setContent("faq")}>
             このサイトについて
           </HeaderFaqDiv>
-        </TitleDiv>
+        </HeaderDiv>
       </Header>
       <Container>
         <Body content={content} />
