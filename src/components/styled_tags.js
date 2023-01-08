@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 export const TitleDiV = styled.div`
   font-size: 150%;
   color: #f652a0;
+  white-space: nowrap;
 `;
 
 export const TextDiv = styled.div`
