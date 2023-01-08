@@ -5,6 +5,7 @@ import LiveBonus from "./live_bonus";
 import SongLength from "./song_length";
 import { useState } from "react";
 import styled from "styled-components";
+import { TextDiv, TitleDiV } from "./components/styled_tags";
 
 const TitleDiv = styled.div`
   display: flex;
@@ -27,13 +28,14 @@ const NoticeP = styled.p`
   border-width: 1px;
   border-style: solid none;
   border-color: #4C5270;
+  font-size: 50%;
 `
 
 const Header = styled.header`
   justify-content: space-between;
   padding: 24px 64px 0;
+  white-space: nowrap;
   border-bottom: 1px solid #D0D0D0;
-  white-space: nowrap
 `
 
 const HeaderUl = styled.ul`
@@ -49,11 +51,59 @@ const HeaderLi = styled.li`
   border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
 `
 
+const HeaderFaqDiv = styled.div`
+  margin: auto 0 0 auto;
+  list-style: none;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-bottom: ${props => props.focused ? '2px solid #F652A0' : 'none'};
+`
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 64px 0;
 `;
+
+const Faq = () => {
+  return (
+    <div>
+      <TitleDiV style={{ marginTop: "30px" }}>
+        Q. 誰が運営しているの？
+      </TitleDiV>
+      <TextDiv>
+        プロセカ・ボカロファンのWBが運営しています。お問い合わせは以下からお願いします。
+      </TextDiv>
+      <TextDiv>
+        <a href="https://twitter.com/whity_ity" target="_blank" rel="noreferrer">WBのツイッター</a>
+      </TextDiv>
+      <TextDiv>
+        <a href="https://note.com/whity_breath" target="_blank" rel="noreferrer">WBのnotes</a>
+      </TextDiv>
+      <TitleDiV style={{ marginTop: "30px" }}>
+        Q. コンテンツは何？
+      </TitleDiV>
+      <TextDiv>
+        プロセカ用のツールや、ゲームコンテンツの推移グラフなどがあります。
+      </TextDiv>
+      <TextDiv>
+        notesで詳しく内容を説明しているものもあります。リークやゲーム自体の解析はありません。
+      </TextDiv>
+      <TextDiv>
+        WBのウェブサイト作成の勉強も兼ねています。
+      </TextDiv>
+      <TitleDiV style={{ marginTop: "30px" }}>
+        Q. 公式と関係ある？
+      </TitleDiV>
+      <TextDiv>
+        関係はありません。
+      </TextDiv>
+      <TextDiv>
+        広告フリーです。
+      </TextDiv>
+    </div >
+  )
+}
 
 const Body = ({ content }) => {
   // return <div>some line</div>;
@@ -65,7 +115,9 @@ const Body = ({ content }) => {
     case "live_bonus_calc":
       return <LiveBonus />;
     case "song_length":
-      return <SongLength />
+      return <SongLength />;
+    case "faq":
+      return <Faq />;
     default:
       return <div>no button pushed</div>;
   }
@@ -87,12 +139,17 @@ function App() {
             当サイトはファンの運営で、公式とは一切関係がありません
           </NoticeP>
         </TitleDiv>
-        <HeaderUl>
-          <HeaderLi focused={content === 'live_point'} onClick={() => setContent("live_point")}>ライブポイント</HeaderLi>
-          <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi>
-          <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi>
-          <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>その他</HeaderLi>
-        </HeaderUl>
+        <TitleDiv>
+          <HeaderUl>
+            <HeaderLi focused={content === 'live_point'} onClick={() => setContent("live_point")}>ライブポイント</HeaderLi>
+            <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi>
+            <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi>
+            <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>推移グラフ</HeaderLi>
+          </HeaderUl>
+          <HeaderFaqDiv focused={content === 'faq'} onClick={() => setContent("faq")}>
+            このサイトについて
+          </HeaderFaqDiv>
+        </TitleDiv>
       </Header>
       <Container>
         <Body content={content} />

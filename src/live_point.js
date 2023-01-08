@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { TextDiv, TitleText, CalcSpan } from "./components/styled_tags";
+import { TextDiv, TitleDiV, CalcSpan } from "./components/styled_tags";
 import { useEffect, useState } from "react";
 import LivePointGraph, { JSTOffset } from "./components/live_point_chart";
 import { UserInput } from "./components/user_inputs";
 import { useSelector } from "react-redux";
 
 const CalcTitleSpan = styled.span`
-  display: inline-block;
+  // display: inline-block;
   font-weight: bold;
-  color: #f652a0;
+  // color: #f652a0;
   margin: 0px 7px;
 `;
 
@@ -72,11 +72,11 @@ const LivePointResult = ({ timeObj, endTime, startTime, nowTime }) => {
   return (
     <div>
       <TextDiv>
-        <TitleText>
+        <TitleDiV>
           {"ライブポイントを"}
           <CalcTitleSpan>{goalPoint}</CalcTitleSpan>
           {"稼ぐまで"}
-        </TitleText>
+        </TitleDiV>
       </TextDiv>
       <TextDiv>
         {"日本時間は "}
