@@ -155,7 +155,7 @@ function App() {
           </HeaderFaqDiv>
         </HeaderDiv>
       </Header>
-      <hr style={{ backgroundColor: "#D0D0D0", margin: 0, padding: 0, width: "98vw", borderWidth: 0, height: "2px" }} />
+      <hr style={{ backgroundColor: "#D0D0D0", margin: 0, width: "auto", borderWidth: 0, height: "2px" }} />
       <Container>
         <Body content={content} />
       </Container>
