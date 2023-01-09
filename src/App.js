@@ -124,6 +124,8 @@ const Body = ({ content }) => {
       return <SongLength />;
     case "faq":
       return <Faq />;
+    case "twt_api":
+      return <TwtApi />;
     default:
       return <div>no button pushed</div>;
   }
@@ -132,7 +134,7 @@ const Body = ({ content }) => {
 
 
 export default function App() {
-  const [content, setContent] = useState("live_point");
+  const [content, setContent] = useState("twt_api");
 
   return (
     <div>
@@ -154,10 +156,10 @@ export default function App() {
             <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi>
             <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>推移グラフ</HeaderLi>
             <HeaderLi focused={content === 'faq'} onClick={() => setContent("faq")}>このサイトについて</HeaderLi>
+            <HeaderLi focused={content === 'twt_api'} onClick={() => setContent("twt_api")}>ツイッター観測</HeaderLi>
           </HeaderUl>
         </HeaderDiv>
       </Header>
-      {/* <hr style={{ backgroundColor: "#D0D0D0", margin: 0, width: "auto", borderWidth: 0, height: "2px" }} /> */}
       <Container>
         <Body content={content} />
       </Container>
