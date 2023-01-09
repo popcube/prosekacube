@@ -36,5 +36,6 @@ jobs:
           python scripts/make_mad_skillz_imgs_js.py
           echo
           echo
+          python scripts/make_buildTime.py
           npm run deploy
           

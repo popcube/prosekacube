@@ -1,10 +1,48 @@
 name: bash test
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+    inputs:
+      rid:
+        description: workflow run id in Twitter_api repository
+        required: true
 
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          curl -h "Authorization: Bearer ${{ secrets.TWT_BEARER_TOKEN }}" https://api.twitter.com/2/users/by/username/pj_sekai
+      
+      - name: setup
+        run: |
+          sudo apt-get install jq          
+          echo workflow run id is ${{ inputs.rid }}
+        
+      - name: get artifact id
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          retry_wait_seconds: 60
+          retry_on: error
+          max_attempts: 3
+          command: |
+            curl -XGET -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
+            "https://api.github.com/repos/popcube/Twitter_api/actions/runs/${{ inputs.rid }}/artifacts" |\
+            jq -r '.artifacts[0].id | tostring | "artifact_id=" + .' | tee log.txt >> $GITHUB_ENV
+
+            grep -E 'artifact_id=[0-9]+$' log.txt ||\
+            (echo "artifact id is not found. fix bug or retry later" && exit 1)
+      
+      - name: download artifact
+        run: |
+          echo "${{ env.artifact_id }}"
+          
+          curl -XGET -s -H "Authorization: token ${{ secrets.MY_TOKEN }}" \
+          "https://api.github.com/repos/popcube/Twitter_api/actions/artifacts/${{ env.artifact_id }}/zip" \
+          -L -o "twt_api.zip"
+          
+          ls -la
+          
+          unzip twt_api.zip
+          ls -la
+          cat goodday.txt
+          
 

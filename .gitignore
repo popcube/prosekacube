@@ -31,4 +31,4 @@ package-lock.json
 .vscode
 
 # dynamic
-src/dynamic
+# src/dynamic

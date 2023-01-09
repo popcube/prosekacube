@@ -1,8 +1,9 @@
 import styled, { keyframes } from "styled-components";
 
-export const TitleText = styled.a`
+export const TitleDiV = styled.div`
   font-size: 150%;
   color: #f652a0;
+  white-space: nowrap;
 `;
 
 export const TextDiv = styled.div`
@@ -105,7 +106,7 @@ export const ImgContainer = ({ src, title, alt, latest }) => {
   return (
     <ImgDiv style={latest ? {} : { border: "1px solid #4C5270" }}>
       <div>
-        <TitleText style={latest ? {} : { color: "#4C5270" }}>{title}</TitleText>
+        <TitleDiV style={latest ? {} : { color: "#4C5270" }}>{title}</TitleDiV>
       </div>
       <div>
         <img src={src} alt={alt} />
