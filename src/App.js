@@ -6,6 +6,7 @@ import SongLength from "./song_length";
 import { useState } from "react";
 import styled from "styled-components";
 import { TextDiv, TitleDiV } from "./components/styled_tags";
+import buildTime from "./dynamic/buildTime";
 
 const FaqDiv = styled(TitleDiV)`
   margin-top: 30px;
@@ -140,7 +141,9 @@ function App() {
             プロセカキューブ
           </TitleH1>
           <NoticeP>
-            当サイトはファンの運営で、公式とは一切関係がありません
+            {"当サイトは公式とは一切関係がありません。"}
+            <br />
+            {"最終更新時間は " + buildTime + " です。"}
           </NoticeP>
         </HeaderDiv>
         <HeaderDiv>
