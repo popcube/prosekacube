@@ -143,7 +143,7 @@ function App() {
           <NoticeP>
             {"当サイトは公式とは一切関係がありません。"}
             <br />
-            {"最終更新時間は " + buildTime + " です。"}
+            {"最終更新時刻は " + buildTime + " です。"}
           </NoticeP>
         </HeaderDiv>
         <HeaderDiv>
