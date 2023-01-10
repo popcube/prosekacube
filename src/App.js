@@ -8,6 +8,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { TextDiv, TitleDiV } from "./components/styled_tags";
 import buildTime from "./dynamic/buildTime";
+// import { useEffect, useState, useRef } from "react";
 
 const FaqDiv = styled(TitleDiV)`
   margin-top: 30px;
@@ -134,6 +135,12 @@ const Body = ({ content }) => {
 
 
 export default function App() {
+  // var buildTime;
+  // useEffect(() => {
+  //   (async () => {
+  //     buildTime = await import("./dynamic/buildTime");
+  //   })
+  // }, [])
   const [content, setContent] = useState("twt_api");
 
   return (

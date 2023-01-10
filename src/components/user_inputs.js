@@ -7,7 +7,6 @@ import {
   Button,
   ActionText,
   CalcSpan,
-  Select,
 } from "./styled_tags";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
