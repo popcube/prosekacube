@@ -64,8 +64,8 @@ jobs:
       - name: "##### main run #####"
         run: |
           rm -f ./docs/figs/latest/*
-          echo "script run for $(TZ=-9 date +"%Y/%m/01")"
-          python ./scripts/difficulty_stats_calc.py $(TZ=-9 date +%Y/%m/01)
+          echo "script run for $(TZ=JST-9 date +"%Y/%m/01")"
+          python ./scripts/difficulty_stats_calc.py $(TZ=JST-9 date +%Y/%m/01)
           echo
           echo
           
@@ -136,10 +136,10 @@ jobs:
           echo
           echo
 
-          rm -f ./docs/figs/$(($(TZ=-9 date +%Y) - 2))_*.png
-          for data in `seq -f "%02g" $(($(TZ=-9 date +%m) - 1))`
+          rm -f ./docs/figs/$(($(TZ=JST-9 date +%Y) - 2))_*.png
+          for data in `seq -f "%02g" $(($(TZ=JST-9 date +%m) - 1))`
           do
-            find ./docs/figs/ -name $(($(TZ=-9 date +%Y) - 1))_${data}_*.png | xargs rm -f
+            find ./docs/figs/ -name $(($(TZ=JST-9 date +%Y) - 1))_${data}_*.png | xargs rm -f
           done
           
           echo "##### after deletion #####"
