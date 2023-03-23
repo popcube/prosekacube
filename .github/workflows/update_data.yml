@@ -24,6 +24,7 @@ jobs:
           pip install lxml
           pip install html5lib
           pip install bs4
+          pip install requests
 
       - name: Wiki scrape
         run: python scripts/fetch_song_list.py    
