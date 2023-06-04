@@ -23,6 +23,7 @@ const PlotlyDiv = styled(InputDiv)`
   margin: 30px 0px;
 `
 
+
 export default function main() {
   const [show1, setShow1] = useState(false);
 
@@ -32,14 +33,42 @@ export default function main() {
         <Plot
           data={[
             {
+              x: twt_data.raw_1m_yesterday.x,
+              y: twt_data.raw_1m_yesterday.y,
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'grey' },
+            }
+          ]}
+          layout={{
+            width: 1000,
+            height: 800,
+            title: `${twt_data.raw_1m_yesterday.x[0].slice(0, 10)} のフォロワー数推移`,
+            yaxis: {
+              tickformat: 'd' // For more formatting types, see: https://github.com/d3/d3-format/blob/master/README.md#locale_format
+            }
+          }}
+        />
+      </PlotlyDiv>
+      <PlotlyDiv>
+        <Plot
+          data={[
+            {
               x: twt_data.raw_1H.x,
               y: twt_data.raw_1H.y,
               type: 'scatter',
-              mode: 'lines',
-              marker: { color: 'black' },
+              mode: 'lines+markers',
+              marker: { color: 'grey' },
             }
           ]}
-          layout={{ width: 1000, height: 800, title: 'フォロワー数推移' }}
+          layout={{
+            width: 1000,
+            height: 800,
+            title: 'フォロワー数推移',
+            yaxis: {
+              tickformat: 'd' // For more formatting types, see: https://github.com/d3/d3-format/blob/master/README.md#locale_format
+            }
+          }}
         />
       </PlotlyDiv>
       <PlotlyDiv>
@@ -85,9 +114,12 @@ export default function main() {
         />
       </PlotlyDiv>
 
-      <div onClick={() => setShow1(!show1)}>click here</div>
-      {show1 && (
-        <InputDiv>
+      <InputDiv>
+        <div onClick={() => setShow1(!show1)}>
+          {!show1 && "＋　グラフタイトル"}
+          {show1 && "ー　グラフタイトル"}
+        </div>
+        {show1 && (
           <Plot
             data={[
               {
@@ -100,9 +132,9 @@ export default function main() {
             ]}
             layout={{ width: 1000, height: 800, title: 'フォロワー数推移' }}
           />
-        </InputDiv>
-      )
-      }
+        )
+        }
+      </InputDiv>
     </div>
   );
 }

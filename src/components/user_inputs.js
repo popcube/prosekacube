@@ -46,7 +46,7 @@ export const UserInput = () => {
   const cookieControl = useSelector((state) => state.livePointTracer.cookieControl);
   const info = useSelector((state) => state.livePointTracer.info);
   const goalPoint = useSelector((state) => state.livePointTracer.goalPoint);
-  const livePointsPerShow = useSelector((state) => state.livePointTracer.livePointsPerShow);
+  // const livePointsPerShow = useSelector((state) => state.livePointTracer.livePointsPerShow);
 
   const ifChecked = useRef(null);
   const ifShowed = useRef(null);
@@ -154,15 +154,15 @@ export const UserInput = () => {
     e.preventDefault();
   };
 
-  const selectLiveBonus = (e) => {
-    dispatch(
-      livePointsPerShowInput({
-        data: e.target.value,
-        infoSave: "保存しました",
-        infoNoSave: "設定しました",
-      })
-    );
-  };
+  // const selectLiveBonus = (e) => {
+  //   dispatch(
+  //     livePointsPerShowInput({
+  //       data: e.target.value,
+  //       infoSave: "保存しました",
+  //       infoNoSave: "設定しました",
+  //     })
+  //   );
+  // };
 
   const resetCookie = () => {
     ifResetButton.current.disabled = true;
@@ -187,23 +187,23 @@ export const UserInput = () => {
     );
   };
 
-  const challengeLiveDueNum = ([curTime, curPt]) => {
-    const curTimeObj = new Date(curTime);
-    const endTimeDate = new Date(curTimeObj.getFullYear(), curTimeObj.getMonth() + 1, 0).getDate();
-    const remainingDate = endTimeDate - curTimeObj.getDate() + 1;
+  // const challengeLiveDueNum = ([curTime, curPt]) => {
+  //   const curTimeObj = new Date(curTime);
+  //   const endTimeDate = new Date(curTimeObj.getFullYear(), curTimeObj.getMonth() + 1, 0).getDate();
+  //   const remainingDate = endTimeDate - curTimeObj.getDate() + 1;
 
-    return Math.min(remainingDate, Math.ceil((goalPoint - curPt) / 30));
-  };
+  //   return Math.min(remainingDate, Math.ceil((goalPoint - curPt) / 30));
+  // };
 
-  const normalLiveDueNum = ([curTime, curPt]) => {
-    const challengeLiveNum = challengeLiveDueNum([curTime, curPt]);
+  // const normalLiveDueNum = ([curTime, curPt]) => {
+  //   const challengeLiveNum = challengeLiveDueNum([curTime, curPt]);
 
-    if (goalPoint - curPt <= 30 * challengeLiveNum) {
-      return 0;
-    } else {
-      return Math.ceil((goalPoint - curPt - challengeLiveNum * 30) / livePointsPerShow);
-    }
-  };
+  //   if (goalPoint - curPt <= 30 * challengeLiveNum) {
+  //     return 0;
+  //   } else {
+  //     return Math.ceil((goalPoint - curPt - challengeLiveNum * 30) / livePointsPerShow);
+  //   }
+  // };
 
   /* eslint-disable react/no-unknown-property */
   return (
