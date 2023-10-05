@@ -37,7 +37,7 @@ fname = "./docs/fetched_song_data.csv"
 figfoler = "./docs/figs/latest"
 data = []
 csv_key_data = ["No", "default index", "type", "name", "unit", "E", "N", "H", "EX",
-                "M", "EX notes", "M notes", "time", "BPM", "MV", "MV personnel", "release date"]
+                "M", "A", "EX notes", "M notes", "A notes", "time", "BPM", "MV", "MV personnel", "release date"]
 mad_skill_max = 20
 
 with open(fname, "r", encoding='utf-8') as f:
