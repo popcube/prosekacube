@@ -37,7 +37,7 @@ with open(fname, encoding="utf-8") as f:
     f_lines_raw = list(csv.reader(f))
 
 f_lines_raw.sort(key=lambda x: get_timestamp(x[-1]).timestamp())
-f_lines_raw = [line for line in f_lines_raw if str_to_seconds(line[12]) != 0]
+f_lines_raw = [line for line in f_lines_raw if str_to_seconds(line[14]) != 0]
 f_lines = [line[12] for line in f_lines_raw]
 f_timestamps = [get_timestamp(line[-1]) for line in f_lines_raw]
 f_timestamp_nums = [date.timestamp() for date in f_timestamps]
