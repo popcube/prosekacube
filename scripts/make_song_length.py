@@ -25,6 +25,8 @@ def str_to_seconds(in_str):
     except Exception as e:
         print(in_str)
         print(e)
+        minute = 0
+        second = 0
 
     return minute * 60 + second
 
