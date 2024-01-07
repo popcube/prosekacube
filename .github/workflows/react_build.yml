@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.MY_TOKEN }}
       
       - name: Python Setup
         uses: actions/setup-python@v4
