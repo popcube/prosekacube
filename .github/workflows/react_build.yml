@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.MY_TOKEN }}
+          token: ${{ secrets.FULL_REPO_TOKEN }}
       
       - name: Python Setup
         uses: actions/setup-python@v4
@@ -23,7 +23,7 @@ jobs:
         run: |
           git config user.name "react build bot"
           git config user.email ${{ secrets.MY_EMAIL }}
-          git remote set-url origin https://popcube:${{ secrets.MY_TOKEN }}@github.com/popcube/prosekacube.git
+          git remote set-url origin https://popcube:${{ secrets.FULL_REPO_TOKEN }}@github.com/popcube/prosekacube.git
           npm install
       
       - name: main run
