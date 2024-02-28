@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/prosekacube/static/css/main.dc4d6ff2.css",
-    "main.js": "/prosekacube/static/js/main.a93a72ef.js",
+    "main.js": "/prosekacube/static/js/main.79f72f3e.js",
     "static/js/453.8089e5dc.chunk.js": "/prosekacube/static/js/453.8089e5dc.chunk.js",
-    "static/media/song_length_all.png": "/prosekacube/static/media/song_length_all.bd05eba049c7af9d5a3c.png",
+    "static/media/song_length_all.png": "/prosekacube/static/media/song_length_all.622881b0d64dfdc509d8.png",
     "static/media/song_level_all.png": "/prosekacube/static/media/song_level_all.5eef1563dba802b2df39.png",
     "static/media/2024_01_29.png": "/prosekacube/static/media/2024_01_29.7d884b4aaf9eea1e524c.png",
     "static/media/2023_11_28.png": "/prosekacube/static/media/2023_11_28.14d9bf6f8deecb02e757.png",
@@ -19,16 +19,16 @@
     "static/media/2023_02_28.png": "/prosekacube/static/media/2023_02_28.00a2175575ac92e113fd.png",
     "static/media/2023_04_30.png": "/prosekacube/static/media/2023_04_30.f6b139a6b96750e061a3.png",
     "static/media/song_level_latest.png": "/prosekacube/static/media/song_level_latest.f4005924a494abf0a715.png",
-    "static/media/song_length_latest.png": "/prosekacube/static/media/song_length_latest.f41959942a69cf9410d3.png",
+    "static/media/song_length_latest.png": "/prosekacube/static/media/song_length_latest.42c7a853c387b3faec7f.png",
     "static/media/livebonus_rec1.png": "/prosekacube/static/media/livebonus_rec1.93709495d668805bc7eb.png",
     "static/media/livebonus_rec2.png": "/prosekacube/static/media/livebonus_rec2.ce32e3eebc7905f8e468.png",
     "index.html": "/prosekacube/index.html",
     "main.dc4d6ff2.css.map": "/prosekacube/static/css/main.dc4d6ff2.css.map",
-    "main.a93a72ef.js.map": "/prosekacube/static/js/main.a93a72ef.js.map",
+    "main.79f72f3e.js.map": "/prosekacube/static/js/main.79f72f3e.js.map",
     "453.8089e5dc.chunk.js.map": "/prosekacube/static/js/453.8089e5dc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dc4d6ff2.css",
-    "static/js/main.a93a72ef.js"
+    "static/js/main.79f72f3e.js"
   ]
 }
