@@ -243,7 +243,7 @@ export const UserInput = () => {
             <Input
               type="number"
               min="1"
-              max={goalPointInit.toString()}
+              // max={goalPointInit.toString()}
               value={goalPointForm}
               onChange={(e) => setGoalPointForm(e.target.value)}
             />
