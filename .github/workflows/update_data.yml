@@ -56,7 +56,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install fonts-ipaexfont
-          pip install matplotlib==3.5.2
+          pip install matplotlib
 
       - name: "##### main run #####"
         run: |
