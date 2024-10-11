@@ -75,14 +75,21 @@ for chart_type in ['all', 'latest_month']:
 
     f_seconds = list(map(str_to_seconds, f_lines))
 
-    # 近似式
-    trends = np.poly1d(np.polyfit(f_timestamp_nums, f_seconds, 1))(
-        f_timestamp_nums)
 
     plt.plot(f_timestamps, f_seconds, color='#4C5270', fillstyle='none', marker='o',
              linewidth=1, markersize=3)
-    plt.plot([f_timestamps[0], f_timestamps[-1]], [trends[0],
-             trends[-1]], color="cyan", marker='o', linewidth=1)
+    if chart_type == "latest_month":
+        # 近似式
+        trends = np.poly1d(np.polyfit(f_timestamp_nums, f_seconds, 1))(
+            f_timestamp_nums)
+        plt.plot([f_timestamps[0], f_timestamps[-1]], [trends[0],
+                trends[-1]], color="cyan", marker='o', linewidth=1)
+    
+    if chart_type == "all":
+        # 近似式
+        poly_func = np.polynomial.Polynomial.fit(f_timestamp_nums, f_seconds, deg=6)
+        trends = poly_func(np.array(f_timestamp_nums))    
+        plt.plot(f_timestamps, trends, color="cyan", marker='o', linewidth=1)
 
     if chart_type == 'all':
         plt.gca().xaxis.set_major_locator(mdates.MonthLocator(bymonth=(3, 6, 9, 12)))
@@ -94,6 +101,7 @@ for chart_type in ['all', 'latest_month']:
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
 
     plt.gca().set_ylim(0, max(f_seconds) + 30)
+    # plt.gca().set_ylim(min(trends), max(trends))
     plt.gca().set_xlabel("実装時期", fontname="IPAexGothic")
     plt.gca().set_ylabel("秒数", fontname="IPAexGothic")
     plt.gca().grid(True)
