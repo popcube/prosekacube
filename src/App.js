@@ -148,7 +148,7 @@ function App() {
           <HeaderUl>
             <HeaderLi focused={content === 'live_point'} onClick={() => setContent("live_point")}>ライブポイント</HeaderLi>
             {/* <HeaderLi focused={content === 'mad_skillz'} onClick={() => setContent("mad_skillz")}>皆伝称号</HeaderLi> */}
-            <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi>
+            {/* <HeaderLi focused={content === 'live_bonus_calc'} onClick={() => setContent("live_bonus_calc")}>ライブボーナス消費量</HeaderLi> */}
             <HeaderLi focused={content === 'song_length'} onClick={() => setContent("song_length")}>推移グラフ</HeaderLi>
             <HeaderLi focused={content === 'faq'} onClick={() => setContent("faq")}>このサイトについて</HeaderLi>
           </HeaderUl>
