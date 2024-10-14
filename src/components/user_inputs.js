@@ -258,7 +258,7 @@ export const UserInput = () => {
             <Input
               type="number"
               min="0"
-              max={goalPointInit.toString()}
+              // max={goalPointInit.toString()}
               value={livePoint}
               onChange={(e) => setLivePoint(e.target.value)}
               autoFocus={true}
