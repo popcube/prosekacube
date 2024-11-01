@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/prosekacube/static/css/main.dc4d6ff2.css",
-    "main.js": "/prosekacube/static/js/main.d32e2e32.js",
+    "main.js": "/prosekacube/static/js/main.8b54bacb.js",
     "static/js/453.8089e5dc.chunk.js": "/prosekacube/static/js/453.8089e5dc.chunk.js",
     "static/media/song_level_all.png": "/prosekacube/static/media/song_level_all.511683409ff643923eb6.png",
-    "static/media/song_length_all.png": "/prosekacube/static/media/song_length_all.44cec702cc03fcf4f4a8.png",
+    "static/media/song_length_all.png": "/prosekacube/static/media/song_length_all.1b811f9f46a60da933ea.png",
     "static/media/2024_10_31.png": "/prosekacube/static/media/2024_10_31.047f28d77b2cd447cdc2.png",
     "static/media/2024_07_29.png": "/prosekacube/static/media/2024_07_29.8e5987df51eadc48ae53.png",
     "static/media/2024_05_29.png": "/prosekacube/static/media/2024_05_29.ab023880e407ad7ccd28.png",
@@ -18,17 +18,17 @@
     "static/media/2023_11_28.png": "/prosekacube/static/media/2023_11_28.14d9bf6f8deecb02e757.png",
     "static/media/2024_02_29.png": "/prosekacube/static/media/2024_02_29.32b2e3b560dca052e43c.png",
     "static/media/2023_12_31.png": "/prosekacube/static/media/2023_12_31.fbbe7ad2c7a4b8da64ca.png",
-    "static/media/song_level_latest.png": "/prosekacube/static/media/song_level_latest.12f7823e8fd2090af48c.png",
-    "static/media/song_length_latest.png": "/prosekacube/static/media/song_length_latest.f76bf1d9b4e6cdd28637.png",
+    "static/media/song_level_latest.png": "/prosekacube/static/media/song_level_latest.14f3c11210342128116e.png",
+    "static/media/song_length_latest.png": "/prosekacube/static/media/song_length_latest.83f927c30cdb4e446109.png",
     "static/media/livebonus_rec1.png": "/prosekacube/static/media/livebonus_rec1.93709495d668805bc7eb.png",
     "static/media/livebonus_rec2.png": "/prosekacube/static/media/livebonus_rec2.ce32e3eebc7905f8e468.png",
     "index.html": "/prosekacube/index.html",
     "main.dc4d6ff2.css.map": "/prosekacube/static/css/main.dc4d6ff2.css.map",
-    "main.d32e2e32.js.map": "/prosekacube/static/js/main.d32e2e32.js.map",
+    "main.8b54bacb.js.map": "/prosekacube/static/js/main.8b54bacb.js.map",
     "453.8089e5dc.chunk.js.map": "/prosekacube/static/js/453.8089e5dc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dc4d6ff2.css",
-    "static/js/main.d32e2e32.js"
+    "static/js/main.8b54bacb.js"
   ]
 }
