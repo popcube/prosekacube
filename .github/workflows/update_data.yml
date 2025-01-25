@@ -92,7 +92,7 @@ jobs:
           python ./scripts/make_song_level.py
 
       - name: Upload png(s)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fig_folder
           path: ./docs/figs
@@ -122,7 +122,7 @@ jobs:
           ls -Rla ./docs/figs
           
       - name: Download figs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: fig_folder
           path: ./docs/figs
