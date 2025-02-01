@@ -28,7 +28,7 @@ jobs:
         run: python scripts/fetch_song_list.py    
 
       - name: Upload csv
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: songlist
           path: ./docs/fetched_song_data.csv
