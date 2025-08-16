@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/prosekacube/static/css/main.dc4d6ff2.css",
-    "main.js": "/prosekacube/static/js/main.9ff95a1e.js",
+    "main.js": "/prosekacube/static/js/main.da946ca7.js",
     "static/js/453.801d779b.chunk.js": "/prosekacube/static/js/453.801d779b.chunk.js",
     "static/media/song_level_all.png": "/prosekacube/static/media/song_level_all.7f76802b966d3e5d3b1b.png",
     "static/media/song_length_all.png": "/prosekacube/static/media/song_length_all.c6eaf6b63fc00c8ec6c0.png",
@@ -19,17 +19,17 @@
     "static/media/2024_11_25.png": "/prosekacube/static/media/2024_11_25.b81559617e00fc5e0f4f.png",
     "static/media/2024_09_30.png": "/prosekacube/static/media/2024_09_30.336e5800e93f2c059a03.png",
     "static/media/2024_08_30.png": "/prosekacube/static/media/2024_08_30.2d31fd83726ae3092c03.png",
-    "static/media/song_level_latest.png": "/prosekacube/static/media/song_level_latest.91c1fb2c9cbca6a7c260.png",
-    "static/media/song_length_latest.png": "/prosekacube/static/media/song_length_latest.398c07fdc462388da2bc.png",
+    "static/media/song_level_latest.png": "/prosekacube/static/media/song_level_latest.ee9ad6d6fb2b675ad2e0.png",
+    "static/media/song_length_latest.png": "/prosekacube/static/media/song_length_latest.cb7d3ae1a2741d717e9c.png",
     "static/media/livebonus_rec1.png": "/prosekacube/static/media/livebonus_rec1.93709495d668805bc7eb.png",
     "static/media/livebonus_rec2.png": "/prosekacube/static/media/livebonus_rec2.ce32e3eebc7905f8e468.png",
     "index.html": "/prosekacube/index.html",
     "main.dc4d6ff2.css.map": "/prosekacube/static/css/main.dc4d6ff2.css.map",
-    "main.9ff95a1e.js.map": "/prosekacube/static/js/main.9ff95a1e.js.map",
+    "main.da946ca7.js.map": "/prosekacube/static/js/main.da946ca7.js.map",
     "453.801d779b.chunk.js.map": "/prosekacube/static/js/453.801d779b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dc4d6ff2.css",
-    "static/js/main.9ff95a1e.js"
+    "static/js/main.da946ca7.js"
   ]
 }
