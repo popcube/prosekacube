@@ -172,7 +172,7 @@ while read_time(data[data_offset_idx]["release date"]) >= oldest_time and data_o
                     for j in range(len(key_data))]
 
     for i in range(2):
-        axes[i].set_yticks(range(0, ytick_max, 10))
+        axes[i].set_yticks(range(0, ytick_max, 50))
         axes[i].set_ylim(0, ytick_max+10)
         axes[i].grid(True, axis='y', linestyle='-')
         axes[i].set_ylabel("no. of songs")
