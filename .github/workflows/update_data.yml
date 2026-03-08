@@ -28,7 +28,7 @@ jobs:
         run: python scripts/fetch_song_list.py    
 
       - name: Upload csv
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: songlist
           path: ./docs/fetched_song_data.csv
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Download csv
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: songlist
           path: ./docs
@@ -92,7 +92,7 @@ jobs:
           python ./scripts/make_song_level.py
 
       - name: Upload png(s)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fig_folder
           path: ./docs/figs
@@ -122,7 +122,7 @@ jobs:
           ls -Rla ./docs/figs
           
       - name: Download figs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: fig_folder
           path: ./docs/figs
